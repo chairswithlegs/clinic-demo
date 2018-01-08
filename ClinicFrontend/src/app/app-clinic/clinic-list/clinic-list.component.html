@@ -1,0 +1,6 @@
+<div class="clinic-list">
+  <mat-card [routerLink]="clinic.id" class="list-item" *ngFor="let clinic of clinics">
+    <p>{{ clinic.name }}</p>
+    <p>{{ clinic.address }}</p>    
+  </mat-card>
+</div>

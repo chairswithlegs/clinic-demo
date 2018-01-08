@@ -1,0 +1,17 @@
+<header>
+	<nav class="nav">
+		<mat-toolbar color="primary" class="wrap">
+			<span [routerLink]="''" class="nav-item">Application Title</span>
+			
+			<!-- This fills the remaining space of the current row -->
+			<span class="fill-remaining-space"></span>
+			
+			<span [routerLink]="'clinic'" class="nav-item">Clinics</span>
+			<span [routerLink]="'about'" class="nav-item">About</span>
+		</mat-toolbar>
+	</nav>
+</header>
+
+<article class="wrap">
+	<router-outlet></router-outlet>
+</article>
