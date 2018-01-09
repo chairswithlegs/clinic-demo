@@ -1,6 +1,10 @@
 <div class="clinic-list">
-  <mat-card [routerLink]="clinic.id" class="list-item" *ngFor="let clinic of clinics">
+  <mat-card [routerLink]="clinic.id" class="list-item" *ngFor="let clinic of clinics | async">
     <p>{{ clinic.name }}</p>
     <p>{{ clinic.address }}</p>    
   </mat-card>
 </div>
+
+<app-clinic-map [clinics]="clinics | async" [mapStyle]="{'height': '300px'}"
+>
+</app-clinic-map>

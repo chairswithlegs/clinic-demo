@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
+import { ClinicService } from '../clinic.service';
 import { Clinic } from '../clinic';
 
 @Component({
@@ -7,16 +9,11 @@ import { Clinic } from '../clinic';
   templateUrl: './clinic-list.component.html',
   styleUrls: ['./clinic-list.component.css']
 })
-export class ClinicListComponent implements OnInit {
+export class ClinicListComponent {
+  
+  clinics: Observable<Clinic[]>;
 
-  clinics: Clinic[] = [
-    { name: 'Clinic 1', address: '123 Lane', id: 1 },
-    { name: 'Clinic 2', address: '456 Ave.', id: 2}
-  ]
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private clinicService: ClinicService) {
+    this.clinics = this.clinicService.clinicsObservable;
   }
-
 }

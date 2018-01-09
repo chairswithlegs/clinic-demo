@@ -1,0 +1,7 @@
+<agm-map [ngStyle]="mapStyle" [latitude]="lat" [longitude]="lng" [zoom]="11">
+    <agm-marker *ngFor="let clinic of clinics" 
+        [latitude]="clinic.lat" 
+        [longitude]="clinic.lng"
+        [title]="clinic.name">
+    </agm-marker>
+</agm-map>

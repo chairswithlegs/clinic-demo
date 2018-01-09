@@ -1,0 +1,8 @@
+.clinic-list .list-item {
+	margin: 10px 0;
+	cursor: pointer;
+}
+
+.map {
+	height: 300px;
+}
