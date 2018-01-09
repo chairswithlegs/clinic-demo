@@ -1,6 +1,6 @@
 <header>
-	<nav class="nav">
-		<mat-toolbar color="primary" class="wrap">
+	<nav>
+		<mat-toolbar color="primary" class="mat-elevation-z4">
 			<span [routerLink]="''" class="nav-item">Application Title</span>
 			
 			<!-- This fills the remaining space of the current row -->
@@ -12,6 +12,8 @@
 	</nav>
 </header>
 
-<article class="wrap">
-	<router-outlet></router-outlet>
-</article>
+<router-outlet></router-outlet>
+
+<footer>
+    Footer
+</footer>

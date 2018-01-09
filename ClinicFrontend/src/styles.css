@@ -51,7 +51,10 @@ table {
 	border-spacing: 0;
 }
 
-/* Wrap */
-.wrap {
-	padding: 0 10%;
+/* Reset end*/
+
+/* Basic container styling */
+html, body {
+    height: 100%;
+    overflow: auto;
 }

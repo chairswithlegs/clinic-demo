@@ -1,29 +1,33 @@
-<app-clinic-map 
-    [clinics]="clinics" 
-    [mapStyle]="{'height': '300px'}"
-    [lat]="43.55"
-    [lng]="-70.35">
-</app-clinic-map>
-
-<div class="mat-elevation-z8">
-    <mat-table #table [dataSource]="tableDataSource">
-  
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let clinic"> {{ clinic.name }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
-        <mat-cell *matCellDef="let clinic"> {{ clinic.address }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="waitTime">
-        <mat-header-cell *matHeaderCellDef>Est. Wait</mat-header-cell>
-        <mat-cell *matCellDef="let clinic"> {{ clinic.waitTime | millisecondsToReadable }}  </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="['name','address', 'waitTime']"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: ['name','address', 'waitTime'];"></mat-row>
-    </mat-table>
-  </div>
+<article class="mat-elevation-z4 list-container">
+    <div class="table">
+        <mat-table #table [dataSource]="tableDataSource">
+            
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let clinic"> {{ clinic.name }} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="address">
+                <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+                <mat-cell *matCellDef="let clinic"> {{ clinic.address }} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="waitTime">
+                <mat-header-cell *matHeaderCellDef>Est. Wait</mat-header-cell>
+                <mat-cell *matCellDef="let clinic"> {{ clinic.waitTime | millisecondsToReadable }}  </mat-cell>
+            </ng-container>
+            
+            <mat-header-row *matHeaderRowDef="['name','address', 'waitTime']"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ['name','address', 'waitTime'];"></mat-row>
+        </mat-table>
+    </div>
+    <div class="map">
+        <app-clinic-map 
+            class="mat-elevation-z8"
+            [clinics]="clinics" 
+            [mapStyle]="{'height': '300px'}"
+            [lat]="43.55"
+            [lng]="-70.35">
+        </app-clinic-map>
+    </div>
+</article>
