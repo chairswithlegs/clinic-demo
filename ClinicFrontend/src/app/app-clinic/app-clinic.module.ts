@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from '../app-material/app-material.module';
 import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
+import { TimeModule } from '../time/time.module';
 
 import { ClinicListComponent } from './clinic-list/clinic-list.component';
 import { ClinicDetailComponent } from './clinic-detail/clinic-detail.component';
@@ -16,7 +17,8 @@ import { ClinicService } from './clinic.service';
     RouterModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
-    })
+    }),
+    TimeModule
   ],
   exports: [
     ClinicListComponent,

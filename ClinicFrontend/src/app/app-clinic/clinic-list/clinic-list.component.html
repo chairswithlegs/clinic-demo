@@ -1,10 +1,29 @@
-<div class="clinic-list">
-  <mat-card [routerLink]="clinic.id" class="list-item" *ngFor="let clinic of clinics | async">
-    <p>{{ clinic.name }}</p>
-    <p>{{ clinic.address }}</p>    
-  </mat-card>
-</div>
-
-<app-clinic-map [clinics]="clinics | async" [mapStyle]="{'height': '300px'}"
->
+<app-clinic-map 
+    [clinics]="clinics" 
+    [mapStyle]="{'height': '300px'}"
+    [lat]="43.55"
+    [lng]="-70.35">
 </app-clinic-map>
+
+<div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="tableDataSource">
+  
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let clinic"> {{ clinic.name }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+        <mat-cell *matCellDef="let clinic"> {{ clinic.address }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="waitTime">
+        <mat-header-cell *matHeaderCellDef>Est. Wait</mat-header-cell>
+        <mat-cell *matCellDef="let clinic"> {{ clinic.waitTime | millisecondsToReadable }}  </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="['name','address', 'waitTime']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name','address', 'waitTime'];"></mat-row>
+    </mat-table>
+  </div>

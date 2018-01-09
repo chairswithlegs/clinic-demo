@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-
 import { Clinic } from './clinic';
 
 @Injectable()
@@ -23,14 +22,14 @@ export class ClinicService {
       id: 1234,
       lat: 43.5,
       lng: -70.4,
-      waitTime: 36e5
+      waitTime: 36e5 + 2000
     },{
       name: 'clinic 2',
       address: 'There',
-      id: 1234,
+      id: 5678,
       lat: 43.55,
       lng: -70.35,
-      waitTime: 36e4
+      waitTime: 35e4
     }];
 
     this.clinicsSubject.next(clinics);

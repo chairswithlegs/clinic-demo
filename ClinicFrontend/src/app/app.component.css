@@ -9,6 +9,7 @@
 .nav .nav-item {
     padding: 0 20px;
     cursor: pointer;
+    outline: none;
 }
 
 .nav .nav-item:first-child {
