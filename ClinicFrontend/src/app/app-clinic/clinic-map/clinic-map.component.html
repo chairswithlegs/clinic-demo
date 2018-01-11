@@ -1,7 +1,8 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="11">
-    <agm-marker *ngFor="let clinic of clinics" 
+    <agm-marker *ngFor="let clinic of clinics; let i = index"
         [latitude]="clinic.lat" 
         [longitude]="clinic.lng"
-        [title]="clinic.name">
+        [title]="clinic.name"
+        [opacity]="(i == activeIndex || activeIndex == -1) ? 1 : inactiveOpacity">
     </agm-marker>
 </agm-map>

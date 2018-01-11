@@ -1,25 +1,38 @@
 <article class="mat-elevation-z4 list-container">
-    <div class="table">
-        <mat-table #table [dataSource]="tableDataSource">
+    <div class="list">
+        <div class="row mat-typography" *ngFor="let clinic of clinics | slice:pageIndex*5:pageIndex*5+5; let i = index">
+            <ul>
+                <li>
+                    <div class="row-item name-area">
+                        <h2 class="name">{{ clinic.name }}</h2>
+                        <p class="address">{{ clinic.address }}</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="row-item wait-time">
+                        <p>Estimated Wait-Time:</p>
+                        <p>{{ clinic.waitTime | millisecondsToReadable }}</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="row-item">
+                        <button mat-fab (click)="clinicMap.setActiveMarker(i)">
+                            <mat-icon>room</mat-icon>
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div class="row-item">
+                        <button mat-fab color="primary" [routerLink]="clinic.id">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                </li>
+            </ul>
             
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                <mat-cell *matCellDef="let clinic"> {{ clinic.name }} </mat-cell>
-            </ng-container>
-            
-            <ng-container matColumnDef="address">
-                <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
-                <mat-cell *matCellDef="let clinic"> {{ clinic.address }} </mat-cell>
-            </ng-container>
-            
-            <ng-container matColumnDef="waitTime">
-                <mat-header-cell *matHeaderCellDef>Est. Wait</mat-header-cell>
-                <mat-cell *matCellDef="let clinic"> {{ clinic.waitTime | millisecondsToReadable }}  </mat-cell>
-            </ng-container>
-            
-            <mat-header-row *matHeaderRowDef="['name','address', 'waitTime']"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: ['name','address', 'waitTime'];"></mat-row>
-        </mat-table>
+        </div>
+        
+        <mat-paginator [length]="clinics.length" [pageSize]="5" (page)="pageIndex = $event.pageIndex"></mat-paginator>
     </div>
     <div class="map">
         <app-clinic-map 

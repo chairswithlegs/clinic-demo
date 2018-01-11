@@ -1,9 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ClinicService } from '../clinic.service';
 import { Clinic } from '../clinic';
-
-import { MatTableDataSource } from '@angular/material/table';
+import { ClinicMapComponent } from '../clinic-map/clinic-map.component';
 
 @Component({
     selector: 'app-clinic-list',
@@ -11,20 +10,19 @@ import { MatTableDataSource } from '@angular/material/table';
     styleUrls: ['./clinic-list.component.css']
 })
 export class ClinicListComponent implements OnDestroy{
-    
     clinics: Clinic[];
-    //Required for Material table
-    tableDataSource: MatTableDataSource<Clinic>;
+    //Used by paginator.
+    pageIndex: number = 0;
+    //Used by the template to highlight markers.
+    @ViewChild(ClinicMapComponent) clinicMap: ClinicMapComponent; 
+
     //Must unsubscribe from Clinic Observable to prevent a memory leak
     private unsubscribeClinicService: Function;
     
     constructor(private clinicService: ClinicService) {
-        this.tableDataSource = new MatTableDataSource();
-        
         //Get the unsubscribe function reference. See ngOnDestroy.
         this.unsubscribeClinicService = clinicService.clinicsObservable.subscribe(clinics => {
             this.clinics = clinics;
-            this.tableDataSource.data = clinics;
         }).unsubscribe;
     }
     

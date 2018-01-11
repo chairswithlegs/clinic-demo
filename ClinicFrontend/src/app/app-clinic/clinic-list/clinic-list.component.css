@@ -10,10 +10,54 @@
     height: 100%;
 }
 
-.table {
+.list {
     float: right;
     width: 50%;
     height: 100%;
+}
+
+.row {
+    width: 100%;
+    overflow: auto;
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+}
+
+.row li {
+    float: left;
+    padding: 0px 10px;
+}
+
+.row-item {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100px;
+}
+
+.name-area {
+    width: 240px;
+}
+
+.name-area .name {
+    margin-bottom: 4px;
+    padding: 0;
+    line-height: 24px;
+}
+
+.name-area .address {
+    margin: 0;
+    padding: 0;
+    line-height: 16px;
+}
+
+.wait-time {
+    width: 160px;
+}
+
+.wait-time p {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
 }
 
 @media screen and (max-width: 768px) {
@@ -26,7 +70,7 @@
         height:400px;
     }
     
-    .table {
+    .list {
         width: 100%;
     }
 }
