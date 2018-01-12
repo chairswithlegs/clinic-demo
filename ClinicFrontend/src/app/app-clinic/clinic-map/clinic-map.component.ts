@@ -14,7 +14,7 @@ export class ClinicMapComponent {
     @Input() lng: number;
 
     private inactiveOpacity: number = 0.5;
-    private activeIndex: number = 1;
+    private activeIndex: number = -1;
 
     setActiveMarker(index) {
         this.activeIndex = index;
