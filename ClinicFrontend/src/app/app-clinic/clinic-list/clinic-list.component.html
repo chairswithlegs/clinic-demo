@@ -5,25 +5,25 @@
                 <ul>
                     <li>
                         <div class="row-item name-area">
-                            <h2 class="name">{{ clinic.name }}</h2>
+                            <h2 class="name" [routerLink]="clinic.id">{{ clinic.name }}</h2>
                             <p class="address">{{ clinic.address }}</p>
                         </div>
                     </li>
                     <li>
                         <div class="row-item wait-time">
-                            <p>Estimated Wait-Time:</p>
-                            <p>{{ clinic.waitTime | millisecondsToReadable }}</p>
+                            <p>Estimated Wait:</p>
+                            <p>{{ clinic.waitTime | millisecondsToReadable:2:3 }}</p>
                         </div>
                     </li>
                     <li>
-                        <div class="row-item">
+                        <div class="row-item icon">
                             <button mat-fab (click)="clinicMap.setActiveMarker(i)">
                                 <mat-icon>room</mat-icon>
                             </button>
                         </div>
                     </li>
                     <li>
-                        <div class="row-item">
+                        <div class="row-item icon">
                             <button mat-fab color="primary" [routerLink]="clinic.id">
                                 <mat-icon>search</mat-icon>
                             </button>
@@ -38,7 +38,6 @@
         <app-clinic-map 
             class="mat-elevation-z8"
             [clinics]="clinics" 
-            [mapStyle]="{'height': '300px'}"
             [lat]="43.55"
             [lng]="-70.35">
         </app-clinic-map>

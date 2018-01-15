@@ -1,3 +1,25 @@
-<p>
-  This clinic id is: {{ (params | async)['clinic-id'] }}
-</p>
+<article>
+  <div class="mat-typography detail">
+    <h1>
+      {{ (clinic | async).name }}
+    </h1>
+    <h3>The current estimate wait time is:</h3>
+    <h2>{{ (clinic | async).waitTime | millisecondsToReadable:2:3 }}</h2>
+
+    <p>
+      {{ (clinic | async).description }}
+    </p>
+
+    <button mat-raised-button color="primary" [routerLink]="'../'">More Clinics</button>
+    <button mat-raised-button color="accent" (click)="onDirections()">Directions</button>
+  </div>
+  
+  <div class="map">
+    <app-clinic-map 
+      class="mat-elevation-z8"
+      [clinics]="[(clinic | async)]" 
+      [lat]="(clinic | async).lat"
+      [lng]="(clinic | async).lng">
+    </app-clinic-map>
+  </div>
+</article>

@@ -1,16 +1,25 @@
 <header>
 	<nav>
 		<mat-toolbar color="primary" class="mat-elevation-z4">
-			<span [routerLink]="''" class="nav-item">Application Title</span>
+			<span [routerLink]="''" class="nav-title">Application Title</span>
 			
 			<!-- This fills the remaining space of the current row -->
 			<span class="fill-remaining-space"></span>
 			
 			<span class="nav-item"><button mat-button [routerLink]="'clinic'">Clinics</button></span>
 			<span class="nav-item"><button mat-button [routerLink]="'about'">About</button></span>
+
+			<span class="responsive-nav-item" [matMenuTriggerFor]="responsiveMenu">
+				<button mat-button [matMenuTriggerFor]="responsiveMenu"><mat-icon>menu</mat-icon></button>
+			</span>
 		</mat-toolbar>
 	</nav>
 </header>
+
+<mat-menu #responsiveMenu="matMenu">
+	<button mat-menu-item [routerLink]="'clinic'">Clinics</button>
+	<button mat-menu-item [routerLink]="'about'">About</button>
+</mat-menu>
 
 <router-outlet></router-outlet>
 

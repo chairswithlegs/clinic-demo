@@ -8,7 +8,6 @@ import { Clinic } from '../clinic';
     styleUrls: ['./clinic-map.component.css']
 })
 export class ClinicMapComponent {
-    @Input() mapStyle = "";
     @Input() clinics: Clinic[];
     @Input() lat: number;
     @Input() lng: number;

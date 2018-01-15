@@ -5,4 +5,5 @@ export class Clinic {
     lat: number;
     lng: number;
     waitTime: number;
+    description: string;    
 }

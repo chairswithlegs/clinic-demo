@@ -13,6 +13,11 @@ mat-toolbar {
     flex: 1 1 auto;
 }
 
+.nav-title {
+    cursor: pointer;
+    outline: none;
+}
+
 .nav-item {
     padding: 0 20px;
     cursor: pointer;
@@ -27,9 +32,23 @@ mat-toolbar {
     padding-right: 0;
 }
 
+.responsive-nav-item {
+    display: none;
+}
+
 /* Footer */
 footer {
     padding-top: 40px;
     text-align: center;
     color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-item {
+        display: none;
+    }
+    
+    .responsive-nav-item {
+        display: inline-block;
+    }
 }

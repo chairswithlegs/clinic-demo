@@ -2,7 +2,7 @@
     position: absolute;
     top: 64px;
     bottom: 0;
-    min-height: 550px;
+    min-height: 526px;
     width: 100%;
 }
 
@@ -14,12 +14,12 @@
 .list {
     float: right;
     width: 600px;
-    height: 100%;
 }
 
 .row {
     overflow: auto;
     width: 100%;
+    margin-bottom: 1px;
     border-bottom: 1px solid #eee;
 }
 
@@ -35,8 +35,7 @@
 .row-item {
     display: table-cell;
     vertical-align: middle;
-    height: 102px;
-    padding: 0px 5px;
+    height: 92px;
 }
 
 .name-area {
@@ -47,17 +46,20 @@
 .name-area .name {
     margin-bottom: 4px;
     padding: 0;
-    line-height: 24px;
+    font-size: 18px;
+    line-height: 20px;
+    cursor: pointer;
 }
 
 .name-area .address {
     margin: 0;
     padding: 0;
+    font-size: 12px;
     line-height: 16px;
 }
 
 .wait-time {
-    width: 160px;
+    width: 180px;
     padding: 0 10px;
 }
 
@@ -66,6 +68,12 @@
     margin: 0;
     font-size: 14px;
 }
+
+.icon {
+    padding: 0 5px;
+}
+
+
 
 @media screen and (max-width: 1024px) {
     .list {
@@ -76,53 +84,114 @@
         width: 452px;
     }
     
-    
-    .row-item {
-        height: 102px;
-        padding: 0px 5px;
-    }
-    
     .name-area {
-        width: 200px;
-        padding: 0 10px;
+        width: 180px;
+        padding: 0 5px;
     }
     
     .name-area .name {
-        margin-bottom: 4px;
-        padding: 0;
-        line-height: 24px;
-        font-size: 20px;
+        font-size: 14px;
     }
     
     .name-area .address {
-        margin: 0;
-        padding: 0;
-        line-height: 16px;
+        font-size: 10px;
     }
     
     .wait-time {
-        width: 120px;
-        padding: 0 10px;
+        width: 150px;
+        padding: 0 5px;
     }
     
     .wait-time p {
-        padding: 0;
-        margin: 0;
-        font-size: 14px;
+        font-size: 12px;
+    }
+    
+    .icon {
+        padding: 0 3px;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .list-container {
-        height: auto;
+    
+    .list {
+        clear: both;
+        width: 100%;
+    }
+    
+    .row-inner {
+        width: 552px;
+    }
+    
+    .name-area {
+        width: 240px;
+        padding: 0 10px;
+    }
+    
+    .name-area .name {
+        font-size: 18px;
+    }
+    
+    .name-area .address {
+        font-size: 12px;
+    }
+    
+    .wait-time {
+        width: 180px;
+        padding: 0 10px;
+    }
+    
+    .wait-time p {
+        font-size: 14px;
+    }
+    
+    .icon {
+        padding: 0 5px;
     }
 
     .map {
-        width: 100%;
-        height:400px;
+        clear: both;
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 600px) {  
+    .list-container {
+        top: 60px;
+    }
+
+    .row-inner {
+        width: 430px;
     }
     
-    .list {
-        width: 100%;
+    .name-area {
+        width: 180px;
+        padding: 0 5px;
+    }
+    
+    .name-area .name {
+        font-size: 14px;
+    }
+    
+    .name-area .address {
+        font-size: 10px;
+    }
+    
+    .wait-time {
+        width: 120px;
+    }
+    
+    .wait-time p {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .row-inner {
+        width: 300px;
+    }
+
+    .icon {
+        display: none;
+        width: 0;
     }
 }
