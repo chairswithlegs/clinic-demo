@@ -10,42 +10,42 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 import { AboutComponent } from '../about/about.component';
 
 const routes: Routes = [
-  {
-    path: 'clinic-account',
-    component: ClinicAccountComponent
-  },
-  {
-    path: 'admin-account',
-    component: AdminAccountComponent
-  },
-  {
-    path: 'clinic',
-    component: ClinicListComponent,
-  },
-  {
-    path: 'clinic/:clinic-id',
-    component: ClinicDetailComponent
-  },
-  {
-    path:'about',
-    component: AboutComponent
-  },
-  {
-    path: '',
-    redirectTo: '/clinic',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    component: PageNotFoundComponent
-  }
+    {
+        path: 'clinic-account',
+        component: ClinicAccountComponent
+    },
+    {
+        path: 'admin-account',
+        component: AdminAccountComponent
+    },
+    {
+        path: 'clinics',
+        component: ClinicListComponent,
+    },
+    {
+        path: 'clinics/:clinic-id',
+        component: ClinicDetailComponent
+    },
+    {
+        path:'about',
+        component: AboutComponent
+    },
+    {
+        path: '',
+        redirectTo: '/clinics',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        component: PageNotFoundComponent
+    }
 ]
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
-  ],
-  declarations: []
+    imports: [
+        CommonModule,
+        RouterModule.forRoot(routes)
+    ],
+    declarations: []
 })
 export class AppRoutingModule { }

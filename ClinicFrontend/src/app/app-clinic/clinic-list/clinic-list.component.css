@@ -1,9 +1,5 @@
 .list-container {
-    position: absolute;
-    top: 64px;
-    bottom: 0;
-    min-height: 526px;
-    width: 100%;
+    height: 800px;
 }
 
 .map {
@@ -21,11 +17,11 @@
     width: 100%;
     margin-bottom: 1px;
     border-bottom: 1px solid #eee;
+    text-align: center;
 }
 
 .row-inner {
-    width: 552px;
-    margin: auto;
+    display: inline-block;
 }
 
 .row li {
@@ -35,7 +31,8 @@
 .row-item {
     display: table-cell;
     vertical-align: middle;
-    height: 92px;
+    text-align: left;
+    height: 98px;
 }
 
 .name-area {
@@ -80,10 +77,6 @@
         width: 500px;
     }
     
-    .row-inner {
-        width: 452px;
-    }
-    
     .name-area {
         width: 180px;
         padding: 0 5px;
@@ -112,14 +105,13 @@
 }
 
 @media screen and (max-width: 768px) {
-    
+    .list-container {
+        height: auto;
+    }
+
     .list {
         clear: both;
         width: 100%;
-    }
-    
-    .row-inner {
-        width: 552px;
     }
     
     .name-area {
@@ -159,10 +151,6 @@
         top: 60px;
     }
 
-    .row-inner {
-        width: 430px;
-    }
-    
     .name-area {
         width: 180px;
         padding: 0 5px;
@@ -186,10 +174,6 @@
 }
 
 @media screen and (max-width: 480px) {
-    .row-inner {
-        width: 300px;
-    }
-
     .icon {
         display: none;
         width: 0;

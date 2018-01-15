@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { ClinicService } from '../clinic.service';
 import { Clinic } from '../clinic';
 import { ClinicMapComponent } from '../clinic-map/clinic-map.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-clinic-list',
@@ -11,8 +12,12 @@ import { ClinicMapComponent } from '../clinic-map/clinic-map.component';
 })
 export class ClinicListComponent implements OnDestroy{
     clinics: Clinic[];
+
     //Used by paginator.
-    pageIndex: number = 0;
+    resultsPerPage: number = 7;
+    pageStart: number = 0;
+    pageEnd: number = this.resultsPerPage;
+
     //Used by the template to highlight markers.
     @ViewChild(ClinicMapComponent) clinicMap: ClinicMapComponent; 
 
@@ -28,5 +33,10 @@ export class ClinicListComponent implements OnDestroy{
     
     ngOnDestroy() {
         this.unsubscribeClinicService();
+    }
+
+    updatePageRange(pageEvent: PageEvent) {
+        this.pageStart = pageEvent.pageIndex * this.resultsPerPage;
+        this.pageEnd = Math.min(this.pageStart + this.resultsPerPage, this.clinics.length);
     }
 }
