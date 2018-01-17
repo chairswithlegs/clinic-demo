@@ -10,7 +10,6 @@ import { ClinicListComponent } from './clinic-list/clinic-list.component';
 import { ClinicDetailComponent } from './clinic-detail/clinic-detail.component';
 import { ClinicMapComponent } from './clinic-map/clinic-map.component';
 import { ClinicService } from './clinic.service';
-import { GoogleApiKey } from './google-api-key';
 import { LocationService } from './location.service';
 
 @NgModule({
@@ -20,7 +19,7 @@ import { LocationService } from './location.service';
     AppMaterialModule,
     RouterModule,
     AgmCoreModule.forRoot({
-      apiKey: GoogleApiKey
+      apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
     }),
     TimeModule,
     FormsModule

@@ -18,8 +18,7 @@
     <app-clinic-map 
       class="mat-elevation-z8"
       [clinics]="[(clinic | async)]" 
-      [lat]="(clinic | async).lat"
-      [lng]="(clinic | async).lng">
+      [center]="{lat: (clinic | async).lat, lng: (clinic | async).lng}">
     </app-clinic-map>
   </div>
 </article>

@@ -1,10 +1,6 @@
-<div style="display:relative;">
-
-
-
 <article class="mat-elevation-z4 list-container">
     <div class="list">
-        <div class="row mat-typography" *ngFor="let clinic of clinics | slice:pageStart:pageEnd; let i = index">
+        <div class="row mat-typography" *ngFor="let clinic of (clinics | async) | slice:pageStart:pageEnd; let i = index">
             <div class="row-inner">
                 <ul>
                     <li>
@@ -36,17 +32,13 @@
                 </ul>
             </div>
         </div>
-        <mat-paginator #paginator [length]="clinics.length" [pageSize]="resultsPerPage" (page)="updatePageRange($event)"></mat-paginator>
+        <mat-paginator #paginator [length]="(clinics | async).length" [pageSize]="resultsPerPage" (page)="updatePageRange($event)"></mat-paginator>
     </div>
     <div class="map">
-        <app-clinic-map 
+        <app-clinic-map #clinicMap
             class="mat-elevation-z8"
-            [clinics]="clinics" 
-            [lat]="43.55"
-            [lng]="-70.35">
+            [clinics]="clinics | async" 
+            [center]="mapCenter">
         </app-clinic-map>
     </div>
 </article>
-
-
-</div>

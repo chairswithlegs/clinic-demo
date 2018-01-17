@@ -1,8 +1,14 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="11">
+<agm-map [latitude]="center.lat" [longitude]="center.lng" [zoom]="11">
     <agm-marker *ngFor="let clinic of clinics; let i = index"
         [latitude]="clinic.lat" 
         [longitude]="clinic.lng"
         [title]="clinic.name"
         [opacity]="(i == activeIndex || activeIndex == -1) ? 1 : inactiveOpacity">
+    </agm-marker>
+    <agm-marker *ngIf="userLocation"
+        [latitude]="userLocation.lat"
+        [longitude]="userLocation.lng"
+        [title]="'Your location'"
+        [iconUrl]="'../../../assets/blu-circle.png'">
     </agm-marker>
 </agm-map>
