@@ -1,10 +1,22 @@
+//Ng CORE
 import { Component} from '@angular/core';
-import { AuthService } from '../auth.service';
-import { Observable } from 'rxjs/Observable';
+
+//Ng MATERIAL
 import { MatDialog } from '@angular/material';
+
+//RXJS
+import { Observable } from 'rxjs/Observable';
+
+//COMPONENTS AND DIRECTIVES
 import { EditWaitTimeComponent } from '../edit-wait-time/edit-wait-time.component';
-import { ClinicService } from '../../app-clinic/clinic.service';
-import { Clinic } from '../../app-clinic/clinic';
+
+//SERVICES
+import { ClinicService } from '../../app-api/clinic.service';
+import { AuthService } from '../../app-api/auth.service';
+
+//TYPES
+import { Clinic } from '../../app-api/clinic';
+
 
 @Component({
   selector: 'app-clinic-account',

@@ -43,7 +43,7 @@
       </div>
     </div>
   
-  <button mat-raised-button color="accent" (click)="authService.logout()">Logout</button>
+  <button mat-raised-button color="accent" (click)="authService.logout()" [routerLink]="'../welcome'">Logout</button>
   
 </div>
 

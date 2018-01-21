@@ -1,8 +1,14 @@
+//Ng CORE
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+
+//Ng MATERIAL
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+//SERVICES
+import { AuthService } from '../../app-api/auth.service';
+
 
 @Component({
   selector: 'app-login',

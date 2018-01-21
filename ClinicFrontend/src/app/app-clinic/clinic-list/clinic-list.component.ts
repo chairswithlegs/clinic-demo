@@ -1,12 +1,24 @@
+//Ng CORE
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { ClinicService } from '../clinic.service';
-import { ClinicMapComponent } from '../clinic-map/clinic-map.component';
-import { PageEvent } from '@angular/material/paginator';
-import { Clinic } from '../clinic';
-import { Coords } from '../coords';
+
+//Ng MATERIAL
 import { MatSnackBar } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
+
+//RXJS
+import { Observable } from 'rxjs/Observable';
+
+//COMPONENTS AND DIRECTIVES
+import { ClinicMapComponent } from '../clinic-map/clinic-map.component';
+
+//SERVICES
+import { ClinicService } from '../../app-api/clinic.service';
+
+//TYPES
+import { Clinic } from '../../app-api/clinic';
+import { Coords } from '../../app-api/coords';
+
 
 @Component({
     selector: 'app-clinic-list',
@@ -25,7 +37,7 @@ export class ClinicListComponent implements OnInit {
     constructor(private clinicService: ClinicService, private router: Router, private snackbar: MatSnackBar) {}
 
     ngOnInit() {
-        this.clinicService.clinicsObservable.take(1).subscribe((clinics) => {
+        this.clinicService.getClinics().take(1).subscribe((clinics) => {
             this.clinics = clinics;
         }, (error) => {
             this.snackbar.open('Could not load clinic data.', 'Dismiss');

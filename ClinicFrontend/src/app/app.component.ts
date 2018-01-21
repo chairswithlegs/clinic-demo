@@ -1,6 +1,11 @@
+//Ng CORE
 import { Component } from '@angular/core';
-import { AuthService } from './app-auth/auth.service';
-import { AuthState } from './app-auth/auth-state';
+
+//SERVICES
+import { AuthService } from './app-api/auth.service';
+
+//TYPES
+import { AuthState } from './app-api/auth-state';
 
 @Component({
   selector: 'app-root',

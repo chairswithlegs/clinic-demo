@@ -1,4 +1,7 @@
+//Ng CORE
 import { Component } from '@angular/core';
+
+//Ng MATERIAL
 import { MatDialogRef } from '@angular/material';
 
 @Component({

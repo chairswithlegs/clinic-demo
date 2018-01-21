@@ -1,3 +1,6 @@
+//This module exists to manage the numerous imports from the Ng Material package
+
+//MODULES
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

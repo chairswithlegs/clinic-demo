@@ -1,8 +1,16 @@
+//Ng CORE
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { LocationService } from '../location.service';
-import { Clinic } from '../clinic';
-import { Coords } from '../coords';
+
+//RXJS
 import { Observable } from 'rxjs/Observable';
+
+//SERVICES
+import { LocationService } from '../location.service';
+
+//TYPES
+import { Clinic } from '../../app-api/clinic';
+import { Coords } from '../../app-api/coords';
+
 
 @Component({
     selector: 'app-clinic-map',

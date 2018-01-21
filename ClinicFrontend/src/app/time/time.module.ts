@@ -1,5 +1,10 @@
+//This module provides ways of displaying time-based information
+
+//Ng CORE
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+//PIPES
 import { MillisecondsToReadablePipe } from './milliseconds-to-readable.pipe';
 
 @NgModule({

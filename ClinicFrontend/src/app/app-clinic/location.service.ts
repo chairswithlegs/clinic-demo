@@ -1,9 +1,14 @@
+//Ng CORE
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http'
+
+//RXJS
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { Coords } from './coords';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+//TYPES
+import { Coords } from '../app-api/coords';
 
 
 @Injectable()

@@ -1,13 +1,23 @@
+//Ng CORE
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+
+//Ng MATERIAL
+import { MatSnackBar } from '@angular/material';
+
+//RXJS
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/take';
-import { Clinic } from '../clinic';
-import { ClinicService } from '../clinic.service';
+
+//SERVICES
+import { ClinicService } from '../../app-api/clinic.service';
 import { LocationService } from '../location.service';
-import { Coords } from '../coords';
-import { MatSnackBar } from '@angular/material';
+
+//TYPES
+import { Clinic } from '../../app-api/clinic';
+import { Coords } from '../../app-api/coords';
+
 
 @Component({
 	selector: 'app-clinic-detail',

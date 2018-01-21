@@ -1,15 +1,29 @@
+//This module configures the router
+//Provides the AuthGuardService (from the AppAuthModule)
+
+//MODULES
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { AppAuthModule } from '../app-auth/app-auth.module';
 
+//COMPONENTS AND DIRECTIVES
+//Route components
+import { RouterModule } from '@angular/router';
 import { ClinicListComponent } from '../app-clinic/clinic-list/clinic-list.component';
 import { ClinicDetailComponent } from '../app-clinic/clinic-detail/clinic-detail.component';
 import { ClinicAccountComponent } from '../app-auth/clinic-account/clinic-account.component';
 import { AdminAccountComponent } from '../app-auth/admin-account/admin-account.component';
-import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-import { AboutComponent } from '../about/about.component';
-import { WelcomeComponent } from '../welcome/welcome.component';
+import { PageNotFoundComponent } from '../core/page-not-found/page-not-found.component';
+import { AboutComponent } from '../core/about/about.component';
+import { WelcomeComponent } from '../core/welcome/welcome.component';
 import { LoginComponent } from '../app-auth/login/login.component';
+
+//SERVICES
+import { AuthGuardService } from '../app-auth/auth-guard.service';
+
+//TYPES
+import { Routes } from '@angular/router';
+
 
 const routes: Routes = [
     {
@@ -22,11 +36,13 @@ const routes: Routes = [
     },
     {
         path: 'clinic-account',
-        component: ClinicAccountComponent
+        component: ClinicAccountComponent,
+        canActivate: [AuthGuardService]
     },
     {
         path: 'admin-account',
-        component: AdminAccountComponent
+        component: AdminAccountComponent,
+        canActivate: [AuthGuardService]
     },
     {
         path: 'clinics',
@@ -56,6 +72,7 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forRoot(routes)
     ],
+    providers: [AuthGuardService],
     declarations: []
 })
 export class AppRoutingModule { }

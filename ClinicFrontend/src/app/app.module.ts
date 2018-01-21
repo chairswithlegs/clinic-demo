@@ -1,24 +1,28 @@
+//Top level module for bootstrapping the application
+
+//MODULES
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { CoreModule } from './core/core.module';
 import { AppAuthModule } from './app-auth/app-auth.module';
 import { AppClinicModule } from './app-clinic/app-clinic.module';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppMaterialModule } from './app-material/app-material.module';
 
+//COMPONENTS AND DIRECTIVES
 import { AppComponent } from './app.component';
-import { AboutComponent } from './about/about.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { AuthService } from './app-auth/auth.service';
+import { AboutComponent } from './core/about/about.component';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
+import { WelcomeComponent } from './core/welcome/welcome.component';
+
+//SERVICES
+import { ClinicService } from './app-api/clinic.service';
+import { AuthService } from './app-api/auth.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AboutComponent,
-    PageNotFoundComponent,
-    WelcomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -26,9 +30,13 @@ import { AuthService } from './app-auth/auth.service';
     AppAuthModule,
     AppClinicModule,
     AppRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    CoreModule
   ],
-  providers: [AuthService],
+  providers: [
+    ClinicService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
