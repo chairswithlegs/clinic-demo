@@ -1,5 +1,5 @@
 //This module configures the router
-//Provides the AuthGuardService (from the AppAuthModule)
+//Provides the AuthGuardService (from this module)
 
 //MODULES
 import { NgModule } from '@angular/core';
@@ -19,9 +19,10 @@ import { WelcomeComponent } from '../core/welcome/welcome.component';
 import { LoginComponent } from '../app-auth/login/login.component';
 
 //SERVICES
-import { AuthGuardService } from '../app-auth/auth-guard.service';
+import { AuthGuardService } from './auth-guard.service';
 
 //TYPES
+import { AuthState } from '../app-api/auth-state';
 import { Routes } from '@angular/router';
 
 
@@ -37,12 +38,18 @@ const routes: Routes = [
     {
         path: 'clinic-account',
         component: ClinicAccountComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        data: {
+            expectedAuthState: AuthState.ClinicAdmin
+        }
     },
     {
         path: 'admin-account',
         component: AdminAccountComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        data: {
+            expectedAuthState: AuthState.SiteAdmin
+        }
     },
     {
         path: 'clinics',
