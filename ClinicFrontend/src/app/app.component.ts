@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from './app-auth/auth.service';
+import { AuthState } from './app-auth/auth-state';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  //Expose the AuthState enum to the template
+  private loggedOut: AuthState = AuthState.LoggedOut;
+  private clinicAdmin: AuthState = AuthState.ClinicAdmin;
+  private siteAdmin: AuthState = AuthState.SiteAdmin;
+
+  constructor(private authService: AuthService) {}
 }

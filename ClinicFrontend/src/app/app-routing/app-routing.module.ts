@@ -8,8 +8,18 @@ import { ClinicAccountComponent } from '../app-auth/clinic-account/clinic-accoun
 import { AdminAccountComponent } from '../app-auth/admin-account/admin-account.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { AboutComponent } from '../about/about.component';
+import { WelcomeComponent } from '../welcome/welcome.component';
+import { LoginComponent } from '../app-auth/login/login.component';
 
 const routes: Routes = [
+    {
+        path: 'welcome',
+        component: WelcomeComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
     {
         path: 'clinic-account',
         component: ClinicAccountComponent
@@ -32,7 +42,7 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/clinics',
+        redirectTo: '/welcome',
         pathMatch: 'full'
     },
     {

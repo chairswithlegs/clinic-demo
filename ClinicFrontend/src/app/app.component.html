@@ -8,7 +8,12 @@
 			
 			<span class="nav-item"><button mat-button [routerLink]="'clinics'">Clinics</button></span>
 			<span class="nav-item"><button mat-button [routerLink]="'about'">About</button></span>
-
+			<span *ngIf="(authService.authObservable | async) == clinicAdmin" class="nav-item">
+				<button mat-button [routerLink]="'clinic-account'">Admin</button>
+			</span>
+			<span *ngIf="(authService.authObservable | async) == siteAdmin" class="nav-item">
+				<button mat-button [routerLink]="'admin-account'">Admin</button>
+			</span>
 			<span class="responsive-nav-item" [matMenuTriggerFor]="responsiveMenu">
 				<button mat-button [matMenuTriggerFor]="responsiveMenu"><mat-icon>menu</mat-icon></button>
 			</span>
@@ -17,12 +22,20 @@
 </header>
 
 <mat-menu #responsiveMenu="matMenu">
-	<button mat-menu-item [routerLink]="'clinic'">Clinics</button>
+	<button mat-menu-item [routerLink]="'clinics'">Clinics</button>
 	<button mat-menu-item [routerLink]="'about'">About</button>
+	<button mat-menu-item *ngIf="(authService.authObservable | async) == clinicAdmin" [routerLink]="'clinic-account'">Admin</button>
+	<button mat-menu-item *ngIf="(authService.authObservable | async) == siteAdmin" [routerLink]="'site-account'">Admin</button>
 </mat-menu>
 
 <router-outlet></router-outlet>
 
-<footer>
-    footer
+<footer class="mat-typography">
+	<p>Some footer info here</p>
+	<div *ngIf="(authService.authObservable | async) == loggedOut">
+		<p>If you are a clinic administrator, login <a [routerLink]="'login'">here.</a></p>
+	</div>
+	<div *ngIf="(authService.authObservable | async) != loggedOut">
+		<p>Currently signed in. Click <a [routerLink]="'welcome'" (click)="authService.logout()">here</a> to log out.</p>
+	</div>
 </footer>

@@ -1,0 +1,38 @@
+.container {
+    padding: 40px 0 20px 0;
+    text-align: center;
+}
+
+.settings-block {
+    text-align: left;
+    width: 320px;
+    margin: 0 auto 30px auto;
+}
+
+.settings-block .header {
+    background-color: #3F51B5;
+    color: #fff;
+    padding: 20px;
+}
+
+.settings-block .header h2 {
+    margin: 0;
+    display: inline-block;
+}
+
+.settings-block .content h3 {
+    margin: 0;
+}
+
+.settings-block .header .update {
+    float: right;
+}
+
+.settings-block .content {
+    padding: 20px;
+}
+
+.settings-block .content p {
+    font-size: 14px;
+    margin: 0;
+}

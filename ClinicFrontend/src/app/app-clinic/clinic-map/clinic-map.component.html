@@ -2,13 +2,15 @@
     <agm-marker *ngFor="let clinic of clinics; let i = index"
         [latitude]="clinic.lat" 
         [longitude]="clinic.lng"
-        [title]="clinic.name"
-        [opacity]="(i == activeIndex || activeIndex == -1) ? 1 : inactiveOpacity">
+        [title]="clinic?.name"
+        [opacity]="(i == activeIndex || activeIndex == -1) ? 1 : 0.3"
+        [iconUrl]="'../../../assets/clinic-icon.png'"
+        (markerClick)="clinicClick.emit(clinic)">
     </agm-marker>
     <agm-marker *ngIf="userLocation"
         [latitude]="userLocation.lat"
         [longitude]="userLocation.lng"
         [title]="'Your location'"
-        [iconUrl]="'../../../assets/blu-circle.png'">
+        [iconUrl]="'../../../assets/user-location-icon.png'">
     </agm-marker>
 </agm-map>

@@ -1,24 +1,24 @@
-<article>
+<article *ngIf="clinic" class="mat-elevation-z4">
   <div class="mat-typography detail">
     <h1>
-      {{ (clinic | async).name }}
+      {{ clinic?.name }}
     </h1>
     <h3>The current estimate wait time is:</h3>
-    <h2>{{ (clinic | async).waitTime | millisecondsToReadable:2:3 }}</h2>
+    <h2>{{ clinic?.waitTime | millisecondsToReadable:2:3 }}</h2>
 
     <p>
-      {{ (clinic | async).description }}
+      {{ clinic?.description }}
     </p>
 
     <button mat-raised-button color="primary" [routerLink]="'../'">More Clinics</button>
-    <button mat-raised-button color="accent" (click)="onDirections()">Directions</button>
+    <button mat-raised-button color="accent" (click)="getDirections()">Directions</button>
   </div>
   
   <div class="map">
-    <app-clinic-map 
+    <app-clinic-map
       class="mat-elevation-z8"
-      [clinics]="[(clinic | async)]" 
-      [center]="{lat: (clinic | async).lat, lng: (clinic | async).lng}">
+      [clinics]="clinic ? [clinic] : []" 
+      [center]="{ lat: clinic?.lat || 0, lng: clinic?.lng || 0 }">
     </app-clinic-map>
   </div>
 </article>

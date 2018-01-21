@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LocationService } from '../location.service';
 import { Clinic } from '../clinic';
 import { Coords } from '../coords';
@@ -9,25 +9,27 @@ import { Observable } from 'rxjs/Observable';
     templateUrl: './clinic-map.component.html',
     styleUrls: ['./clinic-map.component.css']
 })
-export class ClinicMapComponent {
+export class ClinicMapComponent implements OnInit {
+    @Output() clinicClick: EventEmitter<Clinic> = new EventEmitter();
     @Input() clinics: Clinic[];
-    @Input() center: Coords;
+    @Input() center: Coords = { lat: 0, lng: 0 };
     userLocation: Coords;
-
-    private inactiveOpacity: number = 0.5;
+    
+    //Used to determine which icon is active, -1 means all icons are active
     private activeIndex: number = -1;
 
-    constructor(private locationService: LocationService) {
-        //Attempt to add the user location to the map
-        locationService.getUserLocation().take(1).subscribe((coords) => {
-            this.userLocation = coords;
-        });
+    constructor(private locationService: LocationService) {}
+
+    ngOnInit() {
+        this.locationService.getUserLocation().take(1).subscribe((coords) => this.userLocation = coords);
     }
 
+    //Set the active marker
     setActiveMarker(index) {
         this.activeIndex = index;
     }
 
+    //Make deactive marker/make all markers active
     deactivateMarker() {
         this.activeIndex = -1;
     }

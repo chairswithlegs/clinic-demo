@@ -10,13 +10,14 @@ export class ClinicService {
     
     constructor() {
         this.clinicsSubject = new BehaviorSubject([]);
+        //TODO: REMOVE DELAY
         this.clinicsObservable = this.clinicsSubject.asObservable();
         
         this.loadClinics();
     }
 
-    getClinic(id: number): Clinic {
-        return this.clinicsSubject.getValue().find((clinic) => clinic.id == id);
+    getClinicById(id: number): Observable<Clinic> {
+        return Observable.of(this.clinicsSubject.getValue().find((clinic) => clinic.id == id));
     }
     
     private loadClinics(): void {

@@ -40,7 +40,6 @@ mat-toolbar {
 footer {
     padding: 40px 0;
     text-align: center;
-    color: #333;
 }
 
 @media screen and (max-width: 768px) {

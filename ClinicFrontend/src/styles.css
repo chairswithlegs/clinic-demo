@@ -56,5 +56,5 @@ table {
 /* Basic container styling */
 html, body {
     height: 100%;
-    overflow: auto;
+	overflow: auto;
 }

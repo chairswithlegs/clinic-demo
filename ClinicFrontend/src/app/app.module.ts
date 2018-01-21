@@ -10,12 +10,15 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AuthService } from './app-auth/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
