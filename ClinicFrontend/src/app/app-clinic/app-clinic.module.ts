@@ -28,6 +28,7 @@ import { ClinicService } from '../app-api/clinic.service';
     AppMaterialModule,
     RouterModule,
     AgmCoreModule.forRoot({
+      //Enter your own Google maps API key here. Key restrictions can be set from the Google API console.
       apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
     }),
     AppApiModule,
