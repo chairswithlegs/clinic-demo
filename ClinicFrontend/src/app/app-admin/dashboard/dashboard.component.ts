@@ -17,20 +17,20 @@ import { AuthService } from '../../app-api/auth.service';
 //TYPES
 import { Clinic } from '../../app-api/clinic';
 
-
 @Component({
-  selector: 'app-clinic-account',
-  templateUrl: './clinic-account.component.html',
-  styleUrls: ['./clinic-account.component.css']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css']
 })
-export class ClinicAccountComponent {
-  clinic: Clinic;
-
-  constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog) {
-    clinicService.getClinicById(1).take(1).subscribe((clinic) => this.clinic = clinic);
-  }
-
-  editWaitTime() {
-    this.dialog.open(EditWaitTimeComponent);
-  }
+export class DashboardComponent {
+    
+    clinic: Clinic;
+    
+    constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog) {
+        clinicService.getClinicById(1).take(1).subscribe((clinic) => this.clinic = clinic);
+    }
+    
+    editWaitTime() {
+        this.dialog.open(EditWaitTimeComponent);
+    }
 }

@@ -32,8 +32,8 @@ export class AuthService {
       //If invalid signin
       //observer.error('Error');
       //Otherwise...
-      observer.next(AuthState.ClinicAdmin);
-      this.authSubject.next(AuthState.ClinicAdmin);
+      observer.next(AuthState.Admin);
+      this.authSubject.next(AuthState.Admin);
     });
   }
 

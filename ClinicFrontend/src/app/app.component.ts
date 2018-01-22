@@ -15,8 +15,7 @@ import { AuthState } from './app-api/auth-state';
 export class AppComponent {
   //Expose the AuthState enum to the template
   private loggedOut: AuthState = AuthState.LoggedOut;
-  private clinicAdmin: AuthState = AuthState.ClinicAdmin;
-  private siteAdmin: AuthState = AuthState.SiteAdmin;
+  private admin: AuthState = AuthState.Admin;
 
   constructor(private authService: AuthService) {}
 }

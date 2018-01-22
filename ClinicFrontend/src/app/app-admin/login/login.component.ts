@@ -28,7 +28,7 @@ export class LoginComponent {
   onSubmit(form: FormGroup) {
     if (form.valid) {
       this.authService.login(form.value.username, form.value.password).take(1).subscribe((authState) => {
-        this.router.navigateByUrl('clinic-account');
+        this.router.navigateByUrl('admin-dashboard');
       }, (error) => {
         this.snackBar.open('Invalid username or password.', 'Dismiss');
       });

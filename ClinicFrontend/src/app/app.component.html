@@ -8,11 +8,8 @@
 			
 			<span class="nav-item"><button mat-button [routerLink]="'clinics'">Clinics</button></span>
 			<span class="nav-item"><button mat-button [routerLink]="'about'">About</button></span>
-			<span *ngIf="(authService.authObservable | async) == clinicAdmin" class="nav-item">
-				<button mat-button [routerLink]="'clinic-account'">Admin</button>
-			</span>
-			<span *ngIf="(authService.authObservable | async) == siteAdmin" class="nav-item">
-				<button mat-button [routerLink]="'admin-account'">Admin</button>
+			<span *ngIf="(authService.authObservable | async) == admin" class="nav-item">
+				<button mat-button [routerLink]="'admin-dashboard'">Admin</button>
 			</span>
 			<span class="responsive-nav-item" [matMenuTriggerFor]="responsiveMenu">
 				<button mat-button [matMenuTriggerFor]="responsiveMenu"><mat-icon>menu</mat-icon></button>
@@ -24,8 +21,7 @@
 <mat-menu #responsiveMenu="matMenu">
 	<button mat-menu-item [routerLink]="'clinics'">Clinics</button>
 	<button mat-menu-item [routerLink]="'about'">About</button>
-	<button mat-menu-item *ngIf="(authService.authObservable | async) == clinicAdmin" [routerLink]="'clinic-account'">Admin</button>
-	<button mat-menu-item *ngIf="(authService.authObservable | async) == siteAdmin" [routerLink]="'site-account'">Admin</button>
+	<button mat-menu-item *ngIf="(authService.authObservable | async) == admin" [routerLink]="'admin-dashboard'">Admin</button>
 </mat-menu>
 
 <router-outlet></router-outlet>

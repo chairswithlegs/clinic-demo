@@ -9,10 +9,9 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 import { TimeModule } from '../time/time.module';
 
 //COMPONENTS AND DIRECTIVES
-import { ClinicAccountComponent } from './clinic-account/clinic-account.component';
-import { AdminAccountComponent } from './admin-account/admin-account.component';
 import { LoginComponent } from './login/login.component';
 import { EditWaitTimeComponent } from './edit-wait-time/edit-wait-time.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -29,10 +28,9 @@ import { EditWaitTimeComponent } from './edit-wait-time/edit-wait-time.component
     EditWaitTimeComponent
   ],
   declarations: [
-    ClinicAccountComponent, 
-    AdminAccountComponent, 
     LoginComponent, 
-    EditWaitTimeComponent
+    EditWaitTimeComponent, 
+    DashboardComponent
   ]
 })
-export class AppAuthModule { }
+export class AppAdminModule { }

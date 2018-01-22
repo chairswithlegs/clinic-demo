@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
-import { AppAuthModule } from './app-auth/app-auth.module';
+import { AppAdminModule } from './app-admin/app-admin.module';
 import { AppClinicModule } from './app-clinic/app-clinic.module';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppMaterialModule } from './app-material/app-material.module';
@@ -27,7 +27,7 @@ import { AuthService } from './app-api/auth.service';
   imports: [
     BrowserModule,
     RouterModule,
-    AppAuthModule,
+    AppAdminModule,
     AppClinicModule,
     AppRoutingModule,
     AppMaterialModule,

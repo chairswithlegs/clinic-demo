@@ -1,0 +1,50 @@
+<div class="mat-typography container">
+    <h1>Clinic Administrator Settings</h1>
+    <h2>{{ clinic?.name }}</h2>
+    
+    
+    <div class="mat-elevation-z8 settings-block">
+      <div class="header">
+        <span><h2>Wait Time</h2></span>
+        <span class="update"><button mat-raised-button color="accent" (click)="editWaitTime()">Update</button></span>
+        
+      </div>
+      <div class="content">
+        <h3>{{ clinic?.waitTime | millisecondsToReadable:2:3 }}</h3>
+      </div>
+    </div>
+    
+    <div class="mat-elevation-z8 settings-block">
+      <div class="header">
+        <span><h2>Profile</h2></span>
+        <span class="update"><button mat-raised-button color="accent">Update</button></span>
+      </div>
+      <div class="content">
+        <h2>Clinic Name</h2>
+        <p>{{ clinic?.name }}</p>
+      </div>
+      <div class="content">
+        <h2>Address</h2>
+        <p>{{ clinic?.address }}</p>
+      </div>
+      <div class="content">
+        <h2>Bio</h2>
+        <p>{{ clinic?.description }}</p>
+      </div>
+    </div>
+  
+    <div class="mat-elevation-z8 settings-block">
+        <div class="header">
+          <span><h2>Address</h2></span>
+          <span class="update"><button mat-raised-button color="accent">Update</button></span>
+        </div>
+        <div class="content">
+          <p>{{ clinic?.address }}</p>
+        </div>
+      </div>
+    
+    <button mat-raised-button color="accent" (click)="authService.logout()" [routerLink]="'../welcome'">Logout</button>
+    
+  </div>
+  
+  
