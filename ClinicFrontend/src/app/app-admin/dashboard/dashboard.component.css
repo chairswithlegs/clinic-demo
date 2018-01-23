@@ -13,19 +13,25 @@
     background-color: #3F51B5;
     color: #fff;
     padding: 20px;
+    height: 76px;
 }
 
 .settings-block .header h2 {
     margin: 0;
     display: inline-block;
+    line-height: 36px;
 }
 
 .settings-block .content h3 {
     margin: 0;
 }
 
-.settings-block .header .update {
+.settings-block .header .header-button {
     float: right;
+}
+
+.settings-block .danger {
+    background-color: #E91E63;
 }
 
 .settings-block .content {

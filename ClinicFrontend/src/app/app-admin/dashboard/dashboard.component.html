@@ -6,7 +6,7 @@
     <div class="mat-elevation-z8 settings-block">
       <div class="header">
         <span><h2>Wait Time</h2></span>
-        <span class="update"><button mat-raised-button color="accent" (click)="editWaitTime()">Update</button></span>
+        <span class="header-button"><button mat-raised-button color="accent" (click)="editWaitTime()">Update</button></span>
         
       </div>
       <div class="content">
@@ -17,7 +17,7 @@
     <div class="mat-elevation-z8 settings-block">
       <div class="header">
         <span><h2>Profile</h2></span>
-        <span class="update"><button mat-raised-button color="accent">Update</button></span>
+        <span class="header-button"><button mat-raised-button color="accent">Update</button></span>
       </div>
       <div class="content">
         <h2>Clinic Name</h2>
@@ -36,10 +36,17 @@
     <div class="mat-elevation-z8 settings-block">
         <div class="header">
           <span><h2>Address</h2></span>
-          <span class="update"><button mat-raised-button color="accent">Update</button></span>
+          <span class="header-button"><button mat-raised-button color="accent">Update</button></span>
         </div>
         <div class="content">
           <p>{{ clinic?.address }}</p>
+        </div>
+      </div>
+
+      <div class="mat-elevation-z8 settings-block">
+        <div class="header danger">
+          <span><h2>Delete Clinic</h2></span>
+          <span class="header-button"><button mat-raised-button color="primary" (click)="confirmDeletion()">Delete</button></span>
         </div>
       </div>
     

@@ -12,6 +12,7 @@ import { TimeModule } from '../time/time.module';
 import { LoginComponent } from './login/login.component';
 import { EditWaitTimeComponent } from './edit-wait-time/edit-wait-time.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ConfirmDeletionComponent } from './confirm-deletion/confirm-deletion.component';
 
 
 @NgModule({
@@ -25,12 +26,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   exports: [],
   entryComponents: [
-    EditWaitTimeComponent
+    EditWaitTimeComponent,
+    ConfirmDeletionComponent
   ],
   declarations: [
     LoginComponent, 
     EditWaitTimeComponent, 
-    DashboardComponent
+    DashboardComponent, ConfirmDeletionComponent
   ]
 })
 export class AppAdminModule { }
