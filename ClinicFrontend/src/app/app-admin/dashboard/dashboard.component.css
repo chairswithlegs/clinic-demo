@@ -47,7 +47,10 @@ h2 {
     display: none;
 }
 
-
+.new-clinic-form .mat-form-field {
+    display: block;
+    width: 360px;
+}
 
 @media screen and (max-width: 1024px) {
     .update-list .clinic-title h3 {

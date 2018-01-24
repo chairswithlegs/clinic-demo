@@ -7,10 +7,10 @@
                 <div *ngFor="let clinic of (clinics | async)" class="row">
                     <span class="clinic-title"><h3>{{ clinic.name }} and some more for testing.</h3></span>
                     <span class="row-buttons">
-                        <button mat-raised-button color="primary">Wait Time</button>
+                        <button mat-raised-button color="primary" (click)="editWaitTime()">Wait Time</button>
                         <button mat-raised-button color="primary">Profile</button>
                         <button mat-raised-button color="primary">Address</button>
-                        <button mat-raised-button color="accent">Delete</button>
+                        <button mat-raised-button color="accent" (click)="confirmDeletion()">Delete</button>
                     </span>
                     <button mat-fab color="primary" class="responsive-menu" [matMenuTriggerFor]="responsiveMenu"><mat-icon>menu</mat-icon></button>
                 </div>
@@ -21,26 +21,34 @@
                 <button mat-menu-item>Profile</button>
                 <button mat-menu-item>Address</button>
                 <button mat-menu-item>Delete</button>
-            </mat-menu>
-            
-            
+            </mat-menu> 
         </mat-tab>
         
         
         <mat-tab label="Add New Clinic">
-            <mat-form-field>
-                <input matInput placeholder="Clinic Name">
-            </mat-form-field>
-            
-            <mat-form-field>
-                <textarea matInput placeholder="Clinic Bio"></textarea>
-            </mat-form-field>
-            
-            <h3>New Wait Time:</h3>
-            Hours: {{ hours.displayValue }}
-            <mat-slider #hours min="0" max="23"></mat-slider>
-            Minutes: {{ minutes.displayValue }}
-            <mat-slider #minutes min="0" max="59"></mat-slider>        
+            <div class="new-clinic-form">
+                <h2>Enter Clinic Information</h2>
+                
+                <mat-form-field>
+                    <input matInput placeholder="Clinic Name">
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <textarea matInput placeholder="Clinic Bio"></textarea>
+                </mat-form-field>
+                
+                <h3>New Wait Time: {{ hours.displayValue }} Hours and {{ minutes.displayValue }}</h3>
+                <div>
+                    <mat-slider #hours min="0" max="23"></mat-slider>
+                </div>
+                
+                <div>
+                    <mat-slider #minutes min="0" max="59"></mat-slider>
+                </div>
+                
+                
+                <button mat-raised-button color="primary">Submit</button>
+            </div>     
         </mat-tab>
     </mat-tab-group>
 </div>
