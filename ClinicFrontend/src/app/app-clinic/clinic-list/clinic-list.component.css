@@ -1,5 +1,5 @@
-.list-container {
-    height: 800px;
+.container {
+    height: 770px;
 }
 
 .map {
@@ -13,29 +13,23 @@
 }
 
 .row {
-    overflow: auto;
     width: 100%;
     margin-bottom: 1px;
-    border-bottom: 1px solid #eee;
-    text-align: center;
+    border-bottom: solid 1px #eee;
 }
 
 .row-inner {
-    display: inline-block;
+    margin: auto;
+    display: table;
 }
 
-.row li {
-    float: left;
-}
-
-.row-item {
+.row .row-item {
     display: table-cell;
     vertical-align: middle;
-    text-align: left;
-    height: 98px;
+    height: 100px;
 }
 
-.name-area {
+.row .name-area {
     width: 240px;
     padding: 0 10px;
 }
@@ -55,7 +49,7 @@
     line-height: 16px;
 }
 
-.wait-time {
+.row .wait-time {
     width: 180px;
     padding: 0 10px;
 }
@@ -66,7 +60,7 @@
     font-size: 14px;
 }
 
-.icon {
+.row .icon {
     padding: 0 5px;
 }
 
@@ -114,7 +108,7 @@
         width: 100%;
     }
     
-    .name-area {
+    .row .name-area {
         width: 240px;
         padding: 0 10px;
     }
@@ -127,7 +121,7 @@
         font-size: 12px;
     }
     
-    .wait-time {
+    .row .wait-time {
         width: 180px;
         padding: 0 10px;
     }
@@ -136,7 +130,7 @@
         font-size: 14px;
     }
     
-    .icon {
+    .row .icon {
         padding: 0 5px;
     }
 
@@ -151,7 +145,7 @@
         top: 60px;
     }
 
-    .name-area {
+    .row .name-area {
         width: 180px;
         padding: 0 5px;
     }
@@ -164,7 +158,7 @@
         font-size: 10px;
     }
     
-    .wait-time {
+    .row .wait-time {
         width: 120px;
     }
     
@@ -174,7 +168,7 @@
 }
 
 @media screen and (max-width: 480px) {
-    .icon {
+    .row .icon {
         display: none;
         width: 0;
     }

@@ -3,7 +3,6 @@ import { Component} from '@angular/core';
 
 //Ng MATERIAL
 import { MatDialog } from '@angular/material';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
@@ -29,11 +28,11 @@ export class DashboardComponent {
     
     clinics: Observable<Clinic[]>;
     clinicToUpdate: Clinic;
-
+    
     constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog) {
         this.clinics = clinicService.clinicsObservable;
     }
-
+    
     selectClinicToUpdate(MatAutocompleteSelectedEvent) {
         console.log(MatAutocompleteSelectedEvent.option);
     }
@@ -41,7 +40,7 @@ export class DashboardComponent {
     editWaitTime() {
         this.dialog.open(EditWaitTimeComponent);
     }
-
+    
     confirmDeletion() {
         this.dialog.open(ConfirmDeletionComponent).afterClosed().subscribe((confirmed:boolean) => {
             if (confirmed == true) {

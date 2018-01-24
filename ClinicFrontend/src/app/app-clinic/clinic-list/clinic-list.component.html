@@ -1,39 +1,33 @@
-<article class="mat-elevation-z4 list-container" *ngIf="clinics">
+<article class="container" *ngIf="clinics">
     <div class="list">
         <div class="row mat-typography" *ngFor="let clinic of clinics | slice:pageStart:pageEnd; let i = index">
             <div class="row-inner">
-                <ul>
-                    <li>
-                        <div class="row-item name-area">
-                            <h2 class="name" [routerLink]="clinic.id">{{ clinic.name }}</h2>
-                            <p class="address">{{ clinic.address }}</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row-item wait-time">
-                            <p>Estimated Wait:</p>
-                            <p>{{ clinic.waitTime | millisecondsToReadable:2:3 }}</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row-item icon">
-                            <button mat-fab (click)="clinicMap.setActiveMarker(i)">
-                                <mat-icon>room</mat-icon>
-                            </button>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row-item icon">
-                            <button mat-fab color="primary" [routerLink]="clinic.id">
-                                <mat-icon>search</mat-icon>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+                <div class="row-item name-area">
+                    <h2 class="name" [routerLink]="clinic.id">{{ clinic.name }}</h2>
+                    <p class="address">{{ clinic.address }}</p>
+                </div>
+                
+                <div class="row-item wait-time">
+                    <p>Estimated Wait:</p>
+                    <p>{{ clinic.waitTime | millisecondsToReadable:2:3 }}</p>
+                </div>
+                
+                <div class="row-item icon">
+                    <button mat-fab (click)="clinicMap.setActiveMarker(i)">
+                        <mat-icon>room</mat-icon>
+                    </button>
+                </div>
+                
+                <div class="row-item icon">
+                    <button mat-fab color="primary" [routerLink]="clinic.id">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
             </div>
         </div>
         <mat-paginator #paginator [length]="clinics?.length" [pageSize]="resultsPerPage" (page)="updatePageRange($event)"></mat-paginator>
     </div>
+
     <div class="map">
         <app-clinic-map #clinicMap
             class="mat-elevation-z8"

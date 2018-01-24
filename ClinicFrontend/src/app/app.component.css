@@ -1,3 +1,15 @@
+/* App container */
+.container {
+    /* Make any unused visible space appear as part of the footer */
+    background-color: #3F51B5;
+    min-height: 100%;
+}
+
+/* Router container */
+.router-container {
+    background-color: #fff;
+}
+
 /* Fix for header elevation */
 header {
     position: relative;
@@ -40,6 +52,12 @@ mat-toolbar {
 footer {
     padding: 40px 0;
     text-align: center;
+    color: #fff;
+}
+
+footer a {
+    color:#FF4081;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {

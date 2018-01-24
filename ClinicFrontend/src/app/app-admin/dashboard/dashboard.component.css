@@ -1,7 +1,7 @@
 .container {
     padding: 40px 5%;
-    width: 100%;
-    min-height: 600px;
+    max-width: 1200px;
+    margin: auto;
 }
 
 h2 {
@@ -20,59 +20,59 @@ h2 {
     border-top: solid 1px #eee;
 }
 
-.update-list .row .row-item {
+.update-list .clinic-title {
     display: table-cell;
     vertical-align: middle;
+    overflow: hidden;
 }
 
-.update-list .row h3 {
-    width: 200px;
+.update-list .clinic-title h3 {
     margin: 0;
+    padding-right: 20px;
 }
 
-.update-list .row button {
-    margin: 22px 2px;
+.update-list .row-buttons {
+    display: table-cell;
+    vertical-align: middle;
+    white-space: nowrap;
     float: right;
 }
 
-
-
-.settings-block {
-    text-align: left;
-    width: 320px;
-    margin: 0 auto 30px auto;
+.update-list button {
+    margin: 22px 5px;
 }
 
-.settings-block .header {
-    background-color: #3F51B5;
-    color: #fff;
-    padding: 20px;
-    height: 76px;
+.update-list .responsive-menu {
+    margin: 11px 5px;
+    display: none;
 }
 
-.settings-block .header h2 {
-    margin: 0;
-    display: inline-block;
-    line-height: 36px;
+
+
+@media screen and (max-width: 1024px) {
+    .update-list .clinic-title h3 {
+        font-size: 14px;
+    }
+
+    .update-list button {
+        font-size: 12px;
+    }
 }
 
-.settings-block .content h3 {
-    margin: 0;
+@media screen and (max-width: 768px) {
+    .update-list .row-buttons {
+        display: none;
+    }
+
+    .update-list .responsive-menu {
+        display: table-cell;
+        vertical-align: middle;
+        float: right;
+    }
 }
 
-.settings-block .header .header-button {
-    float: right;
-}
-
-.settings-block .danger {
-    background-color: #E91E63;
-}
-
-.settings-block .content {
-    padding: 20px;
-}
-
-.settings-block .content p {
-    font-size: 14px;
-    margin: 0;
+@media screen and (max-width: 480px) {
+    .update-list .clinic-title h3 {
+        font-size: 12px;
+    }
 }
