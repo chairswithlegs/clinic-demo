@@ -13,7 +13,9 @@ import {
   MatInputModule, 
   MatSnackBarModule, 
   MatDialogModule,
-  MatSliderModule
+  MatSliderModule,
+  MatTabsModule,
+  MatAutocompleteModule
 } from '@angular/material';
 
 
@@ -29,7 +31,9 @@ import {
     MatInputModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTabsModule,
+    MatAutocompleteModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -41,7 +45,9 @@ import {
     MatInputModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTabsModule,
+    MatAutocompleteModule
   ],
   declarations: []
 })

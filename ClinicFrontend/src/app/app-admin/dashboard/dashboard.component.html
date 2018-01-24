@@ -1,8 +1,38 @@
 <div class="mat-typography container">
-    <h1>Clinic Administrator Settings</h1>
-    <h2>{{ clinic?.name }}</h2>
+  <mat-tab-group>
+    <mat-tab label="Update Clinic">
+      <h2>Available Clinics</h2>
+
+      <div class="update-list">
+        <div *ngFor="let clinic of (clinics | async)" class="row">
+          <span class="row-item"><h3>{{ clinic.name }}</h3></span>
+          <button mat-button class="row-item">Delete</button>
+          <button mat-button class="row-item">Address</button>
+          <button mat-button class="row-item">Profile</button>
+          <button mat-button class="row-item">Wait Time</button>
+        </div>
+      </div>
+    </mat-tab>
     
     
+    <mat-tab label="Add New Clinic">
+      <mat-form-field>
+        <input matInput placeholder="Clinic Name">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <textarea matInput placeholder="Clinic Bio"></textarea>
+      </mat-form-field>
+
+      
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+
+
+<!--
+  <div class="settings">
     <div class="mat-elevation-z8 settings-block">
       <div class="header">
         <span><h2>Wait Time</h2></span>
@@ -32,26 +62,25 @@
         <p>{{ clinic?.description }}</p>
       </div>
     </div>
-  
+    
     <div class="mat-elevation-z8 settings-block">
-        <div class="header">
-          <span><h2>Address</h2></span>
-          <span class="header-button"><button mat-raised-button color="accent">Update</button></span>
-        </div>
-        <div class="content">
-          <p>{{ clinic?.address }}</p>
-        </div>
+      <div class="header">
+        <span><h2>Address</h2></span>
+        <span class="header-button"><button mat-raised-button color="accent">Update</button></span>
       </div>
-
-      <div class="mat-elevation-z8 settings-block">
-        <div class="header danger">
-          <span><h2>Delete Clinic</h2></span>
-          <span class="header-button"><button mat-raised-button color="primary" (click)="confirmDeletion()">Delete</button></span>
-        </div>
+      <div class="content">
+        <p>{{ clinic?.address }}</p>
       </div>
+    </div>
     
-    <button mat-raised-button color="accent" (click)="authService.logout()" [routerLink]="'../welcome'">Logout</button>
-    
+    <div class="mat-elevation-z8 settings-block">
+      <div class="header danger">
+        <span><h2>Delete Clinic</h2></span>
+        <span class="header-button"><button mat-raised-button color="primary" (click)="confirmDeletion()">Delete</button></span>
+      </div>
+    </div>
   </div>
   
-  
+</div>
+
+-->

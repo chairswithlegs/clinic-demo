@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor() {
     //Get the initial state through token storage
-    var state = AuthState.LoggedOut;
+    var state = AuthState.Admin;
 
     this.authSubject = new BehaviorSubject(state);
     this.authObservable = this.authSubject.asObservable();

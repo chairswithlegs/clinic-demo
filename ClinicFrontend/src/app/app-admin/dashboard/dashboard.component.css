@@ -1,7 +1,41 @@
 .container {
-    padding: 40px 0 20px 0;
-    text-align: center;
+    padding: 40px 5%;
+    width: 100%;
+    min-height: 600px;
 }
+
+h2 {
+    margin-top: 40px;
+}
+
+.update-list .row {
+    width: 100%;
+    margin-bottom: 1px;
+    border-bottom: solid 1px #eee;
+    display: table;
+}
+
+.update-list .row:first-child {
+    margin-top: 1px;
+    border-top: solid 1px #eee;
+}
+
+.update-list .row .row-item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.update-list .row h3 {
+    width: 200px;
+    margin: 0;
+}
+
+.update-list .row button {
+    margin: 22px 2px;
+    float: right;
+}
+
+
 
 .settings-block {
     text-align: left;

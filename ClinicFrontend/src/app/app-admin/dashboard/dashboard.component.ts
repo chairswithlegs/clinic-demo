@@ -3,6 +3,7 @@ import { Component} from '@angular/core';
 
 //Ng MATERIAL
 import { MatDialog } from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
@@ -26,10 +27,15 @@ import { Clinic } from '../../app-api/clinic';
 })
 export class DashboardComponent {
     
-    clinic: Clinic;
-    
+    clinics: Observable<Clinic[]>;
+    clinicToUpdate: Clinic;
+
     constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog) {
-        clinicService.getClinicById(1).take(1).subscribe((clinic) => this.clinic = clinic);
+        this.clinics = clinicService.clinicsObservable;
+    }
+
+    selectClinicToUpdate(MatAutocompleteSelectedEvent) {
+        console.log(MatAutocompleteSelectedEvent.option);
     }
     
     editWaitTime() {
