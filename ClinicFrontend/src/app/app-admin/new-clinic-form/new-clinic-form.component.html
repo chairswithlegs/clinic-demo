@@ -1,0 +1,33 @@
+<form class="new-clinic-form" [formGroup]="newClinicForm" novalidate>
+    <h2>Enter Clinic Information</h2>
+    
+    <h3>Clinic Profile</h3>
+    <mat-form-field>
+        <input matInput placeholder="Clinic Name" formControlName="name">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <textarea matInput placeholder="Clinic Description" formControlName="description"></textarea>
+    </mat-form-field>
+    
+    <h3>Wait Time</h3>
+    <h4>{{ hours.value }} Hours and {{ minutes.value }} Minutes</h4>
+    <label>Hours</label>
+    <mat-slider #hours min="0" max="23"></mat-slider>
+    <label>Minutes</label>
+    <mat-slider #minutes min="0" max="59"></mat-slider>
+    <input type="hidden" #actualTime formControlName="waitTime" [value]="(hours.value * 3.6e6) + (minutes.value * 6e4)">
+    
+    <h3>Location</h3>
+    <mat-form-field>
+        <input matInput placeholder="Address" formControlName="address" #address="formControl">
+        <input type="hidden" formControlName="lat">
+        <input type="hidden" formControlName="lng">
+    </mat-form-field>
+    <span *ngIf="locationStatusMessage">{{ locationStatusMessage }}</span>
+    {{ address?.errors?.location?.value }}
+    <div class="button-container">
+        <button mat-raised-button color="primary">Submit</button>
+        <button mat-raised-button color="accent" type="reset" (click)="hours.value = 0; minutes.value = 0;">Clear</button>
+    </div>
+</form> 

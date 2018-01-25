@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { EditWaitTimeComponent } from './edit-wait-time/edit-wait-time.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfirmDeletionComponent } from './confirm-deletion/confirm-deletion.component';
+import { UpdateClinicMenuComponent } from './update-clinic-menu/update-clinic-menu.component';
+import { NewClinicFormComponent } from './new-clinic-form/new-clinic-form.component';
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import { ConfirmDeletionComponent } from './confirm-deletion/confirm-deletion.co
   declarations: [
     LoginComponent, 
     EditWaitTimeComponent, 
-    DashboardComponent, ConfirmDeletionComponent
+    DashboardComponent, ConfirmDeletionComponent, UpdateClinicMenuComponent, NewClinicFormComponent
   ]
 })
 export class AppAdminModule { }

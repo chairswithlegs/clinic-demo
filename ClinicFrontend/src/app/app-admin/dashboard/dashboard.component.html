@@ -1,110 +1,11 @@
 <div class="mat-typography container">
     <mat-tab-group>
         <mat-tab label="Update Clinics">
-            <h2>Available Clinics</h2>
-            
-            <div class="update-list">
-                <div *ngFor="let clinic of (clinics | async)" class="row">
-                    <span class="clinic-title"><h3>{{ clinic.name }} and some more for testing.</h3></span>
-                    <span class="row-buttons">
-                        <button mat-raised-button color="primary" (click)="editWaitTime()">Wait Time</button>
-                        <button mat-raised-button color="primary">Profile</button>
-                        <button mat-raised-button color="primary">Address</button>
-                        <button mat-raised-button color="accent" (click)="confirmDeletion()">Delete</button>
-                    </span>
-                    <button mat-fab color="primary" class="responsive-menu" [matMenuTriggerFor]="responsiveMenu"><mat-icon>menu</mat-icon></button>
-                </div>
-            </div>
-            
-            <mat-menu #responsiveMenu="matMenu">
-                <button mat-menu-item>Wait Time</button>
-                <button mat-menu-item>Profile</button>
-                <button mat-menu-item>Address</button>
-                <button mat-menu-item>Delete</button>
-            </mat-menu> 
+            <update-clinic-menu></update-clinic-menu> 
         </mat-tab>
         
-        
         <mat-tab label="Add New Clinic">
-            <div class="new-clinic-form">
-                <h2>Enter Clinic Information</h2>
-                
-                <mat-form-field>
-                    <input matInput placeholder="Clinic Name">
-                </mat-form-field>
-                
-                <mat-form-field>
-                    <textarea matInput placeholder="Clinic Bio"></textarea>
-                </mat-form-field>
-                
-                <h3>New Wait Time: {{ hours.displayValue }} Hours and {{ minutes.displayValue }}</h3>
-                <div>
-                    <mat-slider #hours min="0" max="23"></mat-slider>
-                </div>
-                
-                <div>
-                    <mat-slider #minutes min="0" max="59"></mat-slider>
-                </div>
-                
-                
-                <button mat-raised-button color="primary">Submit</button>
-            </div>     
+            <new-clinic-form></new-clinic-form>    
         </mat-tab>
     </mat-tab-group>
 </div>
-
-
-
-<!--
-    <div class="settings">
-        <div class="mat-elevation-z8 settings-block">
-            <div class="header">
-                <span><h2>Wait Time</h2></span>
-                <span class="header-button"><button mat-raised-button color="accent" (click)="editWaitTime()">Update</button></span>
-                
-            </div>
-            <div class="content">
-                <h3>{{ clinic?.waitTime | millisecondsToReadable:2:3 }}</h3>
-            </div>
-        </div>
-        
-        <div class="mat-elevation-z8 settings-block">
-            <div class="header">
-                <span><h2>Profile</h2></span>
-                <span class="header-button"><button mat-raised-button color="accent">Update</button></span>
-            </div>
-            <div class="content">
-                <h2>Clinic Name</h2>
-                <p>{{ clinic?.name }}</p>
-            </div>
-            <div class="content">
-                <h2>Address</h2>
-                <p>{{ clinic?.address }}</p>
-            </div>
-            <div class="content">
-                <h2>Bio</h2>
-                <p>{{ clinic?.description }}</p>
-            </div>
-        </div>
-        
-        <div class="mat-elevation-z8 settings-block">
-            <div class="header">
-                <span><h2>Address</h2></span>
-                <span class="header-button"><button mat-raised-button color="accent">Update</button></span>
-            </div>
-            <div class="content">
-                <p>{{ clinic?.address }}</p>
-            </div>
-        </div>
-        
-        <div class="mat-elevation-z8 settings-block">
-            <div class="header danger">
-                <span><h2>Delete Clinic</h2></span>
-                <span class="header-button"><button mat-raised-button color="primary" (click)="confirmDeletion()">Delete</button></span>
-            </div>
-        </div>
-    </div>
-    
-</div>
-
--->

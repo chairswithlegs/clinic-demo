@@ -58,3 +58,9 @@ html, body {
     height: 100%;
     overflow: auto;
 }
+
+/* Bug fix for Material Dialog */
+.cdk-global-scrollblock {
+    position: static;
+    overflow-y: hidden;
+}

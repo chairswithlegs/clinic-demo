@@ -1,0 +1,71 @@
+h2 {
+    margin-top: 40px;
+}
+
+.row {
+    width: 100%;
+    margin-bottom: 1px;
+    border-bottom: solid 1px #eee;
+    display: table;
+}
+
+.row:first-child {
+    margin-top: 1px;
+    border-top: solid 1px #eee;
+}
+
+.clinic-title {
+    display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.clinic-title h3 {
+    margin: 0;
+    padding-right: 0px;
+}
+
+.row-buttons {
+    display: table-cell;
+    vertical-align: middle;
+    white-space: nowrap;
+    float: right;
+}
+
+.row button {
+    margin: 22px 5px;
+    outline: none;
+}
+
+.responsive-menu {
+    margin: 11px 5px;
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .clinic-title h3 {
+        font-size: 14px;
+    }
+
+    .row button {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .row-buttons {
+        display: none;
+    }
+
+    .responsive-menu {
+        display: table-cell;
+        vertical-align: middle;
+        float: right;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .clinic-title h3 {
+        font-size: 12px;
+    }
+}

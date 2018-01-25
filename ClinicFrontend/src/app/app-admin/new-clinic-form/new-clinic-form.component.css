@@ -1,0 +1,23 @@
+h2 {
+    margin-top: 40px;
+}
+
+.new-clinic-form {
+    max-width: 500px;
+}
+
+.new-clinic-form h3 {
+    margin-top: 30px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+mat-slider {
+   width: 100%;
+}
+
+.button-container {
+    margin-top: 60px;
+}
