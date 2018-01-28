@@ -1,4 +1,4 @@
-<form class="new-clinic-form" [formGroup]="newClinicForm" novalidate>
+<form class="new-clinic-form" [formGroup]="newClinicForm" (ngSubmit)="onSubmit(newClinicForm)" novalidate>
     <h2>Enter Clinic Information</h2>
     
     <h3>Clinic Profile</h3>
@@ -11,23 +11,27 @@
     </mat-form-field>
     
     <h3>Wait Time</h3>
-    <h4>{{ hours.value }} Hours and {{ minutes.value }} Minutes</h4>
+    <h4>{{ waitTimeDisplay.hours }} Hours and {{ waitTimeDisplay.minutes }} Minutes</h4>
     <label>Hours</label>
-    <mat-slider #hours min="0" max="23"></mat-slider>
+    <mat-slider min="0" max="23" [value]="waitTimeDisplay.hours" (input)="waitTimeDisplay.hours = $event.value"></mat-slider>
     <label>Minutes</label>
-    <mat-slider #minutes min="0" max="59"></mat-slider>
-    <input type="hidden" #actualTime formControlName="waitTime" [value]="(hours.value * 3.6e6) + (minutes.value * 6e4)">
-    
+    <mat-slider min="0" max="59" [value]="waitTimeDisplay.minutes" (input)="waitTimeDisplay.minutes = $event.value"></mat-slider>
+    <input type="hidden" #actualTime formControlName="waitTime" [value]="(waitTimeDisplay.hours * 3.6e6) + (waitTimeDisplay.minutes * 6e4)">
+
     <h3>Location</h3>
     <mat-form-field>
-        <input matInput placeholder="Address" formControlName="address" #address="formControl">
+        <input matInput placeholder="Address" formControlName="address">
         <input type="hidden" formControlName="lat">
         <input type="hidden" formControlName="lng">
     </mat-form-field>
-    <span *ngIf="locationStatusMessage">{{ locationStatusMessage }}</span>
-    {{ address?.errors?.location?.value }}
+    <mat-hint *ngIf="newClinicForm.dirty && newClinicForm.controls.address.valid">Location found!</mat-hint>
+    <mat-error *ngIf="newClinicForm.controls.address.hasError('location')">
+        Could not locate address.
+    </mat-error>
+
     <div class="button-container">
-        <button mat-raised-button color="primary">Submit</button>
-        <button mat-raised-button color="accent" type="reset" (click)="hours.value = 0; minutes.value = 0;">Clear</button>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button mat-raised-button color="accent" type="reset" (click)="resetForm(newClinicForm)">Clear</button>
+        <span *ngIf="formSubmitted">Clinic successfully added</span>
     </div>
 </form> 

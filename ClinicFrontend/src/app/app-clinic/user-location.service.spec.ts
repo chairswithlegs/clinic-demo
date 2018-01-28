@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { LocationService } from './location.service';
+import { UserLocationService } from './user-location.service';
 
 describe('LocationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LocationService]
+      providers: [UserLocationService]
     });
   });
 
-  it('should be created', inject([LocationService], (service: LocationService) => {
+  it('should be created', inject([UserLocationService], (service: UserLocationService) => {
     expect(service).toBeTruthy();
   }));
 });

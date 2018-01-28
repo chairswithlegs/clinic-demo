@@ -12,7 +12,7 @@ import 'rxjs/add/operator/take';
 
 //SERVICES
 import { ClinicService } from '../../app-api/clinic.service';
-import { LocationService } from '../location.service';
+import { UserLocationService } from '../user-location.service';
 
 //TYPES
 import { Clinic } from '../../app-api/clinic';

@@ -12,7 +12,7 @@ import { Coords } from '../app-api/coords';
 
 
 @Injectable()
-export class LocationService {
+export class UserLocationService {
     //Cache the user location
     private userLocation: Coords;
 

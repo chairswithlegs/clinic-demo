@@ -17,7 +17,7 @@ import { ClinicDetailComponent } from './clinic-detail/clinic-detail.component';
 import { ClinicMapComponent } from './clinic-map/clinic-map.component';
 
 //SERVICES
-import { LocationService } from './location.service';
+import { UserLocationService } from './user-location.service';
 import { ClinicService } from '../app-api/clinic.service';
 
 
@@ -40,7 +40,7 @@ import { ClinicService } from '../app-api/clinic.service';
     ClinicDetailComponent
   ],
   providers: [
-    LocationService
+    UserLocationService
   ],
   declarations: [
     ClinicListComponent, 

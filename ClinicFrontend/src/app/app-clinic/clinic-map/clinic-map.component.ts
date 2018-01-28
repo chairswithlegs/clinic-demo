@@ -5,7 +5,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 //SERVICES
-import { LocationService } from '../location.service';
+import { UserLocationService } from '../user-location.service';
 
 //TYPES
 import { Clinic } from '../../app-api/clinic';
@@ -26,10 +26,10 @@ export class ClinicMapComponent implements OnInit {
     //Used to determine which icon is active, -1 means all icons are active
     private activeIndex: number = -1;
 
-    constructor(private locationService: LocationService) {}
+    constructor(private userLocationService: UserLocationService) {}
 
     ngOnInit() {
-        this.locationService.getUserLocation().take(1).subscribe((coords) => this.userLocation = coords);
+        this.userLocationService.getUserLocation().take(1).subscribe((coords) => this.userLocation = coords);
     }
 
     //Set the active marker
