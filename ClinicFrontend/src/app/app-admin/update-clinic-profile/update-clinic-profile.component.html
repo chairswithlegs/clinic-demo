@@ -1,0 +1,12 @@
+<div class="mat-typography">
+    <mat-form-field>
+        <input matInput name="name" type="text" placeholder="Clinic name" [(ngModel)]="name">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput name="description" type="text" placeholder="Clinic description" [(ngModel)]="description">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+    <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
+</div>

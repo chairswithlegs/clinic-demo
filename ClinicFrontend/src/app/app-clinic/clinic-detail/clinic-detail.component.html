@@ -1,10 +1,11 @@
-<article *ngIf="clinic" class="mat-elevation-z4">
+<article>
   <div class="mat-typography detail">
     <h1>
       {{ clinic?.name }}
     </h1>
     <h3>The current estimate wait time is:</h3>
-    <h2>{{ clinic?.waitTime | millisecondsToReadable:2:3 }}</h2>
+    <h2 *ngIf="clinic?.waitTime">{{ clinic?.waitTime | millisecondsToReadable:2:3 }}</h2>
+    <h2 *ngIf="!clinic?.waitTime">Little to no wait</h2>
 
     <p>
       {{ clinic?.description }}

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditWaitTimeComponent } from './edit-wait-time.component';
+import { UpdateWaitTimeComponent } from './update-wait-time.component';
 
-describe('EditWaitTimeComponent', () => {
-  let component: EditWaitTimeComponent;
-  let fixture: ComponentFixture<EditWaitTimeComponent>;
+describe('UpdateWaitTimeComponent', () => {
+  let component: UpdateWaitTimeComponent;
+  let fixture: ComponentFixture<UpdateWaitTimeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditWaitTimeComponent ]
+      declarations: [ UpdateWaitTimeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditWaitTimeComponent);
+    fixture = TestBed.createComponent(UpdateWaitTimeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

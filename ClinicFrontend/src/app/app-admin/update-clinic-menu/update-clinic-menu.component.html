@@ -2,20 +2,20 @@
 
 <div class="update-list">
     <div *ngFor="let clinic of (clinics | async)" class="row">
-        <span class="clinic-title"><h3>{{ clinic.name }} and some more for testing.</h3></span>
+        <span class="clinic-title"><h3>{{ clinic.name }}</h3></span>
         <span class="row-buttons">
-            <button mat-raised-button color="primary" (click)="editWaitTime()">Wait Time</button>
-            <button mat-raised-button color="primary">Profile</button>
+            <button mat-raised-button color="primary" (click)="updateWaitTime(clinic)">Wait Time</button>
+            <button mat-raised-button color="primary" (click)="updateClinicProfile(clinic)">Profile</button>
             <button mat-raised-button color="primary">Location</button>
-            <button mat-raised-button color="accent" (click)="confirmDeletion()">Delete</button>
+            <button mat-raised-button color="accent" (click)="confirmDeletion(clinic)">Delete</button>
         </span>
         <button mat-fab color="primary" class="responsive-menu" [matMenuTriggerFor]="responsiveMenu"><mat-icon>menu</mat-icon></button>
+    
+        <mat-menu #responsiveMenu="matMenu">
+            <button mat-menu-item (click)="updateWaitTime(clinic)">Wait Time</button>
+            <button mat-menu-item (click)="updateClinicProfile(clinic)">Profile</button>
+            <button mat-menu-item>Location</button>
+            <button mat-menu-item (click)="confirmDeletion(clinic)">Delete</button>
+        </mat-menu>
     </div>
 </div>
-
-<mat-menu #responsiveMenu="matMenu">
-    <button mat-menu-item (click)="editWaitTime()">Wait Time</button>
-    <button mat-menu-item>Profile</button>
-    <button mat-menu-item>Location</button>
-    <button mat-menu-item (click)="confirmDeletion()">Delete</button>
-</mat-menu>

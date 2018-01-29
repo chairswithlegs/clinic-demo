@@ -10,11 +10,12 @@ import { TimeModule } from '../time/time.module';
 
 //COMPONENTS AND DIRECTIVES
 import { LoginComponent } from './login/login.component';
-import { EditWaitTimeComponent } from './edit-wait-time/edit-wait-time.component';
+import { UpdateWaitTimeComponent } from './update-wait-time/update-wait-time.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfirmDeletionComponent } from './confirm-deletion/confirm-deletion.component';
 import { UpdateClinicMenuComponent } from './update-clinic-menu/update-clinic-menu.component';
 import { NewClinicFormComponent } from './new-clinic-form/new-clinic-form.component';
+import { UpdateClinicProfileComponent } from './update-clinic-profile/update-clinic-profile.component';
 
 
 @NgModule({
@@ -28,13 +29,18 @@ import { NewClinicFormComponent } from './new-clinic-form/new-clinic-form.compon
   ],
   exports: [],
   entryComponents: [
-    EditWaitTimeComponent,
+    UpdateWaitTimeComponent,
+    UpdateClinicProfileComponent,
     ConfirmDeletionComponent
   ],
   declarations: [
     LoginComponent, 
-    EditWaitTimeComponent, 
-    DashboardComponent, ConfirmDeletionComponent, UpdateClinicMenuComponent, NewClinicFormComponent
+    UpdateWaitTimeComponent, 
+    DashboardComponent, 
+    ConfirmDeletionComponent, 
+    UpdateClinicMenuComponent, 
+    NewClinicFormComponent,
+    UpdateClinicProfileComponent
   ]
 })
 export class AppAdminModule { }

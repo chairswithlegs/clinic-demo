@@ -1,4 +1,4 @@
-<article class="container" *ngIf="clinics">
+<article class="container">
     <div class="list">
         <div class="row mat-typography" *ngFor="let clinic of clinics | slice:pageStart:pageEnd; let i = index">
             <div class="row-inner">
@@ -9,7 +9,8 @@
                 
                 <div class="row-item wait-time">
                     <p>Estimated Wait:</p>
-                    <p>{{ clinic.waitTime | millisecondsToReadable:2:3 }}</p>
+                    <p *ngIf="clinic.waitTime">{{ clinic.waitTime | millisecondsToReadable:2:3 }}</p>
+                    <p *ngIf="!clinic.waitTime">Little to no wait</p>
                 </div>
                 
                 <div class="row-item icon">

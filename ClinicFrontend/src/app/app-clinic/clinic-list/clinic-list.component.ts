@@ -48,7 +48,6 @@ export class ClinicListComponent implements OnInit {
     private updatePageRange(pageEvent: PageEvent) {
         this.pageStart = pageEvent.pageIndex * this.resultsPerPage;
         this.pageEnd = this.pageStart + this.resultsPerPage;
-        console.log(this.pageEnd);
     }
 
     private onClinicClick(clinic: Clinic) {

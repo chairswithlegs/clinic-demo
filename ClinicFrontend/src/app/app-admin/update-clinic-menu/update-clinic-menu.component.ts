@@ -1,13 +1,15 @@
+//Ng CORE
 import { Component } from '@angular/core';
 
 //Ng MATERIAL
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
 
 //COMPONENTS AND DIRECTIVES
-import { EditWaitTimeComponent } from '../edit-wait-time/edit-wait-time.component';
+import { UpdateWaitTimeComponent } from '../update-wait-time/update-wait-time.component';
+import { UpdateClinicProfileComponent } from '../update-clinic-profile/update-clinic-profile.component';
 import { ConfirmDeletionComponent } from '../confirm-deletion/confirm-deletion.component';
 
 //SERVICES
@@ -16,6 +18,7 @@ import { AuthService } from '../../app-api/auth.service';
 
 //TYPES
 import { Clinic } from '../../app-api/clinic';
+import { isString } from 'util';
 
 @Component({
     selector: 'update-clinic-menu',
@@ -26,18 +29,42 @@ export class UpdateClinicMenuComponent {
     clinics: Observable<Clinic[]>;
     clinicToUpdate: Clinic;
 
-    constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog) {
+    constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog, private snackBar: MatSnackBar) {
         this.clinics = clinicService.clinicsObservable;
      }
-    
-    editWaitTime() {
-        this.dialog.open(EditWaitTimeComponent);
+
+    updateClinicProfile(clinic: Clinic) {
+        this.dialog.open(UpdateClinicProfileComponent, { data: clinic }).afterClosed().subscribe((profile) => {
+            if (profile != null) {
+                this.clinicService.updateClinicProfile(clinic.id, profile.name, profile.description).take(1).subscribe((success) => {
+                    if (!success) {
+                        this.snackBar.open('Failed to save changes.', 'Dismiss');
+                    }
+                });
+            }
+        });
     }
     
-    confirmDeletion() {
-        this.dialog.open(ConfirmDeletionComponent).afterClosed().subscribe((confirmed:boolean) => {
-            if (confirmed == true) {
-                console.log("deleted the clinic");
+    updateWaitTime(clinic: Clinic) {
+        this.dialog.open(UpdateWaitTimeComponent).afterClosed().subscribe((waitTime) => {
+            if (!isNaN(waitTime)) {
+                this.clinicService.updateWaitTime(clinic.id, waitTime).take(1).subscribe((success) => {
+                    if (!success) {
+                        this.snackBar.open('Failed to save changes.', 'Dismiss');
+                    }
+                });
+            }
+        });
+    }
+    
+    confirmDeletion(clinic: Clinic) {
+        this.dialog.open(ConfirmDeletionComponent).afterClosed().subscribe((confirmed) => {
+            if (confirmed) {
+                this.clinicService.deleteClinic(clinic.id).take(1).subscribe((success) => {
+                    if (!success) {
+                        this.snackBar.open('Failed to save changes.', 'Dismiss');
+                    }
+                });
             }
         });
     }
