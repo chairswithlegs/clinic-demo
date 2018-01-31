@@ -1,5 +1,5 @@
 //Ng Core
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 //Ng MATERIAL
@@ -15,6 +15,9 @@ import 'rxjs/add/operator/catch';
 import { ClinicLocationService } from '../../app-api/clinic-location.service';
 import { ClinicService } from '../../app-api/clinic.service';
 
+//CUSTOM VALIDATORS
+import { AddressValidator } from '../../app-api/address-validator';
+
 //TYPES
 import { Coords } from '../../app-api/coords';
 import { Clinic } from '../../app-api/clinic';
@@ -25,14 +28,26 @@ import { Clinic } from '../../app-api/clinic';
     styleUrls: ['./new-clinic-form.component.css'],
     providers: [ClinicLocationService]
 })
-export class NewClinicFormComponent {
+export class NewClinicFormComponent implements OnInit {
     
     newClinicForm: FormGroup;
     waitTime: { hours: number, minutes: number } = { hours: 0, minutes: 0 };
     formSubmitted: boolean = false;
     
-    constructor(private formBuilder: FormBuilder, private clinicService: ClinicService, private ClinicLocationService: ClinicLocationService, private snackbar: MatSnackBar) {
-        this.createForm();
+    constructor(private formBuilder: FormBuilder, private clinicService: ClinicService, private snackbar: MatSnackBar, private addressValidator: AddressValidator) {}
+    
+    ngOnInit() {
+        //Instantiate the form
+        this.newClinicForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            description: ['', Validators.required],
+            waitTime: '',
+            lat: ['', Validators.required],
+            lng: ['', Validators.required]
+        });
+        
+        //Add the address control after since it has a validator that references other controls in the form
+        this.newClinicForm.addControl('address', new FormControl('', Validators.required, this.addressValidator.checkAddress(this.newClinicForm.controls.lat, this.newClinicForm.controls.lng)));
     }
     
     onSubmit(form: FormGroup): void {
@@ -77,32 +92,5 @@ export class NewClinicFormComponent {
         }
         
         this.waitTime = { hours: 0, minutes: 0 };
-    }
-    
-    private createForm(): void {
-        this.newClinicForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            description: ['', Validators.required],
-            waitTime: '',
-            address: ['', Validators.required, this.locationValidator.bind(this)],
-            lat: ['', Validators.required],
-            lng: ['', Validators.required]
-        });
-    }
-    
-    private locationValidator(addressControl: FormControl): {[key: string]: any} {
-        this.newClinicForm.controls.lat.setValue(null);
-        this.newClinicForm.controls.lng.setValue(null);
-        
-        return Observable.timer(500).switchMap(() => {
-            return this.ClinicLocationService.getClinicLocation(addressControl.value);
-        })
-        .map((coords) => {
-            this.newClinicForm.controls.lat.setValue(coords.lat);
-            this.newClinicForm.controls.lng.setValue(coords.lng);
-        })
-        .catch((error) => {
-            return Observable.of({ 'location': { value: 'Could not find location' } });
-        });
     }
 }

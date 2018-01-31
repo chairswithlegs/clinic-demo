@@ -16,6 +16,10 @@ import { ConfirmDeletionComponent } from './confirm-deletion/confirm-deletion.co
 import { UpdateClinicMenuComponent } from './update-clinic-menu/update-clinic-menu.component';
 import { NewClinicFormComponent } from './new-clinic-form/new-clinic-form.component';
 import { UpdateClinicProfileComponent } from './update-clinic-profile/update-clinic-profile.component';
+import { UpdateLocationComponent } from './update-location/update-location.component';
+
+//CUSTOM VALIDATORS
+import { AddressValidator } from '../app-api/address-validator';
 
 
 @NgModule({
@@ -31,7 +35,8 @@ import { UpdateClinicProfileComponent } from './update-clinic-profile/update-cli
   entryComponents: [
     UpdateWaitTimeComponent,
     UpdateClinicProfileComponent,
-    ConfirmDeletionComponent
+    ConfirmDeletionComponent,
+    UpdateLocationComponent
   ],
   declarations: [
     LoginComponent, 
@@ -40,7 +45,9 @@ import { UpdateClinicProfileComponent } from './update-clinic-profile/update-cli
     ConfirmDeletionComponent, 
     UpdateClinicMenuComponent, 
     NewClinicFormComponent,
-    UpdateClinicProfileComponent
-  ]
+    UpdateClinicProfileComponent,
+    UpdateLocationComponent
+  ],
+  providers: [AddressValidator]
 })
 export class AppAdminModule { }

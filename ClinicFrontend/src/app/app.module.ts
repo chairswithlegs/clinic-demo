@@ -19,6 +19,7 @@ import { WelcomeComponent } from './core/welcome/welcome.component';
 //SERVICES
 import { ClinicService } from './app-api/clinic.service';
 import { AuthService } from './app-api/auth.service';
+import { ClinicLocationService } from './app-api/clinic-location.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AuthService } from './app-api/auth.service';
   ],
   providers: [
     ClinicService,
+    ClinicLocationService,
     AuthService
   ],
   bootstrap: [AppComponent]

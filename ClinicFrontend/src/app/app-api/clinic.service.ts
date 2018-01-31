@@ -46,6 +46,15 @@ export class ClinicService {
         return Observable.of(true).catch((error) => Observable.of(false));
     }
 
+    updateLocation(clinicId: number, address: string, lat: number, lng: number): Observable<boolean> {
+        let clinic = this.mockData.find((clinic) => clinic.id == clinicId);
+        clinic.address = address;
+        clinic.lat = lat;
+        clinic.lng = lng;
+
+        return Observable.of(true).catch((error) => Observable.of(false));
+    }
+
     updateClinicProfile(clinicId: number, name: string, description: string): Observable<boolean> {
         let clinic = this.mockData.find((clinic) => clinic.id == clinicId);
         clinic.name = name;

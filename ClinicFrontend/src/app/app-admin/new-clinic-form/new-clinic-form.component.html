@@ -25,7 +25,7 @@
         <input type="hidden" formControlName="lng">
     </mat-form-field>
     <mat-hint *ngIf="newClinicForm.dirty && newClinicForm.controls.address.valid">Location found!</mat-hint>
-    <mat-error *ngIf="newClinicForm.controls.address.hasError('location')">
+    <mat-error *ngIf="newClinicForm.controls.address.hasError('address')">
         Could not locate address.
     </mat-error>
 

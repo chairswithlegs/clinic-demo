@@ -6,7 +6,7 @@
         <span class="row-buttons">
             <button mat-raised-button color="primary" (click)="updateWaitTime(clinic)">Wait Time</button>
             <button mat-raised-button color="primary" (click)="updateClinicProfile(clinic)">Profile</button>
-            <button mat-raised-button color="primary">Location</button>
+            <button mat-raised-button color="primary" (click)="updateLocation(clinic)">Location</button>
             <button mat-raised-button color="accent" (click)="confirmDeletion(clinic)">Delete</button>
         </span>
         <button mat-fab color="primary" class="responsive-menu" [matMenuTriggerFor]="responsiveMenu"><mat-icon>menu</mat-icon></button>
@@ -14,7 +14,7 @@
         <mat-menu #responsiveMenu="matMenu">
             <button mat-menu-item (click)="updateWaitTime(clinic)">Wait Time</button>
             <button mat-menu-item (click)="updateClinicProfile(clinic)">Profile</button>
-            <button mat-menu-item>Location</button>
+            <button mat-menu-item (click)="updateLocation(clinic)">Location</button>
             <button mat-menu-item (click)="confirmDeletion(clinic)">Delete</button>
         </mat-menu>
     </div>
