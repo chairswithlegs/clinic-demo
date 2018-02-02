@@ -1,23 +1,30 @@
 //CORE
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/timeout';
 
 //TYPES
 import { Coords } from './coords';
 import { Clinic } from './clinic';
 
+//CONFIG
+import { backendApiUrl } from './config';
+
 @Injectable()
 export class ClinicService {
+    timeout: number = 2000;
+    
     clinicsObservable: Observable<Clinic[]>;
     private clinicsSubject: BehaviorSubject<Clinic[]>;
     
     //testing
     private mockData: Clinic[];
     
-    constructor() {
+    constructor(private http: Http) {
         this.clinicsSubject = new BehaviorSubject([]);
         this.clinicsObservable = this.clinicsSubject.asObservable();
         
@@ -28,12 +35,20 @@ export class ClinicService {
     
     //Return a single clinic based on its id
     getClinicById(id: number): Observable<Clinic> {
-        return Observable.of(this.clinicsSubject.getValue().find((clinic) => clinic.id == id));
+        return this.http.get(`${backendApiUrl}/clinic/${id}`)
+        .timeout(this.timeout)
+        .map((response) => {
+            return response.json();
+        });
     }
     
     //Returns an array containing all clinics
     getClinics(): Observable<Clinic[]> {
-        return this.clinicsObservable;
+        return this.http.get(`${backendApiUrl}/clinic`)
+        .timeout(this.timeout)
+        .map((response) => {
+            return response.json();
+        });
     }
 
     deleteClinic(clinicId: number): Observable<boolean> {

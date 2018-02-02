@@ -7,6 +7,9 @@ using ClinicBackend.Models;
 
 namespace ClinicBackend
 {
+    /// <summary>
+    /// Entity context for the Clinic database.
+    /// </summary>
     public class ClinicContext : DbContext
     {
         public ClinicContext(DbContextOptions<ClinicContext> options): base(options) { }

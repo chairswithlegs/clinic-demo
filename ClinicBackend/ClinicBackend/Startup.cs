@@ -9,6 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using ClinicBackend.Models;
+using System.Security.Cryptography;
 
 namespace ClinicBackend
 {
@@ -24,10 +29,43 @@ namespace ClinicBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add the enncryption key provider to DI container
+            EncryptionKeyProvider encryptionKeyProvider = new EncryptionKeyProvider();
+            services.AddSingleton(encryptionKeyProvider);
+
             services.AddDbContext<ClinicContext>((options) => options.UseInMemoryDatabase("clinics"));
-            services.AddDbContext<ClinicCredentialContext>((options) => options.UseInMemoryDatabase("credentials"));
+            services.AddDbContext<AdminContext>((options) => options.UseInMemoryDatabase("admin"));
+
+            services.AddIdentity<Admin, IdentityRole>()
+                .AddEntityFrameworkStores<AdminContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication().AddJwtBearer((options) =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(encryptionKey.Key))
+                };
+            });
+
+            services.AddCors((options) =>
+            {
+                options.AddPolicy("development", (policyBuilder) =>
+                {
+                    policyBuilder.AllowAnyOrigin();
+                    policyBuilder.AllowAnyHeader();
+                    policyBuilder.AllowAnyMethod();
+                });
+            });
 
             services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,8 +73,16 @@ namespace ClinicBackend
         {
             if (env.IsDevelopment())
             {
+                app.UseCors("development");
+               
+            }
+
+            if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

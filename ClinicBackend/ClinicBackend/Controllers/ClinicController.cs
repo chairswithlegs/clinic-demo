@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ClinicBackend.Models;
-
+using Microsoft.AspNetCore.Hosting;
 
 namespace ClinicBackend.Controllers
 {
@@ -14,12 +14,12 @@ namespace ClinicBackend.Controllers
     public class ClinicController : Controller
     {
         ClinicContext _clinicContext;
-        ClinicCredentialContext _credentialContext;
+        AdminContext _adminContext;
 
-        public ClinicController(ClinicContext clinicContext, ClinicCredentialContext credentialContext)
+        public ClinicController(ClinicContext clinicContext, AdminContext adminContext, IHostingEnvironment env)
         {
             _clinicContext = clinicContext;
-            _credentialContext = credentialContext;
+            _adminContext = adminContext;
 
             //Add the mock data.
             if (_clinicContext.Clinics.Count() == 0)
@@ -30,8 +30,8 @@ namespace ClinicBackend.Controllers
                     {
                         Name = "Clinic",
                         Address = "There",
-                        lat = 43.54f,
-                        lng = -70.33f,
+                        Lat = 43.54f,
+                        Lng = -70.33f,
                         WaitTime = 350000,
                         Description = "Long form description goes here."
                     },
@@ -39,14 +39,27 @@ namespace ClinicBackend.Controllers
                     {
                         Name = "Clinic 2",
                         Address = "Here",
-                        lat = 43.52f,
-                        lng = -70.30f,
+                        Lat = 43.52f,
+                        Lng = -70.30f,
                         WaitTime = 350000,
                         Description = "Long form description goes here."
                     }
                 });
 
                 _clinicContext.SaveChanges();
+
+                //Create a testing account
+                if (env.IsDevelopment())
+                {
+                    Admin admin = new Admin
+                    {
+                        UserName = "test",
+                        Password = "test"
+                    };
+
+                    _adminContext.Add(admin);
+                    _adminContext.SaveChanges();
+                }
             }
         }
 
@@ -69,11 +82,22 @@ namespace ClinicBackend.Controllers
             return Ok(clinic);
         }
 
-        [Route("register")]
+        [Route("create")]
         [HttpPost]
-        public IActionResult CreateClinic([FromBody] ClinicRegistration clinicRegistration)
+        public IActionResult CreateClinic([FromBody] Clinic clinic)
         {
-            return Ok(clinicRegistration);
+            try
+            {
+                _clinicContext.Add(clinic);
+                _clinicContext.SaveChanges();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest();
+            }
+            
         }
     }
 }
