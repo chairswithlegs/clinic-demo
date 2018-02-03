@@ -15,6 +15,6 @@ namespace ClinicBackend
     {
         public AdminContext(DbContextOptions<AdminContext> options) : base(options) { }
 
-        public DbSet<Admin> Admin { get; set; }
+        public DbSet<Admin> Admins { get; set; }
     }
 }

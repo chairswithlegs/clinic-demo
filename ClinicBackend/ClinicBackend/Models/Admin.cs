@@ -9,8 +9,6 @@ namespace ClinicBackend.Models
 {
     public class Admin : IdentityUser
     {
-        [StringLength(20)]
-        public string Username { get; set; }
         public string Password { get; set; }
     }
 }

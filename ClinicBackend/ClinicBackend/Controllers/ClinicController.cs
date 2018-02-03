@@ -6,69 +6,30 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ClinicBackend.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicBackend.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
-    [Route("api/clinic")]
+    [Route("api/clinics")]
     public class ClinicController : Controller
     {
         ClinicContext _clinicContext;
-        AdminContext _adminContext;
 
-        public ClinicController(ClinicContext clinicContext, AdminContext adminContext, IHostingEnvironment env)
+        public ClinicController(ClinicContext clinicContext, IHostingEnvironment env)
         {
             _clinicContext = clinicContext;
-            _adminContext = adminContext;
-
-            //Add the mock data.
-            if (_clinicContext.Clinics.Count() == 0)
-            {
-                _clinicContext.Clinics.AddRange(new[]
-                {
-                    new Clinic()
-                    {
-                        Name = "Clinic",
-                        Address = "There",
-                        Lat = 43.54f,
-                        Lng = -70.33f,
-                        WaitTime = 350000,
-                        Description = "Long form description goes here."
-                    },
-                    new Clinic()
-                    {
-                        Name = "Clinic 2",
-                        Address = "Here",
-                        Lat = 43.52f,
-                        Lng = -70.30f,
-                        WaitTime = 350000,
-                        Description = "Long form description goes here."
-                    }
-                });
-
-                _clinicContext.SaveChanges();
-
-                //Create a testing account
-                if (env.IsDevelopment())
-                {
-                    Admin admin = new Admin
-                    {
-                        UserName = "test",
-                        Password = "test"
-                    };
-
-                    _adminContext.Add(admin);
-                    _adminContext.SaveChanges();
-                }
-            }
         }
-
+       
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_clinicContext.Clinics.ToList());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -92,9 +53,8 @@ namespace ClinicBackend.Controllers
                 _clinicContext.SaveChanges();
                 return Ok();
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e.Message);
                 return BadRequest();
             }
             

@@ -8,6 +8,8 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Hosting;
+using ClinicBackend.Models;
 
 namespace ClinicBackend.Controllers
 {
@@ -17,39 +19,62 @@ namespace ClinicBackend.Controllers
     {
         IConfiguration _configuration;
         EncryptionKeyProvider _encryptionKeyProvider;
+        AdminContext _adminContext;
 
-        public AuthenticationController(IConfiguration configuration, EncryptionKeyProvider encryptionKeyProvider)
+        public AuthenticationController (IConfiguration configuration, EncryptionKeyProvider encryptionKeyProvider, AdminContext adminContext)
         {
             _configuration = configuration;
             _encryptionKeyProvider = encryptionKeyProvider;
+            _adminContext = adminContext;
         }
 
-        [HttpGet]
-        public IActionResult RequestToken()
+        [HttpPost]
+        [Route("login")]
+        public IActionResult Login([FromBody]LoginCredentials loginCredentials)
         {
-            Claim[] claims = new[]
+            if (UserExists(loginCredentials))
             {
-                new Claim(ClaimTypes.Name, "testUsername")
-            };
 
-            SymmetricSecurityKey signingKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_encryptionKeyProvider.Key));
-            SigningCredentials credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+                Claim[] claims = new[]
+                {
+                    new Claim(ClaimTypes.Email, loginCredentials.Email)
+                };
 
-            JwtSecurityToken token = new JwtSecurityToken
-            (
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Issuer"],
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: credentials
-            );
+                SymmetricSecurityKey signingKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_encryptionKeyProvider.Key));
+                SigningCredentials signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
-            var response = new
+                JwtSecurityToken token = new JwtSecurityToken
+                (
+                    issuer: _configuration["Jwt:Issuer"],
+                    audience: _configuration["Jwt:Issuer"],
+                    claims: claims,
+                    expires: DateTime.Now.AddHours(1),
+                    signingCredentials: signingCredentials
+                );
+
+                var response = new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token)
+                };
+
+                return Ok(response);
+
+            }
+            else
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token)
-            };
+                return BadRequest();
+            }
+        }
 
-            return Ok(response);
+        private bool UserExists(LoginCredentials loginCredentials)
+        {
+            return _adminContext.Admins.FirstOrDefault((admin) => admin.Email == loginCredentials.Email && admin.Password == loginCredentials.Password) != null;
+        }
+
+        public class LoginCredentials
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
         }
     }
 }

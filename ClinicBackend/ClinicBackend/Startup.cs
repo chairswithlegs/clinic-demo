@@ -40,7 +40,11 @@ namespace ClinicBackend
                 .AddEntityFrameworkStores<AdminContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication().AddJwtBearer((options) =>
+            services.AddAuthentication((options) =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer((options) =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -50,7 +54,7 @@ namespace ClinicBackend
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(encryptionKey.Key))
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(encryptionKeyProvider.Key))
                 };
             });
 
