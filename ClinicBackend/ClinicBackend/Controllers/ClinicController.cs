@@ -17,7 +17,7 @@ namespace ClinicBackend.Controllers
     {
         ClinicContext _clinicContext;
 
-        public ClinicController(ClinicContext clinicContext, IHostingEnvironment env)
+        public ClinicController(ClinicContext clinicContext)
         {
             _clinicContext = clinicContext;
         }
@@ -37,10 +37,29 @@ namespace ClinicBackend.Controllers
 
             if (clinic == null)
             {
-                return NotFound();
+                return NotFound($"Clinic with an id of {id.ToString()} could not be found.");
             }
 
             return Ok(clinic);
+        }
+
+        [Route("delete")]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteClinic(int id)
+        {
+            Clinic clinic = _clinicContext.Clinics.FirstOrDefault((_clinic) => _clinic.Id == id);
+            
+            if (clinic != null)
+            {
+                _clinicContext.Clinics.Remove(clinic);
+                _clinicContext.SaveChanges();
+
+                return Ok("Clinic successfully deleted.");
+            }
+            else
+            {
+                return NotFound($"Clinic with an id of {id.ToString()} could not be found.");
+            }
         }
 
         [Route("create")]
@@ -51,11 +70,11 @@ namespace ClinicBackend.Controllers
             {
                 _clinicContext.Add(clinic);
                 _clinicContext.SaveChanges();
-                return Ok();
+                return Ok("Clinic successfully created.");
             }
             catch
             {
-                return BadRequest();
+                return BadRequest("Clinic could not be created.");
             }
             
         }
