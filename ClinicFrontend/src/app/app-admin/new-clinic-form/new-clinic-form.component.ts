@@ -41,7 +41,6 @@ export class NewClinicFormComponent implements OnInit {
         this.newClinicForm = this.formBuilder.group({
             name: ['', Validators.required],
             description: ['', Validators.required],
-            waitTime: '',
             lat: ['', Validators.required],
             lng: ['', Validators.required]
         });
@@ -51,35 +50,31 @@ export class NewClinicFormComponent implements OnInit {
     }
     
     onSubmit(form: FormGroup): void {
-        if (form.valid == false) {
-            console.log('Invalid form');
-        } else {
-            //
+        if (form.valid) {
+            //Create the new clinic model and populate its members with the form data
             let clinic: Clinic = new Clinic();
             clinic.name = form.controls.name.value;
             clinic.description = form.controls.description.value;
             clinic.address = form.controls.address.value;
             clinic.lat = form.controls.lat.value;
             clinic.lng = form.controls.lng.value;
-            
-            //Attempt to create the clinic
+            clinic.waitTime = (this.waitTime.hours * 3.6e6) + (this.waitTime.minutes * 6e4);
+
+            //Attempt to create the clinic on the backend
             this.clinicService.createClinic(clinic).take(1).subscribe((success) => {
                 if (success) {
-                    //Momentarily mark the form as submitted
+                    //Alert the user that their form has successfully been submitted (used by template)
                     this.formSubmitted = true;
                     setTimeout(() => this.formSubmitted = false, 2000);
                     
                     //Reset the form for any additional entries
                     this.resetForm(form);
                 } else {
+                    //Send there is an issue handling the form on the backend
                     this.snackbar.open('An error was encountered. Clinic could not be added.', 'Dismiss')
                 }
-            });
-            
-            
+            });   
         }
-        
-        console.log(form);
     }
     
     resetForm(form: FormGroup): void {

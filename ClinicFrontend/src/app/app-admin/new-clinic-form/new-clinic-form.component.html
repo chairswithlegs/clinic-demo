@@ -16,7 +16,6 @@
     <mat-slider min="0" max="23" [value]="waitTime.hours" (input)="waitTime.hours = $event.value"></mat-slider>
     <label>Minutes</label>
     <mat-slider min="0" max="59" [value]="waitTime.minutes" (input)="waitTime.minutes = $event.value"></mat-slider>
-    <input type="hidden" #actualTime formControlName="waitTime" [value]="(waitTime.hours * 3.6e6) + (waitTime.minutes * 6e4)">
 
     <h3>Location</h3>
     <mat-form-field>

@@ -106,10 +106,9 @@ namespace ClinicBackend.Controllers
             {
                 Clinic oldClinic = _clinicContext.Clinics.FirstOrDefault((_clinic) => _clinic.Id == clinic.Id);
 
-                if (clinic != null)
+                if (oldClinic != null)
                 {
-                    _clinicContext.Clinics.Remove(oldClinic);
-                    _clinicContext.Clinics.Add(clinic);
+                    _clinicContext.Entry(oldClinic).CurrentValues.SetValues(clinic);
                     _clinicContext.SaveChanges();
                     return Ok("Clinic successfully updated.");
                 }

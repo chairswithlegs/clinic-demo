@@ -82,7 +82,9 @@ export class AuthService {
 		//Send the request, along with the token, to the backend
 		return this.http.get(`${backendApiUrl}/authentication/check-token`, { headers: headers })
 		.timeout(this.timeout)
-		.catch(() => Observable.of(false))
-		.map(() => true);
+		//Default to success...
+		.map(() => true)
+		//...but if an error is thrown (bad status code or timeout), set to false
+		.catch((error) => { console.log(error); return Observable.of(false) });
 	}
 }
