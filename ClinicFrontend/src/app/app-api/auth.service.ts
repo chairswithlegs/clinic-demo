@@ -37,8 +37,6 @@ export class AuthService {
 		this.authSubject = new ReplaySubject();
 		this.authObservable = this.authSubject.asObservable();
 		
-		this.connectionAlertObservable.subscribe((error) => console.log(error));
-
 		//Get the initial state through token storage, may be async so do this after initializing authSubject
 		let state: AuthState;
 		if (localStorage.getItem('token') != null) {
