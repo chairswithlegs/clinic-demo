@@ -26,39 +26,60 @@ namespace ClinicBackend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_clinicContext.Clinics.ToList());
+            try
+            {
+                return Ok(_clinicContext.Clinics.ToList());
+            }
+            catch
+            {
+                return StatusCode(500, "Clinic data could not be loaded");
+            }
+            
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            Clinic clinic = _clinicContext.Clinics.FirstOrDefault((_clinic) => _clinic.Id == id);
-
-            if (clinic == null)
+            try
             {
-                return NotFound($"Clinic with an id of {id.ToString()} could not be found.");
-            }
+                Clinic clinic = _clinicContext.Clinics.FirstOrDefault((_clinic) => _clinic.Id == id);
 
-            return Ok(clinic);
+                if (clinic == null)
+                {
+                    return NotFound($"Clinic with an id of {id.ToString()} could not be found.");
+                }
+
+                return Ok(clinic);
+            }
+            catch
+            {
+                return StatusCode(500, "Clinic data could not be loaded");
+            }
+            
         }
 
         [Route("delete")]
         [HttpDelete("{id}")]
         public IActionResult DeleteClinic(int id)
         {
-            Clinic clinic = _clinicContext.Clinics.FirstOrDefault((_clinic) => _clinic.Id == id);
-            
-            if (clinic != null)
+            try
             {
-                _clinicContext.Clinics.Remove(clinic);
-                _clinicContext.SaveChanges();
-
-                return Ok("Clinic successfully deleted.");
+                Clinic clinic = _clinicContext.Clinics.FirstOrDefault((_clinic) => _clinic.Id == id);
+                if (clinic != null)
+                {
+                    _clinicContext.Clinics.Remove(clinic);
+                    _clinicContext.SaveChanges();
+                    return Ok("Clinic successfully deleted.");
+                }
+                else
+                {
+                    return NotFound($"Clinic with id of ${clinic.Id} does not exist.");
+                }
             }
-            else
+            catch
             {
-                return NotFound($"Clinic with an id of {id.ToString()} could not be found.");
+                return StatusCode(500, "Clinic could not be deleted.");
             }
         }
 
@@ -73,9 +94,34 @@ namespace ClinicBackend.Controllers
             }
             catch
             {
-                return BadRequest("Clinic could not be created.");
+                return StatusCode(500, "Clinic could not be created.");
             }
             
+        }
+
+        [HttpPut]
+        public IActionResult UpdateClinic([FromBody] Clinic clinic)
+        {
+            try
+            {
+                Clinic oldClinic = _clinicContext.Clinics.FirstOrDefault((_clinic) => _clinic.Id == clinic.Id);
+
+                if (clinic != null)
+                {
+                    _clinicContext.Clinics.Remove(oldClinic);
+                    _clinicContext.Clinics.Add(clinic);
+                    _clinicContext.SaveChanges();
+                    return Ok("Clinic successfully updated.");
+                }
+                else
+                {
+                    return NotFound($"Clinic with id of ${clinic.Id} does not exist.");
+                }
+            }
+            catch
+            {
+                return StatusCode(500, "Clinic could not be updated.");
+            }
         }
     }
 }
