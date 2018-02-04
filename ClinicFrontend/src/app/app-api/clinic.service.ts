@@ -1,4 +1,4 @@
-//CORE
+//Ng CORE
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -72,7 +72,7 @@ export class ClinicService {
         });
         
         //Fire off the request and map the response to a boolean.
-        return this.http.post(`${backendApiUrl}/clinics/create`, clinic, { headers: headers })
+        return this.http.post(`${backendApiUrl}/clinics`, clinic, { headers: headers })
         .timeout(this.timeout)
         .map(() => {
             //Notify subscribers of the updated data

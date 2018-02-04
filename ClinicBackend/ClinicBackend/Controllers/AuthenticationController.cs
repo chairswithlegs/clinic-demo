@@ -10,9 +10,11 @@ using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Hosting;
 using ClinicBackend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicBackend.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/authentication")]
     public class AuthenticationController : Controller
@@ -28,6 +30,7 @@ namespace ClinicBackend.Controllers
             _adminContext = adminContext;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("login")]
         public IActionResult Login([FromBody]LoginCredentials loginCredentials)
@@ -64,6 +67,14 @@ namespace ClinicBackend.Controllers
             {
                 return BadRequest();
             }
+        }
+
+
+        [HttpGet]
+        [Route("check-token")]
+        public IActionResult CheckToken()
+        {
+            return Ok();
         }
 
         private bool UserExists(LoginCredentials loginCredentials)

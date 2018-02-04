@@ -16,24 +16,26 @@ import { ActivatedRouteSnapshot } from '@angular/router/src/router_state';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
-  
-  constructor(private authService: AuthService, private router: Router) { }
-  
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.authService.authObservable.map((authState) => {
-      //Ensure expected AuthState is known
-      if (route.data.expectedAuthState == undefined) {
-        console.error('Expected AuthState must be set in Route data for AuthGuardService to work.');
-        this.router.navigateByUrl('welcome');
-        return false;
-      } else if (route.data.expectedAuthState == authState) {
-        //If correct state is supplied, allow the route change
-        return true;
-      } else {
-        //If the wrong state is supplied, redirect to welcome page
-        this.router.navigateByUrl('welcome');
-        return false;
-      }
-    }).take(1);
-  }
+	
+	constructor(private authService: AuthService, private router: Router) { }
+	
+	canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+		return this.authService.authObservable
+		.timeout(2000)
+		.map((authState) => {
+			//Ensure expected AuthState is known
+			if (route.data.expectedAuthState == undefined) {
+				console.error('Expected AuthState must be set in Route data for AuthGuardService to work.');
+				this.router.navigateByUrl('welcome');
+				return false;
+			} else if (route.data.expectedAuthState == authState) {
+				//If correct state is supplied, allow the route change
+				return true;
+			} else {
+				//If the wrong state is supplied, redirect to welcome page
+				this.router.navigateByUrl('welcome');
+				return false;
+			}
+		}).take(1);
+	}
 }

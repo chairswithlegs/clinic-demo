@@ -19,7 +19,6 @@ import { AuthService } from '../../app-api/auth.service';
 
 //TYPES
 import { Clinic } from '../../app-api/clinic';
-import { isString } from 'util';
 
 @Component({
     selector: 'update-clinic-menu',

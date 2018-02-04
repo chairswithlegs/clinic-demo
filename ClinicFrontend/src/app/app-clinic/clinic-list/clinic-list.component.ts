@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 //Ng MATERIAL
-import { MatSnackBar } from '@angular/material';
 import { PageEvent } from '@angular/material/paginator';
 
 //RXJS
@@ -38,15 +37,12 @@ export class ClinicListComponent implements OnInit, OnDestroy {
     //Used to manage the api subscription lifetime (see ngOnInit and ngOnDestroy)
     private clinicsSubscription: Subscription;
 
-    constructor(private clinicService: ClinicService, private router: Router, private snackbar: MatSnackBar) {}
+    constructor(private clinicService: ClinicService, private router: Router) {}
 
     ngOnInit() {
         //Subscribe to the clinic service. Alert the user if the api can't be reached.
-        this.clinicsSubscription = this.clinicService.clinicsObservable.subscribe((clinics) => {
-            this.clinics = clinics;
-        }, (error) => {
-            this.snackbar.open('Could not load clinic data.', 'Dismiss');
-        });
+        this.clinicsSubscription = this.clinicService.clinicsObservable
+        .subscribe((clinics) => this.clinics = clinics);
     }
 
     ngOnDestroy() {

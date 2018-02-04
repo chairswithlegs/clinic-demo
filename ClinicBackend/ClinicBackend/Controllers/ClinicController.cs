@@ -62,7 +62,6 @@ namespace ClinicBackend.Controllers
             }
         }
 
-        [Route("create")]
         [HttpPost]
         public IActionResult CreateClinic([FromBody] Clinic clinic)
         {

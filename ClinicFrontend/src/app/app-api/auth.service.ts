@@ -1,9 +1,9 @@
 //CORE
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //RXJS
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/timeout';
@@ -21,20 +21,27 @@ export class AuthService {
 	
 	//Expose the user authentication state as an observable
 	authObservable: Observable<AuthState>;
-	private authSubject: BehaviorSubject<AuthState>;
+	private authSubject: ReplaySubject<AuthState>;
 	
 	constructor(private http: HttpClient) {
-		//Get the initial state through token storage
-		let state: AuthState;
-		if (localStorage.getItem('token') === null) {
-			state = AuthState.LoggedOut;
-		} else {
-			state = AuthState.Admin;
-		}
-		
 		//Set the initial Behaviour Subject state
-		this.authSubject = new BehaviorSubject(state);
+		this.authSubject = new ReplaySubject();
 		this.authObservable = this.authSubject.asObservable();
+
+		//Get the initial state through token storage, may be async so do this after initializing authSubject
+		let state: AuthState;
+		if (localStorage.getItem('token') != null) {
+			this.checkToken().take(1).subscribe((isValid) => {
+				if (isValid) {
+					//If the token is valid, set the state to logged in
+					this.authSubject.next(AuthState.Admin);
+				} else {
+					//If the token is invalid, set the state to logged out and clear the faulty token
+					this.authSubject.next(AuthState.LoggedOut);
+					this.clearToken();
+				}
+			});
+		}
 	}
 	
 	//Attempt to login by getting a JWT
@@ -51,12 +58,31 @@ export class AuthService {
 	
 	//Logout by updating the Behavior Subject and clearing the JWT from local storage
 	logout(): void {
-		localStorage.removeItem('token');
+		this.clearToken();
 		this.authSubject.next(AuthState.LoggedOut);
 	}
 	
 	//Returns the JWT from local storage
 	getToken() {
 		return localStorage.getItem('token');
+	}
+	
+	//Clear the JWT from storage
+	private clearToken() {
+		localStorage.removeItem('token');
+	}
+
+	//Verify that the JWT in local storage is valid
+	private checkToken(): Observable<boolean> {
+		//Get the JWT. This will be sent along side the request.
+		let headers: HttpHeaders = new HttpHeaders({
+			'Authorization': `Bearer ${this.getToken()}`
+		});
+		
+		//Send the request, along with the token, to the backend
+		return this.http.get(`${backendApiUrl}/authentication/check-token`, { headers: headers })
+		.timeout(this.timeout)
+		.catch(() => Observable.of(false))
+		.map(() => true);
 	}
 }
