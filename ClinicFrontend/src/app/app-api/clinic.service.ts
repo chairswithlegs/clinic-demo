@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 //RXJS
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/timeout';
 
 //SERVICES
@@ -21,12 +22,23 @@ import { backendApiUrl } from './config';
 
 @Injectable()
 export class ClinicService {
+    //Time before api requests timeout
     timeout: number = 2000;
-    
+
+    //Broadcasts connection alerts
+    connectionAlertObservable: Observable<any>;
+    private connectionAlertSubject: Subject<any>;
+
+    //Expose clinic data to subscribers
     clinicsObservable: Observable<Clinic[]>;
     private clinicsSubject: BehaviorSubject<Clinic[]>;
     
     constructor(private http: HttpClient, private authService: AuthService) {
+        //Initialize connection alert
+        this.connectionAlertSubject = new Subject();
+        this.connectionAlertObservable = this.connectionAlertSubject.asObservable();
+
+        //Initialize clinics
         this.clinicsSubject = new BehaviorSubject<Clinic[]>([]);
         this.clinicsObservable = this.clinicsSubject.asObservable();
         this.updateClinicsObservable();
@@ -35,7 +47,13 @@ export class ClinicService {
     //Return an observable of a single clinic with a specific id 
     getClinicById(id: number): Observable<Clinic> {
         return this.http.get<Clinic>(`${backendApiUrl}/clinics/${id}`)
-        .timeout(this.timeout);
+        .timeout(this.timeout)
+        .catch((error) => {
+            //Broadcast the connection alert
+            this.connectionAlertSubject.next(error);
+            //Propagate the error
+            return Observable.throw(error);
+        });
     }
     
     //Update clinic information
@@ -53,8 +71,12 @@ export class ClinicService {
             //Default to a successful response...
             return true
         })
-        //...Set to false if an error (timeout or bad status code) is returned
-        .catch(() => Observable.of(false));
+        .catch((error) => {
+            //Broadcast the connection alert
+            this.connectionAlertSubject.next(error);
+            //...Set to false if an error (timeout or bad status code) is returned
+            return Observable.of(false)
+        });
     }
     
     //Deletes a clinic in the database. Returns a boolean observable that report if the operation was a success.
@@ -74,8 +96,12 @@ export class ClinicService {
             //Default to a successful response...
             return true
         })
-        //...Set to false if an error (timeout or bad status code) is returned
-        .catch(() => Observable.of(false));
+        .catch((error) => {
+            //Broadcast the connection alert
+            this.connectionAlertSubject.next(error);
+            //...Set to false if an error (timeout or bad status code) is returned
+            return Observable.of(false)
+        });
     }
     
     //Create a clinic in the database. Returns a boolean observable that reports if the operation was a success.
@@ -95,8 +121,12 @@ export class ClinicService {
             //Default to a successful response...
             return true
         })
-        //...Set to false if an error (timeout or bad status code) is returned
-        .catch(() => Observable.of(false));
+        .catch((error) => {
+            //Broadcast the connection alert
+            this.connectionAlertSubject.next(error);
+            //...Set to false if an error (timeout or bad status code) is returned
+            return Observable.of(false)
+        });
     }
     
     //Update the clinic observable
@@ -104,6 +134,6 @@ export class ClinicService {
         this.http.get<Clinic[]>(`${backendApiUrl}/clinics`)
         .timeout(this.timeout)
         .take(1)
-        .subscribe((clinics) => this.clinicsSubject.next(clinics));
+        .subscribe((clinics) => this.clinicsSubject.next(clinics), (error) => this.connectionAlertSubject.next(error));
     }
 }
