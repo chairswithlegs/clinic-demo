@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 //SERVICES
 import { AuthService } from '../../app-api/auth.service';
 
+//Types
+import { AuthState } from '../../app-api/auth-state';
 
 @Component({
 	selector: 'app-login',
@@ -30,7 +32,9 @@ export class LoginComponent {
 		if (form.valid) {
 			//Query the api
 			this.authService.login(form.value.username, form.value.password).take(1).subscribe((success) => {
-				if (success) {
+				console.log(success);
+				
+				if (success == AuthState.Admin) {
 					//Navigate to the dashboard if the login was a success
 					this.router.navigateByUrl('admin-dashboard');
 				} else {
