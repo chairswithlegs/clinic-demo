@@ -26,10 +26,14 @@ export class LoginComponent {
   } 
 
   onSubmit(form: FormGroup) {
+    //Ensure page is valid before sending request
     if (form.valid) {
+      //Query the api
       this.authService.login(form.value.username, form.value.password).take(1).subscribe((authState) => {
+        //Navigate to the dashboard if the login was a success
         this.router.navigateByUrl('admin-dashboard');
       }, (error) => {
+        //Show an alert if the login fails
         this.snackBar.open('Invalid username or password.', 'Dismiss');
       });
     }

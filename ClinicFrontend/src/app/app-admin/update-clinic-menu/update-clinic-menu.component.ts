@@ -28,7 +28,6 @@ import { isString } from 'util';
 })
 export class UpdateClinicMenuComponent {
     clinics: Observable<Clinic[]>;
-    clinicToUpdate: Clinic;
     
     constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog, private snackBar: MatSnackBar) {
         this.clinics = clinicService.clinicsObservable;
@@ -37,9 +36,12 @@ export class UpdateClinicMenuComponent {
     updateLocation(clinic: Clinic) {
         this.dialog.open(UpdateLocationComponent, { data: clinic }).afterClosed().subscribe((location) => {
             if (location != null) {
-                console.log(location);
-                this.clinicService.updateLocation(clinic.id, location.address, location.lat, location.lng).take(1).subscribe((success) => {
-                    this.changesAlert(success);
+                clinic.address = location.address;
+                clinic.lat = location.lat;
+                clinic.lng = location.lng;
+
+                this.clinicService.updateClinic(clinic).take(1).subscribe((success) => {
+                    this.onClinicUpdate(success);
                 });
             }
         });
@@ -48,8 +50,11 @@ export class UpdateClinicMenuComponent {
     updateClinicProfile(clinic: Clinic) {
         this.dialog.open(UpdateClinicProfileComponent, { data: clinic }).afterClosed().subscribe((profile) => {
             if (profile != null) {
-                this.clinicService.updateClinicProfile(clinic.id, profile.name, profile.description).take(1).subscribe((success) => {
-                    this.changesAlert(success);
+                clinic.name = profile.name;
+                clinic.description = profile.description;
+                
+                this.clinicService.updateClinic(clinic).take(1).subscribe((success) => {
+                    this.onClinicUpdate(success);
                 });
             }
         });
@@ -58,8 +63,10 @@ export class UpdateClinicMenuComponent {
     updateWaitTime(clinic: Clinic) {
         this.dialog.open(UpdateWaitTimeComponent).afterClosed().subscribe((waitTime) => {
             if (!isNaN(waitTime)) {
-                this.clinicService.updateWaitTime(clinic.id, waitTime).take(1).subscribe((success) => {
-                    this.changesAlert(success);
+                clinic.waitTime = waitTime;
+
+                this.clinicService.updateClinic(clinic).take(1).subscribe((success) => {
+                    this.onClinicUpdate(success);
                 });
             }
         });
@@ -69,13 +76,14 @@ export class UpdateClinicMenuComponent {
         this.dialog.open(ConfirmDeletionComponent).afterClosed().subscribe((confirmed) => {
             if (confirmed === true) {
                 this.clinicService.deleteClinic(clinic.id).take(1).subscribe((success) => {
-                    this.changesAlert(success);
+                    this.onClinicUpdate(success);
                 });
             }
         });
     }
 
-    private changesAlert(success: boolean) {
+    private onClinicUpdate(success: boolean) {
+        //If the update was a success, get the latest clinic data from the backend 
         if (!success) {
             this.snackBar.open('Failed to save changes.', 'Dismiss');
         }

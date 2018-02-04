@@ -1,5 +1,5 @@
 //Ng CORE
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 //Ng MATERIAL
@@ -8,6 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 //COMPONENTS AND DIRECTIVES
 import { ClinicMapComponent } from '../clinic-map/clinic-map.component';
@@ -25,7 +26,7 @@ import { Coords } from '../../app-api/coords';
     templateUrl: './clinic-list.component.html',
     styleUrls: ['./clinic-list.component.css']
 })
-export class ClinicListComponent implements OnInit {
+export class ClinicListComponent implements OnInit, OnDestroy {
     clinics: Clinic[];
     mapCenter: Coords = { lat: 43.5, lng: -70.4 }
 
@@ -34,14 +35,23 @@ export class ClinicListComponent implements OnInit {
     pageStart: number = 0;
     pageEnd: number = this.resultsPerPage;
 
+    //Used to manage the api subscription lifetime (see ngOnInit and ngOnDestroy)
+    private clinicsSubscription: Subscription;
+
     constructor(private clinicService: ClinicService, private router: Router, private snackbar: MatSnackBar) {}
 
     ngOnInit() {
-        this.clinicService.getClinics().take(1).subscribe((clinics) => {
+        //Subscribe to the clinic service. Alert the user if the api can't be reached.
+        this.clinicsSubscription = this.clinicService.clinicsObservable.subscribe((clinics) => {
             this.clinics = clinics;
         }, (error) => {
             this.snackbar.open('Could not load clinic data.', 'Dismiss');
         });
+    }
+
+    ngOnDestroy() {
+        //Mitigate memory leaks by unsubscribing
+        this.clinicsSubscription.unsubscribe();
     }
 
     //Update list in response to Paginator events
@@ -50,6 +60,7 @@ export class ClinicListComponent implements OnInit {
         this.pageEnd = this.pageStart + this.resultsPerPage;
     }
 
+    //Callback used by the template for marker clicks
     private onClinicClick(clinic: Clinic) {
         this.router.navigateByUrl(`clinics/${clinic.id.toString()}`);
     }
