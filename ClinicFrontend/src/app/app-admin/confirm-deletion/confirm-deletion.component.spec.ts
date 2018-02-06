@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialogRef } from '@angular/material';
 import { ConfirmDeletionComponent } from './confirm-deletion.component';
+
+class MockMatDialogRef {
+    open = () => {}
+    close = () => {}
+}
 
 describe('ConfirmDeletionComponent', () => {
   let component: ConfirmDeletionComponent;
@@ -8,7 +13,10 @@ describe('ConfirmDeletionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfirmDeletionComponent ]
+      declarations: [ ConfirmDeletionComponent ],
+      providers: [
+          { provide: MatDialogRef, useClass: MockMatDialogRef }
+      ]
     })
     .compileComponents();
   }));

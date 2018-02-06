@@ -1,6 +1,23 @@
+import { AgmCoreModule } from '@agm/core';
+import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClinicMapComponent } from './clinic-map.component';
+
+import { Clinic } from '../../app-api/clinic';
+import { DebugElement } from '@angular/core/src/debug/debug_node';
+
+import { By } from '@angular/platform-browser';
+import { UserLocationService } from '../user-location.service';
+import { Observable } from 'rxjs/Observable';
+
+let ActivatedRoute: any;
+
+class MockUserLocation {
+    getUserLocation() {
+        return Observable.of({ lat: 0, lng: 0 });
+    }
+}
 
 describe('ClinicMapComponent', () => {
   let component: ClinicMapComponent;
@@ -8,7 +25,15 @@ describe('ClinicMapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClinicMapComponent ]
+        imports: [ AgmCoreModule.forRoot({
+            //Enter your own Google maps API key here. Key restrictions can be set from the Google API console.
+            apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
+          }),
+          RouterTestingModule.withRoutes([]) ],
+        declarations: [ ClinicMapComponent ],
+        providers: [ 
+            { provide: UserLocationService, useClass: MockUserLocation }
+        ]
     })
     .compileComponents();
   }));
@@ -21,5 +46,9 @@ describe('ClinicMapComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('clicking a clinic marker should emit a clinic', async() => {
+    expect(false).toBe(true);
   });
 });

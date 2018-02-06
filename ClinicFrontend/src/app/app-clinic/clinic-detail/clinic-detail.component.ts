@@ -27,15 +27,13 @@ import { Coords } from '../../app-api/coords';
 export class ClinicDetailComponent implements OnInit {
 	clinic: Clinic;
     
-	constructor(private activatedRoute: ActivatedRoute, private clinicService: ClinicService, private snackbar: MatSnackBar) {}
+	constructor(private activatedRoute: ActivatedRoute, private clinicService: ClinicService) {}
 
 	ngOnInit() {
 		//Chain the route and clinic service observables to get the correct clinic
 		this.activatedRoute.params.mergeMap((params) => {
 			return this.clinicService.getClinicById(+params['clinic-id']);
-		}).take(1).subscribe((clinic) => this.clinic = clinic, (error) => {
-			this.snackbar.open('Could not load clinic data', 'Dismiss');
-		});
+		}).take(1).subscribe((clinic) => this.clinic = clinic);
 	}
 	
 	//Open the directions in google maps via simple window navigation
