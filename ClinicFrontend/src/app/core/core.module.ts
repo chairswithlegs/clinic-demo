@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AboutComponent } from './about/about.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ConnectionAlertDirective } from './connection-alert.directive';
+
 
 @NgModule({
   imports: [
@@ -17,14 +17,12 @@ import { ConnectionAlertDirective } from './connection-alert.directive';
   declarations: [
     AboutComponent,
     WelcomeComponent,
-    PageNotFoundComponent,
-    ConnectionAlertDirective
+    PageNotFoundComponent
   ],
   exports: [
     AboutComponent,
     WelcomeComponent,
-    PageNotFoundComponent,
-    ConnectionAlertDirective
+    PageNotFoundComponent
   ]
 })
 export class CoreModule { }
