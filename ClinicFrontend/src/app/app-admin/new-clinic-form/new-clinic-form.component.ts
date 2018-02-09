@@ -71,7 +71,7 @@ export class NewClinicFormComponent implements OnInit {
                     this.resetForm(form);
                 } else {
                     //Send there is an issue handling the form on the backend
-                    this.snackbar.open('An error was encountered. Clinic could not be added.', 'Dismiss')
+                    this.snackbar.open('An error was encountered. Clinic could not be added.', 'Dismiss');
                 }
             });   
         }

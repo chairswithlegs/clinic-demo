@@ -1,6 +1,5 @@
 //Ng CORE
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http'
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +15,7 @@ export class UserLocationService {
     //Cache the user location
     private userLocation: Coords;
 
-    constructor(private http: Http) {}
+    constructor() {}
 
     //Returns the user's location as an observable
     getUserLocation(): Observable<Coords> {

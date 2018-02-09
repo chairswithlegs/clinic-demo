@@ -47,8 +47,4 @@ describe('ClinicMapComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('clicking a clinic marker should emit a clinic', async() => {
-    expect(false).toBe(true);
-  });
 });

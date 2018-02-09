@@ -1,6 +1,6 @@
 //Ng CORE
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
@@ -22,7 +22,7 @@ export class ClinicLocationService {
 	connectionAlertObservable: Observable<any>;
 	private connectionAlertSubject: Subject<any>;
 	
-	constructor(private http: Http) {
+	constructor(private http: HttpClient) {
         //Initialize connection alert
         this.connectionAlertSubject = new Subject();
         this.connectionAlertObservable = this.connectionAlertSubject.asObservable();
@@ -32,7 +32,6 @@ export class ClinicLocationService {
 		return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(address)}&key=${googleApiKey}`)
 		.timeout(2000)
 		.map((response) => {
-			response = response.json();
 			return response['results'][0]['geometry']['location'];
 		})
 		.catch((error) => {

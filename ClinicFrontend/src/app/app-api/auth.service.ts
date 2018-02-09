@@ -18,7 +18,7 @@ import { backendApiUrl } from './config';
 
 @Injectable()
 export class AuthService {
-	timeout: number = 2000;
+	timeout: number = 6000;
 	
 	//Broadcasts connection alerts
 	connectionAlertObservable: Observable<any>;
@@ -30,22 +30,22 @@ export class AuthService {
     
     //Cache the validation state of the JWT
     private initialStateLoaded: boolean = false;
-
+    
 	constructor(private http: HttpClient) {
 		//Initialize connection alert
 		this.connectionAlertSubject = new Subject();
 		this.connectionAlertObservable = this.connectionAlertSubject.asObservable();
         
-    
 		//Set the initial Behaviour Subject state - this won't be exposed until authObservable is set (see below)
         //Note: this is important since this initial value may not be accurate
-        this.authSubject = new BehaviorSubject(AuthState.LoggedOut);
+        this.authSubject = new BehaviorSubject(null);
         
-        //Wait to bind authObservable to its just until after the initial state has been determined by JWT validation
-        //Note: switchMap changes what authObservable sucbscribes to (i.e. first the observable returned by GetInitialState(), then switches to authSubject)
-        this.authObservable = this.GetInitialState().switchMap((authState) => {
+        //Wait to bind authObservable to authSubject until after the initial state has been determined by JWT validation
+        //The initial state will be determined upon first subscription, subsequent subscriptions will get the subject state
+        this.authObservable = this.GetInitialState().map((authState) => {
             this.authSubject.next(authState);
-            return this.authSubject;
+            this.authObservable = this.authSubject.asObservable();
+            return authState;
         });
 	}
 	
@@ -53,7 +53,6 @@ export class AuthService {
 	login(email: string, password: string): Observable<AuthState> {
 		return this.http.post(`${backendApiUrl}/authentication/login`, { email: email, password: password })
 		.timeout(this.timeout)
-		.take(1)
 		.map((response) => {
 			//Update the JWT
 			localStorage.setItem('token', response['token']);
@@ -77,7 +76,7 @@ export class AuthService {
 			} else {
 				this.authSubject.next(AuthState.LoggedOut)
 			}
-
+            
 			//Return the auth observable
 			return this.authObservable;
 		});
@@ -98,12 +97,12 @@ export class AuthService {
 	private validateToken(clearInvalidToken: boolean): Observable<boolean> {
 		//If a token is stored, verify its integrity
 		if (localStorage.getItem('token') != null) {
-
+            
 			//Get the JWT. This will be sent along side the request.
 			let headers: HttpHeaders = new HttpHeaders({
 				'Authorization': `Bearer ${this.getToken()}`
 			});
-
+            
 			//Send the request, along with the token, to the backend
 			return this.http.get(`${backendApiUrl}/authentication/check-token`, { headers: headers })
 			.timeout(this.timeout)
@@ -111,7 +110,6 @@ export class AuthService {
 			.map(() => true)
 			//...but if an error is thrown (bad status code or timeout), set to false
 			.catch((error) => {
-                console.log(error);
                 //If we get a 401 (i.e. unauthorized) response, we know the token is invalid
                 if (error.status == 401 && clearInvalidToken == true) {
                     this.clearToken();
@@ -124,7 +122,7 @@ export class AuthService {
 			return Observable.of(false);
 		}
 	}
-
+    
 	//Clear the JWT from storage
 	private clearToken() {
 		localStorage.removeItem('token');
@@ -132,19 +130,14 @@ export class AuthService {
     
     //Loads the initial auth state
     private GetInitialState(): Observable<AuthState> {
-        if (localStorage.getItem('token') == null) {
-            return Observable.of(AuthState.LoggedOut);
-        }
-        else {
-            return this.validateToken(true).take(1).map((valid) => {
-                //Set the auth state based on the stored JWT validity
-                if (valid) {
-                    return AuthState.Admin;
-                } else {
-                    //The user will be set to logged out if the token is invalid
-                    return AuthState.LoggedOut;
-                }
-            }).take(1);
-        }
+        return this.validateToken(true).map((valid) => {
+            //Set the auth state based on the stored JWT validity
+            if (valid) {
+                return AuthState.Admin;
+            } else {
+                //The user will be set to logged out if the token is invalid
+                return AuthState.LoggedOut;
+            }
+        });
     }
 }

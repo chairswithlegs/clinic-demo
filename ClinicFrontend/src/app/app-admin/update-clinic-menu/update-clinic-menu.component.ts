@@ -28,7 +28,7 @@ import { Clinic } from '../../app-api/clinic';
 export class UpdateClinicMenuComponent {
     clinics: Observable<Clinic[]>;
     
-    constructor(private authService: AuthService, private clinicService: ClinicService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+    constructor(private clinicService: ClinicService, private dialog: MatDialog, private snackBar: MatSnackBar) {
         this.clinics = clinicService.clinicsObservable;
     }
     

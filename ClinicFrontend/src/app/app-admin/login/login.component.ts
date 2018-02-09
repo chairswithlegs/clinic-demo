@@ -32,8 +32,6 @@ export class LoginComponent {
 		if (form.valid) {
 			//Query the api
 			this.authService.login(form.value.username, form.value.password).take(1).subscribe((success) => {
-				console.log(success);
-				
 				if (success == AuthState.Admin) {
 					//Navigate to the dashboard if the login was a success
 					this.router.navigateByUrl('admin-dashboard');
