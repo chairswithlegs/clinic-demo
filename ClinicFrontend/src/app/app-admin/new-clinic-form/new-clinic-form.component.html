@@ -29,8 +29,8 @@
     </mat-error>
 
     <div class="button-container">
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-        <button mat-raised-button color="accent" type="reset" (click)="resetForm(newClinicForm)">Clear</button>
+        <button mat-raised-button color="primary" id="submit" type="submit">Submit</button>
+        <button mat-raised-button color="accent" id="reset" type="reset" (click)="resetForm(newClinicForm)">Clear</button>
         <span *ngIf="formSubmitted">Clinic successfully added</span>
     </div>
 </form> 

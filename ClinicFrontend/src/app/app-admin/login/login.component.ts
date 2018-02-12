@@ -22,7 +22,7 @@ export class LoginComponent {
 	
 	constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
 		this.form = formBuilder.group({
-			username: ['', Validators.required],
+			email: ['', Validators.required],
 			password: ['', Validators.required]
 		});
 	} 
@@ -31,13 +31,13 @@ export class LoginComponent {
 		//Ensure page is valid before sending request
 		if (form.valid) {
 			//Query the api
-			this.authService.login(form.value.username, form.value.password).take(1).subscribe((success) => {
+			this.authService.login(form.value.email, form.value.password).take(1).subscribe((success) => {
 				if (success == AuthState.Admin) {
 					//Navigate to the dashboard if the login was a success
 					this.router.navigateByUrl('admin-dashboard');
 				} else {
 					//Show an alert if the login fails
-					this.snackBar.open('Invalid username or password.', 'Dismiss');
+					this.snackBar.open('Invalid email or password.', 'Dismiss');
 				}
 			});
 		}
