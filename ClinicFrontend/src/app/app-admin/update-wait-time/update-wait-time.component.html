@@ -1,10 +1,10 @@
 <div class="mat-typography container">
     <h3>New Wait Time:</h3>
     Hours: {{ hours.value }}
-    <mat-slider #hours min="0" max="23"></mat-slider>
+    <mat-slider id="hours" #hours min="0" max="23"></mat-slider>
     Minutes: {{ minutes.value }}
-    <mat-slider #minutes min="0" max="59"></mat-slider>
+    <mat-slider id="minutes" #minutes min="0" max="59"></mat-slider>
     
-    <button mat-raised-button color="primary" (click)="save((hours.value * 3.6e6) + (minutes.value * 6e4))">Save</button>
-    <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" id="save" (click)="save((hours.value * 3.6e6) + (minutes.value * 6e4))">Save</button>
+    <button mat-raised-button color="accent" id="cancel" (click)="cancel()">Cancel</button>
 </div>
