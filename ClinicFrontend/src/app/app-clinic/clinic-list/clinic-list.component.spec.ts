@@ -17,7 +17,14 @@ class MockPipe implements PipeTransform {
 }
 
 class MockClinicService {
-    clinicsObservable: Observable<Clinic[]> = Observable.of([new Clinic()]);
+    clinicsObservable: Observable<Clinic[]>;
+
+    constructor() {
+        let clinic = new Clinic();
+        clinic.id = 1;
+
+        this.clinicsObservable = Observable.of([clinic]);
+    }
 }
 
 describe('ClinicListComponent', () => {
@@ -49,5 +56,9 @@ describe('ClinicListComponent', () => {
     
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should load a list of clinics', async() => {
+        expect(component.clinics[0].id).toBe(1);
     });
 });

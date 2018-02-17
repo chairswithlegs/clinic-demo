@@ -14,37 +14,57 @@ import { Observable } from 'rxjs/Observable';
 let ActivatedRoute: any;
 
 class MockUserLocation {
-    getUserLocation() {
-        return Observable.of({ lat: 0, lng: 0 });
-    }
+	getUserLocation() {
+		return Observable.of({ lat: 0, lng: 0 });
+	}
 }
 
 describe('ClinicMapComponent', () => {
-  let component: ClinicMapComponent;
-  let fixture: ComponentFixture<ClinicMapComponent>;
+	let component: ClinicMapComponent;
+	let fixture: ComponentFixture<ClinicMapComponent>;
+	
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [
+				AgmCoreModule.forRoot({}),
+				RouterTestingModule.withRoutes([])
+			],
+			declarations: [
+				ClinicMapComponent
+			],
+			providers: [ 
+				{ provide: UserLocationService, useClass: MockUserLocation }
+			]
+		})
+		.compileComponents();
+	}));
+	
+	beforeEach(() => {
+		fixture = TestBed.createComponent(ClinicMapComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
+	
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-        imports: [ AgmCoreModule.forRoot({
-            //Enter your own Google maps API key here. Key restrictions can be set from the Google API console.
-            apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
-          }),
-          RouterTestingModule.withRoutes([]) ],
-        declarations: [ ClinicMapComponent ],
-        providers: [ 
-            { provide: UserLocationService, useClass: MockUserLocation }
-        ]
-    })
-    .compileComponents();
-  }));
+	it('should emit a clinic when a marker is clicked', async() => {
+		let clinic = new Clinic();
+		clinic.id = 1;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ClinicMapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		//Fill the component with a mock clinic
+		component.clinics = [clinic];
+		
+		fixture.detectChanges();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+		//Subscribe to the click event
+		component.clinicClick.take(1).subscribe((clinic) => {
+			expect(clinic.id).toBe(1);
+		});
+
+		//Mock clicking the clinic
+		let clinicMarker = fixture.debugElement.query(By.css('agm-marker'));
+		clinicMarker.triggerEventHandler('markerClick', null);
+	});
 });

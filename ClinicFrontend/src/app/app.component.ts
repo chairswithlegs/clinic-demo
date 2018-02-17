@@ -22,7 +22,7 @@ import { AuthState } from './app-api/auth-state';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
     //Expose the AuthState enum to the template
     private loggedOut: AuthState = AuthState.LoggedOut;
     private admin: AuthState = AuthState.Admin;
@@ -39,6 +39,6 @@ export class AppComponent {
 	}
     
 	ngOnDestroy() {
-		this.alertSubscription.unsubscribe();
+        this.alertSubscription.unsubscribe();
 	}
 }

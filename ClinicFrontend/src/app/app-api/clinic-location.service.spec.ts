@@ -2,23 +2,23 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { ClinicLocationService } from './clinic-location.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import { googleApiKey } from './config';
 
-//response['results'][0]['geometry']['location']
 class MockHttpClient {
     get(address) {
-        if (address == 'valid address') {
+        if (address == `https://maps.googleapis.com/maps/api/geocode/json?address=valid&key=${googleApiKey}`) {
             return Observable.of({
-                result: [{
-                    geometry: {
-                        location: {
-                            lat: 1,
-                            lng: 1
+                results: [
+                    {
+                        geometry: {
+                            location: {}
                         }
                     }
-                }]
+                ]
             });
         } else {
-            return Observable.throw('error');
+            return Observable.of(null);
         }
     }
 }
@@ -40,15 +40,13 @@ describe('ClinicLocationService', () => {
     
     it('should get the clinic location', inject([ClinicLocationService], async(service: ClinicLocationService) => {
         //Test a valid address
-        service.getClinicLocation('valid address').take(1).subscribe((coords) => {
-            expect(coords.lat).toBe(1);
-            expect(coords.lng).toBe(1);
+        service.getClinicLocation('valid').take(1).subscribe((coords) => {
+            expect(coords).not.toBeNull();
         });
 
         //Test an invalid address
-        service.getClinicLocation('invalid address').take(1).subscribe((coords) => {
+        service.getClinicLocation('invalid').take(1).subscribe((coords) => {
             expect(coords).toBe(null);
         });
-
     }));
 });

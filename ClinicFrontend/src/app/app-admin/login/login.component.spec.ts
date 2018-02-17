@@ -12,8 +12,11 @@ import { DebugElement } from '@angular/core/src/debug/debug_node';
 import { By } from '@angular/platform-browser';
 
 class MockAuthService {
+    loginSuccess: boolean = false;
+
     login(email: string, password: string): Observable<AuthState> {
         if (email == 'test@test.com' && password == 'test') {
+            this.loginSuccess = true;
             return Observable.of(AuthState.Admin);
         } else {
             return Observable.of(AuthState.LoggedOut);
@@ -28,7 +31,6 @@ class MockMatSnackBar {
 describe('LoginComponent', () => {
     let component: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
-    let formEl: DebugElement;
     let authService: MockAuthService;
     let snackBar: MockMatSnackBar;
     let router: Router;
@@ -55,8 +57,6 @@ describe('LoginComponent', () => {
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        
-        formEl = fixture.debugElement.query(By.css('form'));
         authService = TestBed.get(AuthService);
         snackBar = TestBed.get(MatSnackBar);
         router = TestBed.get(Router);
@@ -66,47 +66,35 @@ describe('LoginComponent', () => {
         expect(component).toBeTruthy();
     });
     
-    it('should send email and password to authService.login()', () => {
-        //Monitor the login on authService
-        let spy = spyOn(authService, 'login');
+    it('should send email and password to authService', () => {
+        //Monitor the page navigation
+        let spy = spyOn(router, 'navigateByUrl');
         
-        //Simulate clicking the form submission
-        formEl.triggerEventHandler('ngSubmit', null);
+        //Submit the form
+        component.onSubmit(component.form);
         
         //Don't expect login to be called since fields should fail validation
-        expect(spy).not.toHaveBeenCalled();
+        expect(authService.loginSuccess).toBe(false);
         
         //Set the form values
         component.form.controls.email.setValue('test@test.com');
         component.form.controls.password.setValue('test');
         fixture.detectChanges();
         
-        //Simulate clicking the form submission
-        formEl.triggerEventHandler('ngSubmit', null);
+        //Submit the form
+        component.onSubmit(component.form);
         
         //Expect log to be called since fields are filled
-        expect(spy).toHaveBeenCalledWith('test@test.com', 'test');
+        expect(authService.loginSuccess).toBe(true);
+
+        //Expect page navigation since login is valid
+        expect(spy).toHaveBeenCalled();
     });
     
     it('should alert user if the email or password are invalid', async() => {
         //Monitor the mock snackbar
         let spy = spyOn(snackBar, 'open');
-        
-        //First, try supplying the correct credentials
-        //Set the form values
-        component.form.controls.email.setValue('test@test.com');
-        component.form.controls.password.setValue('test');
 
-        //Submit the form
-        component.onSubmit(component.form);
-
-        //Let the async login behavior complete
-        fixture.whenStable();
-
-        //Since the login credentials are valid, the snackbar should not have been called
-        expect(spy).not.toHaveBeenCalled();
-
-        //Now try using invalid credentials
         //Set the form values
         component.form.controls.email.setValue('test@test.com');
         component.form.controls.password.setValue('INVALID');

@@ -61,7 +61,7 @@ export class UpdateClinicMenuComponent {
     
     updateWaitTime(clinic: Clinic) {
         this.dialog.open(UpdateWaitTimeComponent).afterClosed().subscribe((waitTime) => {
-            if (!isNaN(waitTime)) {
+            if (!isNaN(waitTime) && waitTime != null) {
                 clinic.waitTime = waitTime;
 
                 this.clinicService.updateClinic(clinic).take(1).subscribe((success) => {

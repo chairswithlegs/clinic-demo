@@ -18,7 +18,7 @@ import { AuthState } from '../../app-api/auth-state';
 	styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-	public form: FormGroup; // our model driven form
+	public form: FormGroup;
 	
 	constructor(private formBuilder: FormBuilder, private authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
 		this.form = formBuilder.group({

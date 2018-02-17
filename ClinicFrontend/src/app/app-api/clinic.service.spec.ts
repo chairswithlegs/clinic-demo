@@ -18,10 +18,24 @@ class MockHttpClient {
             return Observable.of([clinic]);
         }
     }
+
+    put(url, clinic, header) {
+        return Observable.of(true);
+    }
+
+    delete(id) {
+        return Observable.of(true);
+    }
+
+    post(url, clinic, header) {
+        return Observable.of(null);
+    }
 }
 
 class MockAuthService {
-    
+    getToken() {
+        return '1234';
+    }
 }
 
 describe('ClinicService', () => {
@@ -46,6 +60,37 @@ describe('ClinicService', () => {
     }));
 
     it('should put the updated clinic', inject([ClinicService], async(service: ClinicService) => {
+        //Create the mock clinic to be updated
+        let clinic = new Clinic();
+        clinic.id = 1;
 
+        //Attempt to update the clinic
+        service.updateClinic(clinic).take(1).subscribe((success) => {
+            expect(success).toBe(true);
+
+            //Verify that the clinic observable was also updated
+            service.clinicsObservable.take(1).subscribe((clinics) => {
+                expect(clinics[0].id).toBe(1);
+            });
+        });
+    }));
+
+    it('should delete the clinic', inject([ClinicService], async(service: ClinicService) => {
+        //Try deleting a valid clinic...
+        service.deleteClinic(1).take(1).subscribe((success) => {
+            expect(success).toBe(true);
+        });
+    }));
+
+    it('should create a clinic', inject([ClinicService], async(service: ClinicService) => {
+        //Try creating a clinic
+        service.createClinic(new Clinic()).take(1).subscribe((success) => {
+            expect(success).toBe(true);
+
+            //Verify that the clinic observable is updated
+            service.clinicsObservable.take(1).subscribe((clinics) => {
+                expect(clinics[0].id == 1);
+            });
+        });
     }));
 });

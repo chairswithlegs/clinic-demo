@@ -2,14 +2,19 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { AuthState } from '../app-api/auth-state';
+import { Observable } from 'rxjs/Observable';
 
 class MockHttpClient {
     post(url, body) {
         if (body.email == 'valid@valid.com' && body.password == 'valid') {
-            return { token: '1234' }
+            return Observable.of({ 'token': '1234' });
         } else {
-            return null;
+            return Observable.of(null);
         }
+    }
+
+    get() {
+        return Observable.of(true);
     }
 }
 
@@ -34,21 +39,11 @@ describe('AuthService', () => {
         });
 
         //Test login with invalid credentials
-        service.login('invalid@invalid.com', 'invalid').take(1).subscribe((authState) => {
-            expect(authState).toBe(AuthState.LoggedOut);
-        });
-    }));
-
-    it('should log the user out', inject([AuthService], async(service: AuthService) => {
-        //First, log the user in
-        service.login('valid@valid.com', 'valid').take(1).subscribe((authState) => {
-            expect(authState).toBe(AuthState.Admin);
-
-            ///Then, log them out
-            service.logout();
+        service.login('invalid@invalid.com', 'invalid').take(1).catch(() => {
             service.authObservable.take(1).subscribe((authState) => {
                 expect(authState).toBe(AuthState.LoggedOut);
             });
+            return Observable.of(null);
         });
     }));
 });

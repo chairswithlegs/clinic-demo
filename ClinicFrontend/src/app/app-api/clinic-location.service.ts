@@ -36,7 +36,7 @@ export class ClinicLocationService {
 		})
 		.catch((error) => {
 			this.connectionAlertSubject.next(error)
-			return null;
+			return Observable.of(null);
 		});
 	}
 }

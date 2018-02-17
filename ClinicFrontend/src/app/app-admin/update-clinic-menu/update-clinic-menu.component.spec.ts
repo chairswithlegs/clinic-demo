@@ -5,6 +5,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppMaterialModule } from '../../app-material/app-material.module';
 import { Observable } from 'rxjs/Observable';
+import { Clinic } from '../../app-api/clinic';
 
 class MockClinicService {
     deleteClinic() {
@@ -14,10 +15,13 @@ class MockClinicService {
 
 class MockMatDialog {
     returnValue: any = null;
-    
+    called: number = 0;
     open() {
         return {
-            afterClosed: () => Observable.of(this.returnValue)
+            afterClosed: () => {
+                this.called++;
+                return Observable.of(this.returnValue)
+            }
         }
     }
 }
@@ -59,8 +63,6 @@ describe('UpdateClinicMenuComponent', () => {
     });
 
     it('should open a dialog when updating clinic information', async() => {
-        let spy = spyOn(dialog, 'open');
-
         component.confirmDeletion(null);
         component.updateClinicProfile(null);
         component.updateLocation(null);
@@ -68,7 +70,7 @@ describe('UpdateClinicMenuComponent', () => {
 
         fixture.whenStable();
 
-        expect(spy).toHaveBeenCalledTimes(4);
+        expect(dialog.called).toBe(4);
     });
 
     it('should alert user if update failed', async() => {
@@ -87,7 +89,7 @@ describe('UpdateClinicMenuComponent', () => {
         //Now try confirming the deletion
         dialog.returnValue = true;
 
-        component.confirmDeletion(null);
+        component.confirmDeletion(new Clinic());
         fixture.whenStable();
 
         //Verify that the snackbar was called

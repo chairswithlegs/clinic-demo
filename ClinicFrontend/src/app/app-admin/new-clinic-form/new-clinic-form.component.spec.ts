@@ -18,8 +18,11 @@ class MockAddressValidator {
 }
 
 class MockClinicService {
+    clinicCreated: boolean = false;
+
     createClinic(clinic): Observable<boolean> {
-        if (clinic.name == 'valid clinic'){
+        if (clinic.name == 'valid clinic') {
+            this.clinicCreated = true;
             return Observable.of(true);
         } else {
             return Observable.of(false);
@@ -115,8 +118,9 @@ describe('NewClinicFormComponent', () => {
     });
 
     it('should send form data to the clinic service for clinic creation', () => {
-        let spy = spyOn(clinicService, 'createClinic');
-
+        //Sanity check
+        expect(clinicService.clinicCreated).toBe(false);
+        
         //Set the form values
         let controls = component.newClinicForm.controls;
         controls.name.setValue('valid clinic');
@@ -136,7 +140,7 @@ describe('NewClinicFormComponent', () => {
         expect(component.newClinicForm.valid).toBe(true);
 
         //Verify the service method was called
-        expect(spy).toHaveBeenCalled();
+        expect(clinicService.clinicCreated).toBe(true);
     });
 
     it('should alert the user with a snackbar if the clinic can not be created', () => {
