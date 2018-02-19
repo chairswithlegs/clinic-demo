@@ -32,7 +32,7 @@ export class LoginComponent {
 		if (form.valid) {
 			//Query the api
 			this.authService.login(form.value.email, form.value.password).take(1).subscribe((success) => {
-				if (success == AuthState.Admin) {
+				if (success === AuthState.Admin) {
 					//Navigate to the dashboard if the login was a success
 					this.router.navigateByUrl('admin-dashboard');
 				} else {

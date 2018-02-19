@@ -18,7 +18,7 @@ import { backendApiUrl } from './config';
 
 @Injectable()
 export class AuthService {
-	timeout: number = 6000;
+	timeout = 6000;
 	
 	//Broadcasts connection alerts
 	connectionAlertObservable: Observable<any>;
@@ -56,12 +56,11 @@ export class AuthService {
 			return true;
 		})
 		.catch((error) => {
-			//If we get a 400 error status, the login was simply wrong - return false
 			if (error.status === 400) {
+				//If we get a 400 error status, the login was simply wrong - return false
 				return Observable.of(false);
-			} 
-			//Otherwise, propagate the error for additional (optional) handling
-			else {
+			} else {
+				//Otherwise, propagate the error for additional (optional) handling
 				this.connectionAlertSubject.next(error);
 				throw error;
 			}
@@ -94,7 +93,7 @@ export class AuthService {
 		if (localStorage.getItem('token') != null) {
 			
 			//Get the JWT. This will be sent along side the request.
-			let headers: HttpHeaders = new HttpHeaders({
+			const headers: HttpHeaders = new HttpHeaders({
 				'Authorization': `Bearer ${this.getToken()}`
 			});
 			
@@ -106,14 +105,13 @@ export class AuthService {
 			//...but if an error is thrown (bad status code or timeout), set to false
 			.catch((error) => {
 				//If we get a 401 (i.e. unauthorized) response, we know the token is invalid
-				if (error.status == 401 && clearInvalidToken == true) {
+				if (error.status === 401 && clearInvalidToken === true) {
 					this.clearToken();
 				}
-				return Observable.of(false)
+				return Observable.of(false);
 			});
-		}
-		//If we don't have a token, return false
-		else {
+		} else {
+			//If we don't have a token, return false
 			return Observable.of(false);
 		}
 	}

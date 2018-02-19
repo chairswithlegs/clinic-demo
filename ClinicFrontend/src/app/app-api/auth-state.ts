@@ -1,4 +1,4 @@
 export enum AuthState {
-    LoggedOut,
-    Admin
+	LoggedOut,
+	Admin
 }

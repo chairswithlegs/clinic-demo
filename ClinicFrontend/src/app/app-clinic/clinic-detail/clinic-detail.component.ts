@@ -26,9 +26,9 @@ import { Coords } from '../../app-api/coords';
 })
 export class ClinicDetailComponent implements OnInit {
 	clinic: Clinic;
-    
+	
 	constructor(private activatedRoute: ActivatedRoute, private clinicService: ClinicService) {}
-
+	
 	ngOnInit() {
 		//Chain the route and clinic service observables to get the correct clinic
 		this.activatedRoute.params.mergeMap((params) => {

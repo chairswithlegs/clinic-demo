@@ -11,54 +11,54 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({name: 'millisecondsToReadable'})
 class MockPipe implements PipeTransform {
-    transform(milliseconds: number, smallestUnit: number, largestUnit: number): string {
-        return '';
-    }
+	transform(milliseconds: number, smallestUnit: number, largestUnit: number): string {
+		return '';
+	}
 }
 
 class MockClinicService {
-    clinicsObservable: Observable<Clinic[]>;
-
-    constructor() {
-        let clinic = new Clinic();
-        clinic.id = 1;
-
-        this.clinicsObservable = Observable.of([clinic]);
-    }
+	clinicsObservable: Observable<Clinic[]>;
+	
+	constructor() {
+		const clinic = new Clinic();
+		clinic.id = 1;
+		
+		this.clinicsObservable = Observable.of([clinic]);
+	}
 }
 
 describe('ClinicListComponent', () => {
-    let component: ClinicListComponent;
-    let fixture: ComponentFixture<ClinicListComponent>;
-    
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule.withRoutes([])
-            ],
-            providers: [ 
-                { provide: ClinicService, useClass: MockClinicService }
-            ],
-            declarations: [
-                ClinicListComponent,
-                MockPipe
-            ],
-            schemas: [NO_ERRORS_SCHEMA]
-        })
-        .compileComponents();
-    }));
-    
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ClinicListComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
-    
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    it('should load a list of clinics', async() => {
-        expect(component.clinics[0].id).toBe(1);
-    });
+	let component: ClinicListComponent;
+	let fixture: ComponentFixture<ClinicListComponent>;
+	
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [
+				RouterTestingModule.withRoutes([])
+			],
+			providers: [ 
+				{ provide: ClinicService, useClass: MockClinicService }
+			],
+			declarations: [
+				ClinicListComponent,
+				MockPipe
+			],
+			schemas: [NO_ERRORS_SCHEMA]
+		})
+		.compileComponents();
+	}));
+	
+	beforeEach(() => {
+		fixture = TestBed.createComponent(ClinicListComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
+	
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+	
+	it('should load a list of clinics', async() => {
+		expect(component.clinics[0].id).toBe(1);
+	});
 });

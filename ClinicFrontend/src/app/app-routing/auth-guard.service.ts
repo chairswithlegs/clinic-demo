@@ -21,19 +21,19 @@ export class AuthGuardService implements CanActivate {
 	
 	canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
 		return this.authService.authObservable.map((authState) => {
-            //Ensure expected AuthState is known
-            if (route.data.expectedAuthState == undefined) {
-                console.error('Expected AuthState must be set in Route data for AuthGuardService to work.');
-                this.router.navigateByUrl('welcome');
-                return false;
-            } else if (route.data.expectedAuthState == authState) {
-                //If correct state is supplied, allow the route change
-                return true;
-            } else {
-                //If the wrong state is supplied, redirect to welcome page
-                this.router.navigateByUrl('welcome');
-                return false;
-            }
-        });
+			//Ensure expected AuthState is known
+			if (route.data.expectedAuthState === undefined) {
+				console.error('Expected AuthState must be set in Route data for AuthGuardService to work.');
+				this.router.navigateByUrl('welcome');
+				return false;
+			} else if (route.data.expectedAuthState === authState) {
+				//If correct state is supplied, allow the route change
+				return true;
+			} else {
+				//If the wrong state is supplied, redirect to welcome page
+				this.router.navigateByUrl('welcome');
+				return false;
+			}
+		});
 	}
 }

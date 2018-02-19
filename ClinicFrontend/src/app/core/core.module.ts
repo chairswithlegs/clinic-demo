@@ -11,18 +11,18 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [
-    AboutComponent,
-    WelcomeComponent,
-    PageNotFoundComponent
-  ],
-  exports: [
-    AboutComponent,
-    WelcomeComponent,
-    PageNotFoundComponent
-  ]
+	imports: [
+		CommonModule
+	],
+	declarations: [
+		AboutComponent,
+		WelcomeComponent,
+		PageNotFoundComponent
+	],
+	exports: [
+		AboutComponent,
+		WelcomeComponent,
+		PageNotFoundComponent
+	]
 })
 export class CoreModule { }

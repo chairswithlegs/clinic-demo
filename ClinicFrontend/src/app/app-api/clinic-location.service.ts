@@ -16,16 +16,16 @@ import { googleApiKey } from './config';
 
 @Injectable()
 export class ClinicLocationService {
-	timeout: number = 2000;
+	timeout = 2000;
 	
 	//Broadcasts connection alerts
 	connectionAlertObservable: Observable<any>;
 	private connectionAlertSubject: Subject<any>;
 	
 	constructor(private http: HttpClient) {
-        //Initialize connection alert
-        this.connectionAlertSubject = new Subject();
-        this.connectionAlertObservable = this.connectionAlertSubject.asObservable();
+		//Initialize connection alert
+		this.connectionAlertSubject = new Subject();
+		this.connectionAlertObservable = this.connectionAlertSubject.asObservable();
 	}
 	
 	getClinicLocation(address: string): Observable<Coords> {
@@ -35,7 +35,7 @@ export class ClinicLocationService {
 			return response['results'][0]['geometry']['location'];
 		})
 		.catch((error) => {
-			this.connectionAlertSubject.next(error)
+			this.connectionAlertSubject.next(error);
 			return Observable.of(null);
 		});
 	}

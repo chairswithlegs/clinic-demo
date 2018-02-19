@@ -1,4 +1,4 @@
 export class Coords {
-    lat: number;
-    lng: number;
+	lat: number;
+	lng: number;
 }

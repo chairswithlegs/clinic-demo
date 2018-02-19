@@ -13,69 +13,69 @@ import { By } from '@angular/platform-browser';
 
 @Pipe({name: 'millisecondsToReadable'})
 class MockPipe implements PipeTransform {
-    transform(milliseconds: number, smallestUnit: number, largestUnit: number): string {
-        return '';
-    }
+	transform(milliseconds: number, smallestUnit: number, largestUnit: number): string {
+		return '';
+	}
 }
 
 class MockClinicService {
-    clinicsObservable: Observable<Clinic[]> = new Observable<Clinic[]>();
-    
-    getClinicById (id) {
-        let clinic = new Clinic();
-        clinic.id = 1;
-        return Observable.of(clinic);
-    }
+	clinicsObservable: Observable<Clinic[]> = new Observable<Clinic[]>();
+	
+	getClinicById (id) {
+		const clinic = new Clinic();
+		clinic.id = 1;
+		return Observable.of(clinic);
+	}
 }
 
 class MockActivatedRoute {
-    params = Observable.of({ 'clinic-id': 1 })
+	params = Observable.of({ 'clinic-id': 1 });
 }
 
 describe('ClinicDetailComponent', () => {
-    let component: ClinicDetailComponent;
-    let fixture: ComponentFixture<ClinicDetailComponent>;
-    let directionsEl: DebugElement;
-    
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
-            declarations: [
-                ClinicDetailComponent, 
-                MockPipe 
-            ],
-            providers: [
-                { provide: ClinicService, useClass: MockClinicService },
-                { provide: ActivatedRoute, useClass: MockActivatedRoute }
-            ],
-            schemas: [ NO_ERRORS_SCHEMA ]
-        })
-        .compileComponents();
-    }));
-    
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ClinicDetailComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        directionsEl = fixture.debugElement.query(By.css('#directions'));
-    });
-    
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    it('should load the correct clinic based on the route', () => {
-        expect(component.clinic.id).toBe(1);
-    });
-
-    it('should get directions when the user clicks the directions button', () => {
-        let spy = spyOn(component, 'getDirections');
-
-        //Mock the user clicking the button
-        directionsEl.triggerEventHandler('click', null);
-
-        //Verify that the directions method was called
-        expect(spy).toHaveBeenCalled();
-    });
+	let component: ClinicDetailComponent;
+	let fixture: ComponentFixture<ClinicDetailComponent>;
+	let directionsEl: DebugElement;
+	
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [RouterTestingModule],
+			declarations: [
+				ClinicDetailComponent, 
+				MockPipe 
+			],
+			providers: [
+				{ provide: ClinicService, useClass: MockClinicService },
+				{ provide: ActivatedRoute, useClass: MockActivatedRoute }
+			],
+			schemas: [ NO_ERRORS_SCHEMA ]
+		})
+		.compileComponents();
+	}));
+	
+	beforeEach(() => {
+		fixture = TestBed.createComponent(ClinicDetailComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+		
+		directionsEl = fixture.debugElement.query(By.css('#directions'));
+	});
+	
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+	
+	it('should load the correct clinic based on the route', () => {
+		expect(component.clinic.id).toBe(1);
+	});
+	
+	it('should get directions when the user clicks the directions button', () => {
+		const spy = spyOn(component, 'getDirections');
+		
+		//Mock the user clicking the button
+		directionsEl.triggerEventHandler('click', null);
+		
+		//Verify that the directions method was called
+		expect(spy).toHaveBeenCalled();
+	});
 });

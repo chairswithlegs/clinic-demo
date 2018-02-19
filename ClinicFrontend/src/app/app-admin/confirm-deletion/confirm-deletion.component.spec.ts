@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core/src/debug/debug_node';
 import { By } from '@angular/platform-browser';
 
 class MockMatDialogRef {
-	close = () => {}
+	close () {}
 }
 
 describe('ConfirmDeletionComponent', () => {
@@ -41,13 +41,13 @@ describe('ConfirmDeletionComponent', () => {
 	});
 	
 	it('should click delete button and close a dialog with an argument value of true', () => {
-		let spy = spyOn(dialogRef, 'close');
+		const spy = spyOn(dialogRef, 'close');
 		deleteEl.triggerEventHandler('click', null);
 		expect(spy).toHaveBeenCalledWith(true);
 	});
 
 	it('should click cancel button and close a dialog', () => {
-		let spy = spyOn(dialogRef, 'close');
+		const spy = spyOn(dialogRef, 'close');
 		cancelEl.triggerEventHandler('click', null);
 		expect(spy).toHaveBeenCalled();
 	});

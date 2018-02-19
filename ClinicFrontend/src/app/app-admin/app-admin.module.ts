@@ -23,31 +23,31 @@ import { AddressValidator } from '../app-api/address-validator';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    ReactiveFormsModule,
-    AppMaterialModule,
-    TimeModule
-  ],
-  exports: [],
-  entryComponents: [
-    UpdateWaitTimeComponent,
-    UpdateClinicProfileComponent,
-    ConfirmDeletionComponent,
-    UpdateLocationComponent
-  ],
-  declarations: [
-    LoginComponent, 
-    UpdateWaitTimeComponent, 
-    DashboardComponent, 
-    ConfirmDeletionComponent, 
-    UpdateClinicMenuComponent, 
-    NewClinicFormComponent,
-    UpdateClinicProfileComponent,
-    UpdateLocationComponent
-  ],
-  providers: [AddressValidator]
+	imports: [
+		CommonModule,
+		FormsModule,
+		RouterModule,
+		ReactiveFormsModule,
+		AppMaterialModule,
+		TimeModule
+	],
+	exports: [],
+	entryComponents: [
+		UpdateWaitTimeComponent,
+		UpdateClinicProfileComponent,
+		ConfirmDeletionComponent,
+		UpdateLocationComponent
+	],
+	declarations: [
+		LoginComponent, 
+		UpdateWaitTimeComponent, 
+		DashboardComponent, 
+		ConfirmDeletionComponent, 
+		UpdateClinicMenuComponent, 
+		NewClinicFormComponent,
+		UpdateClinicProfileComponent,
+		UpdateLocationComponent
+	],
+	providers: [AddressValidator]
 })
 export class AppAdminModule { }

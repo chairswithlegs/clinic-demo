@@ -22,30 +22,30 @@ import { ClinicService } from '../app-api/clinic.service';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HttpModule,
-    AppMaterialModule,
-    RouterModule,
-    AgmCoreModule.forRoot({
-      //Enter your own Google maps API key here. Key restrictions can be set from the Google API console.
-      apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
-    }),
-    AppApiModule,
-    TimeModule,
-    FormsModule
-  ],
-  exports: [
-    ClinicListComponent,
-    ClinicDetailComponent
-  ],
-  providers: [
-    UserLocationService
-  ],
-  declarations: [
-    ClinicListComponent, 
-    ClinicDetailComponent, 
-    ClinicMapComponent
-  ]
+	imports: [
+		CommonModule,
+		HttpModule,
+		AppMaterialModule,
+		RouterModule,
+		AgmCoreModule.forRoot({
+			//Enter your own Google maps API key here. Key restrictions can be set from the Google API console.
+			apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
+		}),
+		AppApiModule,
+		TimeModule,
+		FormsModule
+	],
+	exports: [
+		ClinicListComponent,
+		ClinicDetailComponent
+	],
+	providers: [
+		UserLocationService
+	],
+	declarations: [
+		ClinicListComponent, 
+		ClinicDetailComponent, 
+		ClinicMapComponent
+	]
 })
 export class AppClinicModule { }

@@ -22,23 +22,23 @@ import { AuthService } from './app-api/auth.service';
 import { ClinicLocationService } from './app-api/clinic-location.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule,
-    AppAdminModule,
-    AppClinicModule,
-    AppRoutingModule,
-    AppMaterialModule,
-    CoreModule
-  ],
-  providers: [
-    ClinicService,
-    ClinicLocationService,
-    AuthService
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent
+	],
+	imports: [
+		BrowserModule,
+		RouterModule,
+		AppAdminModule,
+		AppClinicModule,
+		AppRoutingModule,
+		AppMaterialModule,
+		CoreModule
+	],
+	providers: [
+		ClinicService,
+		ClinicLocationService,
+		AuthService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

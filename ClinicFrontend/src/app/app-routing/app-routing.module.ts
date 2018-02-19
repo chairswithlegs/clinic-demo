@@ -25,51 +25,51 @@ import { Routes } from '@angular/router';
 
 
 const routes: Routes = [
-    {
-        path: 'welcome',
-        component: WelcomeComponent
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'admin-dashboard',
-        component: DashboardComponent,
-        canActivate: [AuthGuardService],
-        data: {
-            expectedAuthState: AuthState.Admin
-        }
-    },
-    {
-        path: 'clinics',
-        component: ClinicListComponent,
-    },
-    {
-        path: 'clinics/:clinic-id',
-        component: ClinicDetailComponent
-    },
-    {
-        path:'about',
-        component: AboutComponent
-    },
-    {
-        path: '',
-        redirectTo: '/welcome',
-        pathMatch: 'full'
-    },
-    {
-        path: '**',
-        component: PageNotFoundComponent
-    }
-]
+	{
+		path: 'welcome',
+		component: WelcomeComponent
+	},
+	{
+		path: 'login',
+		component: LoginComponent
+	},
+	{
+		path: 'admin-dashboard',
+		component: DashboardComponent,
+		canActivate: [AuthGuardService],
+		data: {
+			expectedAuthState: AuthState.Admin
+		}
+	},
+	{
+		path: 'clinics',
+		component: ClinicListComponent,
+	},
+	{
+		path: 'clinics/:clinic-id',
+		component: ClinicDetailComponent
+	},
+	{
+		path: 'about',
+		component: AboutComponent
+	},
+	{
+		path: '',
+		redirectTo: '/welcome',
+		pathMatch: 'full'
+	},
+	{
+		path: '**',
+		component: PageNotFoundComponent
+	}
+];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forRoot(routes)
-    ],
-    providers: [AuthGuardService],
-    declarations: []
+	imports: [
+		CommonModule,
+		RouterModule.forRoot(routes)
+	],
+	providers: [AuthGuardService],
+	declarations: []
 })
 export class AppRoutingModule { }
