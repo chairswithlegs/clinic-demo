@@ -11,7 +11,7 @@ import { AuthService } from '../app-api/auth.service';
 
 //TYPES
 import { AuthState } from '../app-api/auth-state';
-import { ActivatedRouteSnapshot } from '@angular/router/src/router_state';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 
 @Injectable()

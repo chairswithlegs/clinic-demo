@@ -15,7 +15,7 @@ let ActivatedRoute: any;
 
 class MockUserLocation {
 	getUserLocation() {
-		return Observable.of({ lat: 0, lng: 0 });
+		return Observable.of({ lat: 1, lng: 1 });
 	}
 }
 
@@ -66,5 +66,15 @@ describe('ClinicMapComponent', () => {
 		//Mock clicking the clinic
 		let clinicMarker = fixture.debugElement.query(By.css('agm-marker'));
 		clinicMarker.triggerEventHandler('markerClick', null);
+	});
+
+	it('should load the user location', async() => {
+		//Let the component load the data
+		fixture.detectChanges();
+		fixture.whenStable();
+
+		//Verify that the user coords were loaded
+		expect(component.userLocation.lat).toBe(1);
+		expect(component.userLocation.lng).toBe(1);
 	});
 });
