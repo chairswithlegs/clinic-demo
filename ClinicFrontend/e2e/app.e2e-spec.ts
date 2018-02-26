@@ -1,4 +1,5 @@
 import { AppPage } from './app.po';
+import { browser } from 'protractor';
 
 describe('clinic-frontend App', () => {
 	let page: AppPage;
@@ -6,9 +7,39 @@ describe('clinic-frontend App', () => {
 	beforeEach(() => {
 		page = new AppPage();
 	});
+
+	it('should display a footer', () => {
+		page.navigateTo('/');
+		expect(page.getText('footer')).toBeTruthy();
+	});
 	
 	it('should display welcome message', () => {
-		page.navigateTo();
-		expect(page.getParagraphText()).toEqual('Welcome to app!');
+		page.navigateTo('/');
+		expect(page.getText('#welcome-text')).toBeTruthy();
+	});
+
+	it('should display a map of clinics', () => {
+		page.navigateTo('/clinics');
+		expect(page.getElement('agm-map')).toBeTruthy();
+	});
+
+	it('should dispay a map of a clinic', () => {
+		page.navigateTo('/clinics/1');
+		expect(page.getElement('agm-map')).toBeTruthy();
+	});
+
+	it('should display a login form', () => {
+		page.navigateTo('/login');
+		expect(page.getElement('app-login')).toBeTruthy();
+		expect(page.getElement('form')).toBeTruthy();
+	});
+
+	it('should prevent logged out users from viewing admin dashboard', () => {
+		//Make sure session isn't logged in beforehand
+		page.logout();
+		page.navigateTo('/admin-dashboard');
+		browser.getCurrentUrl().then((url) => {
+			expect(url).toBe('http://localhost:49152/welcome');
+		});
 	});
 });

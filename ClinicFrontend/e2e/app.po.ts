@@ -1,11 +1,23 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-	navigateTo() {
-		return browser.get('/');
+	navigateTo(address: string) {
+		return browser.get(address);
 	}
-	
-	getParagraphText() {
-		return element(by.css('app-root h1')).getText();
+
+	getText(selector: string) {
+		return element(by.css(selector)).getText();
+	}
+
+	getElement(selector: string) {
+		return element(by.css(selector));
+	}
+
+	login() {
+		browser.executeScript("return window.localStorage.setItem('token', '1234');");
+	}
+
+	logout() {
+		browser.executeScript("return window.localStorage.removeItem('token');");
 	}
 }
