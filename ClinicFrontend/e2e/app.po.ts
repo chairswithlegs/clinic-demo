@@ -14,10 +14,10 @@ export class AppPage {
 	}
 
 	login() {
-		browser.executeScript("return window.localStorage.setItem('token', '1234');");
+		browser.executeScript('return window.localStorage.setItem("token", "1234");');
 	}
 
 	logout() {
-		browser.executeScript("return window.localStorage.removeItem('token');");
+		browser.executeScript('return window.localStorage.removeItem("token");');
 	}
 }
