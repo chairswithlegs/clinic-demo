@@ -15,7 +15,7 @@ describe('clinic-frontend App', () => {
 	
 	it('should display welcome message', () => {
 		page.navigateTo('/');
-		expect(page.getText('#welcome-text')).toBeTruthy();
+		expect(page.getText('#welcome-title')).toBeTruthy();
 	});
 
 	it('should display a map of clinics', () => {
@@ -35,8 +35,6 @@ describe('clinic-frontend App', () => {
 	});
 
 	it('should prevent logged out users from viewing admin dashboard', () => {
-		//Make sure session isn't logged in beforehand
-		page.logout();
 		page.navigateTo('/admin-dashboard');
 		browser.getCurrentUrl().then((url) => {
 			expect(url).toBe('http://localhost:49152/welcome');

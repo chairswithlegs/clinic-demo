@@ -12,12 +12,4 @@ export class AppPage {
 	getElement(selector: string) {
 		return element(by.css(selector));
 	}
-
-	login() {
-		browser.executeScript('return window.localStorage.setItem("token", "1234");');
-	}
-
-	logout() {
-		browser.executeScript('return window.localStorage.removeItem("token");');
-	}
 }

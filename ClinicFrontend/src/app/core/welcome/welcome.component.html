@@ -1,3 +1,21 @@
-<p id="welcome-text">
-	welcome works!
-</p>
+<section class="mat-typography container">
+	<h1 id="welcome-title">Welcome to the North East Clinic Network</h1>
+
+	<p>
+		Welcome to the North East Clinic Network, a fictional collection of 24/7 walk-in clinics.
+		This website is a single-page application, built with Angular 5 and ASP.NET Core 2.
+		To see the source code or find similar projects, 
+		<a href="https://github.com/chairswithlegs/closest-clinic">click here</a> to view the project on Github.
+		To see the clinics or learn more about how this site was built, click on one of the buttons below.
+	</p>
+
+	<p><strong>
+		North East Clinic Network represents a fictional organization and is for demonstration purposes only.
+		In case of a medical emergency, dial 911.
+	</strong></p>
+	
+	<div class="button-container">
+		<button mat-raised-button color="primary" [routerLink]="'/clinics'">Explore the Clinics</button>
+		<button mat-raised-button color="accent">About this Site</button>
+	</div>
+</section>
