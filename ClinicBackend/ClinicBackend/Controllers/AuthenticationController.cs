@@ -69,12 +69,15 @@ namespace ClinicBackend.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Just a simple get method for verifying that the token is functional
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("check-token")]
         public IActionResult CheckToken()
         {
-            return Ok();
+            return Ok("Token is valid");
         }
 
         private bool UserExists(LoginCredentials loginCredentials)

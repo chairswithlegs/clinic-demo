@@ -78,13 +78,27 @@ namespace ClinicBackend
             if (env.IsDevelopment())
             {
                 app.UseCors("development");
-               
             }
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //Redirect non-api requests to Angular
+            app.Use(async (context, next) => {
+                await next();
+
+                if (context.Response.StatusCode == 404 && !context.Request.Path.Value.Contains("/api"))
+                {
+                    context.Request.Path = "/index.html"; 
+                    await next();
+                }
+            });
+
+            //Serve the Angular app from the wwwroot directory
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 
