@@ -24,17 +24,17 @@ import { AuthState } from './app-api/auth-state';
 })
 export class AppComponent implements OnInit, OnDestroy {
 	//Expose the AuthState enum to the template
-	private loggedOut: AuthState = AuthState.LoggedOut;
-	private admin: AuthState = AuthState.Admin;
+	loggedOut: AuthState = AuthState.LoggedOut;
+	admin: AuthState = AuthState.Admin;
 	
 	//Manange the subscription lifetime
 	private alertSubscription: Subscription;
 	
 	constructor(
-		private snackBar: MatSnackBar,
-		private clinicService: ClinicService,
-		private authService: AuthService,
-		private locationService: ClinicLocationService
+		public snackBar: MatSnackBar,
+		public clinicService: ClinicService,
+		public authService: AuthService,
+		public locationService: ClinicLocationService
 	) {}
 	
 	ngOnInit() {

@@ -51,13 +51,13 @@ export class ClinicListComponent implements OnInit, OnDestroy {
 	}
 	
 	//Update list in response to Paginator events
-	private updatePageRange(pageEvent: PageEvent) {
+	updatePageRange(pageEvent: PageEvent) {
 		this.pageStart = pageEvent.pageIndex * this.resultsPerPage;
 		this.pageEnd = this.pageStart + this.resultsPerPage;
 	}
 	
 	//Callback used by the template for marker clicks
-	private onClinicClick(clinic: Clinic) {
+	onClinicClick(clinic: Clinic) {
 		this.router.navigateByUrl(`clinics/${clinic.id.toString()}`);
 	}
 }
