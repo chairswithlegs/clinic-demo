@@ -275,5 +275,5 @@ __pycache__/
 
 ClinicBackend/appsettings.Production.json
 ClinicBackend/wwwroot
-
+ClinicBackend/migrations
 

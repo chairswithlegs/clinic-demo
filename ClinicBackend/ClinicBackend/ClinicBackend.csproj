@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\ClinicBackend - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\ClinicBackend20180228084041 - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\closest-clinic - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\ClosestClinic - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\ClosestClinicDemo - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
