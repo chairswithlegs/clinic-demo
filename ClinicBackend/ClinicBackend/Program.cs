@@ -88,13 +88,16 @@ namespace ClinicBackend
             IConfiguration configuration = services.GetRequiredService<IConfiguration>();
             AdminContext adminContext = services.GetRequiredService<AdminContext>();
 
-            adminContext.Admins.Add(new Admin
+            if (adminContext.Admins.Count() == 0)
             {
-                Email = configuration["SeedData:AdminCredentials:Email"],
-                Password = configuration["SeedData:AdminCredentials:Password"]
-            });
+                adminContext.Admins.Add(new Admin
+                {
+                    Email = configuration["SeedData:AdminCredentials:Email"],
+                    Password = configuration["SeedData:AdminCredentials:Password"]
+                });
 
-            adminContext.SaveChanges();
+                adminContext.SaveChanges();
+            }
         }
     }
 }
