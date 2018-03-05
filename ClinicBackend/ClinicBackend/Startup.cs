@@ -88,10 +88,6 @@ namespace ClinicBackend
             if (env.IsDevelopment())
             {
                 app.UseCors("development");
-            }
-
-            if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
             }
 
