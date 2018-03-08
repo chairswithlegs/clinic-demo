@@ -20,6 +20,9 @@ import { ClinicMapComponent } from './clinic-map/clinic-map.component';
 import { UserLocationService } from './user-location.service';
 import { ClinicService } from '../app-api/clinic.service';
 
+//ENVIRONMENT
+import { environment } from '../../environments/environment';
+
 
 @NgModule({
 	imports: [
@@ -29,7 +32,7 @@ import { ClinicService } from '../app-api/clinic.service';
 		RouterModule,
 		AgmCoreModule.forRoot({
 			//Enter your own Google maps API key here. Key restrictions can be set from the Google API console.
-			apiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
+			apiKey: environment.googleApiKey
 		}),
 		AppApiModule,
 		TimeModule,
