@@ -16,7 +16,7 @@ import { googleApiKey } from './config';
 
 @Injectable()
 export class ClinicLocationService {
-	timeout = 2000;
+	timeout = 6000;
 	
 	//Broadcasts connection alerts
 	connectionAlertObservable: Observable<any>;

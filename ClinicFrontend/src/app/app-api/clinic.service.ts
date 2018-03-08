@@ -23,7 +23,7 @@ import { backendApiUrl } from './config';
 @Injectable()
 export class ClinicService {
 	//Time before api requests timeout
-	timeout = 2000;
+	timeout = 6000;
 	
 	//Broadcasts connection alerts
 	connectionAlertObservable: Observable<any>;
