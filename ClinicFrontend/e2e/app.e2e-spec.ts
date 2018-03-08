@@ -37,7 +37,7 @@ describe('clinic-frontend App', () => {
 	it('should prevent logged out users from viewing admin dashboard', () => {
 		page.navigateTo('/admin-dashboard');
 		browser.getCurrentUrl().then((url) => {
-			expect(url).toBe('http://localhost:49152/welcome');
+			expect(url.indexOf('/admin-dashboard')).toBe(-1);
 		});
 	});
 });
