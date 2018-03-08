@@ -5,7 +5,7 @@
     </h1>
     <h3>The current estimate wait time is:</h3>
     <h2 *ngIf="clinic?.waitTime">{{ clinic?.waitTime | millisecondsToReadable:2:3 }}</h2>
-    <h2 *ngIf="!clinic?.waitTime">Little to no wait</h2>
+    <h2 *ngIf="clinic && !clinic?.waitTime">Little to no wait</h2>
 
     <p>
       {{ clinic?.description }}
