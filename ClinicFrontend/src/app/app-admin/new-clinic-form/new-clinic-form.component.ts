@@ -62,11 +62,7 @@ export class NewClinicFormComponent implements OnInit {
 	}
 	
 	onSubmit(form: FormGroup): void {
-		this.test();
-		
 		if (form.valid) {
-			
-			
 			//Create the new clinic model and populate its members with the form data
 			const clinic: Clinic = new Clinic();
 			clinic.name = form.controls.name.value;
@@ -103,9 +99,5 @@ export class NewClinicFormComponent implements OnInit {
 		}
 		
 		this.waitTime = { hours: 0, minutes: 0 };
-	}
-	
-	test() {
-		return;
 	}
 }
