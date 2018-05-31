@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using ClinicBackend.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace ClinicBackend.Controllers
 {
@@ -15,10 +19,12 @@ namespace ClinicBackend.Controllers
     [Route("api/clinics")]
     public class ClinicController : Controller
     {
+        IConfiguration _configuration;
         ClinicContext _clinicContext;
 
-        public ClinicController(ClinicContext clinicContext)
+        public ClinicController(ClinicContext clinicContext, IConfiguration configuration)
         {
+            _configuration = configuration;
             _clinicContext = clinicContext;
         }
        
@@ -57,6 +63,27 @@ namespace ClinicBackend.Controllers
                 return StatusCode(500, "Clinic data could not be loaded");
             }
             
+        }
+
+        [HttpGet("address/{address}")]
+        public async Task<IActionResult> ValidateAddress(string address)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = await client.GetAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={_configuration["GoogleApi"]}");
+
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var deserializedContent = JsonConvert.DeserializeObject(responseContent);
+                    return Json(deserializedContent);
+                }
+            }
+            catch
+            {
+                return StatusCode(500, "Server could not validate address.");
+            }
         }
 
         [Route("delete")]

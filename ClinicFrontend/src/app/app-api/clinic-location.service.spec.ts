@@ -3,24 +3,33 @@ import { HttpClient } from '@angular/common/http';
 import { ClinicLocationService } from './clinic-location.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
-import { googleApiKey } from './config';
+import { backendApiUrl } from './config';
+import { AuthService } from './auth.service';
 
 class MockHttpClient {
-	get(address) {
-		if (address === `https://maps.googleapis.com/maps/api/geocode/json?address=valid&key=${googleApiKey}`) {
-		return Observable.of({
-			results: [
-				{
-					geometry: {
-						location: {}
+	get(address, options) {
+		console.log(address);
+		if (address === `${backendApiUrl}/clinics/address/valid`) {
+			console.log('it has the correct url');
+			return Observable.of({
+				results: [
+					{
+						geometry: {
+							location: {}
+						}
 					}
-				}
-			]
-		});
-	} else {
-		return Observable.of(null);
+				]
+			});
+		} else {
+			return Observable.of(null);
+		}
 	}
 }
+
+class MockAuthService {
+	getToken() {
+		return '1234';
+	}
 }
 
 describe('ClinicLocationService', () => {
@@ -28,7 +37,8 @@ describe('ClinicLocationService', () => {
 		TestBed.configureTestingModule({
 			providers: [
 				ClinicLocationService,
-				{ provide: HttpClient, useClass: MockHttpClient }
+				{ provide: HttpClient, useClass: MockHttpClient },
+				{ provide: AuthService, useClass: MockAuthService }
 			]
 		});
 	});

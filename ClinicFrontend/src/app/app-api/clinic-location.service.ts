@@ -1,17 +1,20 @@
 //Ng CORE
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //RXJS
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
+//SERVICES
+import { AuthService } from './auth.service';
+
 //TYPES
 import { Coords } from './coords';
 
 //CONFIG
-import { googleApiKey } from './config';
+import { backendApiUrl } from './config';
 
 
 @Injectable()
@@ -22,15 +25,20 @@ export class ClinicLocationService {
 	connectionAlertObservable: Observable<any>;
 	private connectionAlertSubject: Subject<any>;
 	
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private authService: AuthService) {
 		//Initialize connection alert
 		this.connectionAlertSubject = new Subject();
 		this.connectionAlertObservable = this.connectionAlertSubject.asObservable();
 	}
 	
 	getClinicLocation(address: string): Observable<Coords> {
-		return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(address)}&key=${googleApiKey}`)
-		.timeout(2000)
+		//Get the JWT. This will be sent along side the request.
+		const headers: HttpHeaders = new HttpHeaders({
+			'Authorization': `Bearer ${this.authService.getToken()}`
+		});
+		
+		return this.http.get(`${backendApiUrl}/clinics/address/${encodeURI(address)}`, { headers: headers })
+		.timeout(this.timeout)
 		.map((response) => {
 			return response['results'][0]['geometry']['location'];
 		})
