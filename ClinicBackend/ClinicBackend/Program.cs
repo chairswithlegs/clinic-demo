@@ -55,8 +55,8 @@ namespace ClinicBackend
                 {
                     Name = "Clinic",
                     Address = "There",
-                    Lat = 43.54f,
-                    Lng = -70.33f,
+                    Lat = 43.52f,
+                    Lng = -70.35f,
                     WaitTime = 350000,
                     Description = "Long form description goes here."
                 },
@@ -64,9 +64,9 @@ namespace ClinicBackend
                 {
                     Name = "Clinic 2",
                     Address = "Here",
-                    Lat = 43.54f,
+                    Lat = 43.55f,
                     Lng = -70.33f,
-                    WaitTime = 350000,
+                    WaitTime = 3500000,
                     Description = "Long form description goes here."
                 }
             });
