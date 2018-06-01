@@ -6,7 +6,6 @@
 export const environment = {
 	production: false,
 	backendApiUrl: 'http://localhost:54013/api',
-	//This okay to check into version control since it will be public facing
-	//key restriction is handled on the google developer dashboard
-	googleApiKey: 'AIzaSyBRcFE97OLC21OobG230jnhpYhNCr-gLMI'
+	//Insert your own API key - restrictions can be set in the Google developer console
+	googleApiKey: 'your development API key here'
 };
